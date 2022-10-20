@@ -1341,6 +1341,36 @@ ACMD_FUNC(heal)
 	return 0;
 }
 
+/*
+* apache
+ * ฟังชั่นกิจกรรมทอยเต๋า
+*/
+ACMD_FUNC(dice)
+	{
+		int num = 0;
+		nullpo_retr(-1, sd);
+	
+		if (!message || !*message || sscanf(message, "%d", &num) < 1)
+		{
+			clif_displaymessage(fd, msg_txt(sd,1550));
+			return -1;
+		}
+		
+		if (num < 1 || num > 6)
+		{
+			clif_displaymessage(fd, msg_txt(sd,1551));
+			return -1;
+		}
+	
+		num += ET_DICE1 - 1;
+		clif_emotion(&sd->bl, num);
+	
+		return 0;
+	}
+/*
+* apache
+*/
+
 /*==========================================
 * Recover's AP and allows exact adjustments. [Rytech]
 *------------------------------------------*/
@@ -11121,6 +11151,7 @@ void atcommand_basecommands(void) {
 		ACMD_DEFR(channel,ATCMD_NOSCRIPT),
 		ACMD_DEF(fontcolor),
 		ACMD_DEF(langtype),
+		ACMD_DEF(dice), // apache
 #ifdef VIP_ENABLE
 		ACMD_DEF(vip),
 		ACMD_DEF(showrate),
