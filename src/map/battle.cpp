@@ -2079,7 +2079,7 @@ int64 battle_addmastery(struct map_session_data *sd,struct block_list *target,in
 	if((skill = pc_checkskill(sd,AL_DEMONBANE)) > 0 &&
 		target->type == BL_MOB && //This bonus doesn't work against players.
 		(battle_check_undead(status->race,status->def_ele) || status->race == RC_DEMON) )
-		damage += (skill*(int)(3+(sd->status.base_level+1)*0.05));	// submitted by orn
+		damage += (skill*(int)(5+(sd->status.base_level+1)*0.05));	// submitted by orn
 	if( (skill = pc_checkskill(sd, RA_RANGERMAIN)) > 0 && (status->race == RC_BRUTE || status->race == RC_PLAYER_DORAM || status->race == RC_PLANT || status->race == RC_FISH) )
 		damage += (skill * 5);
 	if( (skill = pc_checkskill(sd,NC_RESEARCHFE)) > 0 && (status->def_ele == ELE_FIRE || status->def_ele == ELE_EARTH) )
@@ -2154,7 +2154,7 @@ int64 battle_addmastery(struct map_session_data *sd,struct block_list *target,in
 		case W_MACE:
 		case W_2HMACE:
 			if((skill = pc_checkskill(sd,PR_MACEMASTERY)) > 0)
-				damage += (skill * 3);
+				damage += (skill * 10);
 			if((skill = pc_checkskill(sd,NC_TRAININGAXE)) > 0)
 				damage += (skill * 4);
 			break;
@@ -5857,7 +5857,7 @@ static void battle_calc_attack_post_defense(struct Damage* wd, struct block_list
 #ifdef RENEWAL
 				ATK_ADDRATE(wd->damage, wd->damage2, 90);
 #else
-				ATK_ADDRATE(wd->damage, wd->damage2, 10);
+				ATK_ADDRATE(wd->damage, wd->damage2, 50);
 #endif
 			break;
 	}

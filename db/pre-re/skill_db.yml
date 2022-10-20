@@ -356,7 +356,6 @@ Body:
       - Level: 10
         Time: 37000
     Duration2: 10000
-    Cooldown: 10000
     Requires:
       SpCost: 10
     Status: Endure
@@ -2979,29 +2978,14 @@ Body:
       SpCost: 75
       ItemCost:
         - Item: Blue_Gemstone
-          Amount: 1
-          Level: 6
-        - Item: Blue_Gemstone
-          Amount: 1
-          Level: 7
-        - Item: Blue_Gemstone
-          Amount: 1
-          Level: 8
-        - Item: Blue_Gemstone
-          Amount: 1
-          Level: 9
-        - Item: Blue_Gemstone
-          Amount: 1
-          Level: 10
+          Amount: 1      
     Unit:
       Id: Firepillar_Waiting
       AlternateId: Firepillar_Active
       Range: 1
       Interval: 2000
       Target: Enemy
-      Flag:
-        NoReiteration: true
-        NoFootSet: true
+      Flag: None
   - Id: 81
     Name: WZ_SIGHTRASHER
     Description: Sightrasher
@@ -4214,7 +4198,6 @@ Body:
       Target: Enemy
       Flag:
         NoReiteration: true
-        NoFootSet: true
         RemovedByFireRain: true
     Status: Stun
   - Id: 117

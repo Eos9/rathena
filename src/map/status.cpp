@@ -10415,7 +10415,7 @@ int status_change_start(struct block_list* src, struct block_list* bl,enum sc_ty
 			val2 = 2 + val1; // Agi change
 			break;
 		case SC_ENDURE:
-			val2 = 7; // Hit-count [Celest]
+			val2 = 999999999; // Hit-count [Celest]
 			if( !(flag&SCSTART_NOAVOID) && (bl->type&(BL_PC|BL_MER)) && !map_flag_gvg2(bl->m) && !map_getmapflag(bl->m, MF_BATTLEGROUND) && !val4 ) {
 				struct map_session_data *tsd;
 				if( sd ) {
@@ -10611,7 +10611,7 @@ int status_change_start(struct block_list* src, struct block_list* bl,enum sc_ty
 			break;
 		case SC_ONEHAND:
 		case SC_TWOHANDQUICKEN:
-			val2 = 300;
+			val2 = 500;
 			if (val1 > 10) // For boss casted skills [Skotlex]
 				val2 += 20*(val1-10);
 			break;
