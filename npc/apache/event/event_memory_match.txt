@@ -1,0 +1,279 @@
+morocc,214,101,4	script	#mobswitch_1_1	139,{
+	if ($@ms_aid != getcharid(3)) end;
+	if (@jh) end;
+	if (@sameA$ == strnpcinfo(2)) end;
+	set @click$,strnpcinfo(2);
+	doevent "เกมส์จับคู่มอนสเตอร์::OnClick";
+	end;
+	OnInit:
+		hideonnpc strnpcinfo(0);
+		end;
+}
+morocc,216,101,4	duplicate(#mobswitch_1_1)	#mobswitch_1_2	139
+morocc,218,101,4	duplicate(#mobswitch_1_1)	#mobswitch_1_3	139
+morocc,220,101,4	duplicate(#mobswitch_1_1)	#mobswitch_1_4	139
+morocc,222,101,4	duplicate(#mobswitch_1_1)	#mobswitch_1_5	139
+morocc,224,101,4	duplicate(#mobswitch_1_1)	#mobswitch_1_6	139
+morocc,226,101,4	duplicate(#mobswitch_1_1)	#mobswitch_1_7	139
+morocc,228,101,4	duplicate(#mobswitch_1_1)	#mobswitch_1_8	139
+morocc,230,101,4	duplicate(#mobswitch_1_1)	#mobswitch_1_9	139
+morocc,232,101,4	duplicate(#mobswitch_1_1)	#mobswitch_1_10	139
+
+morocc,214,99,4	duplicate(#mobswitch_1_1)	#mobswitch_2_1	139
+morocc,216,99,4	duplicate(#mobswitch_1_1)	#mobswitch_2_2	139
+morocc,218,99,4	duplicate(#mobswitch_1_1)	#mobswitch_2_3	139
+morocc,220,99,4	duplicate(#mobswitch_1_1)	#mobswitch_2_4	139
+morocc,222,99,4	duplicate(#mobswitch_1_1)	#mobswitch_2_5	139
+morocc,224,99,4	duplicate(#mobswitch_1_1)	#mobswitch_2_6	139
+morocc,226,99,4	duplicate(#mobswitch_1_1)	#mobswitch_2_7	139
+morocc,228,99,4	duplicate(#mobswitch_1_1)	#mobswitch_2_8	139
+morocc,230,99,4	duplicate(#mobswitch_1_1)	#mobswitch_2_9	139
+morocc,232,99,4	duplicate(#mobswitch_1_1)	#mobswitch_2_10	139
+
+morocc,214,97,4	duplicate(#mobswitch_1_1)	#mobswitch_3_1	139
+morocc,216,97,4	duplicate(#mobswitch_1_1)	#mobswitch_3_2	139
+morocc,218,97,4	duplicate(#mobswitch_1_1)	#mobswitch_3_3	139
+morocc,220,97,4	duplicate(#mobswitch_1_1)	#mobswitch_3_4	139
+morocc,222,97,4	duplicate(#mobswitch_1_1)	#mobswitch_3_5	139
+morocc,224,97,4	duplicate(#mobswitch_1_1)	#mobswitch_3_6	139
+morocc,226,97,4	duplicate(#mobswitch_1_1)	#mobswitch_3_7	139
+morocc,228,97,4	duplicate(#mobswitch_1_1)	#mobswitch_3_8	139
+morocc,230,97,4	duplicate(#mobswitch_1_1)	#mobswitch_3_9	139
+morocc,232,97,4	duplicate(#mobswitch_1_1)	#mobswitch_3_10	139
+
+morocc,209,98,5	script	เกมส์จับคู่มอนสเตอร์	881,{
+	goto ms_main;
+	OnInit:
+		set $@smb_item,7539;			// ไอเทมที่ใช้เล่น
+		set $@smb_amount,50;		// จำนวนไอเทมที่ใช้เล่น
+		set $@smb_win,5;				// ถ้าชนะได้รับคูณ
+		set $@smb_cooldown,180;	// ดีเลย์เล่นครั้งต่อไป สำหรับคนที่เล่น
+		end;
+	ms_main:
+		if (ms_time > gettimetick(2)) {
+			mes "[ เกมส์จับคู่มอนสเตอร์ ]";
+			mes "คุณต้องรออีก : "+(ms_time-gettimetick(2))+" วินาที";
+			mes "จึงจะเล่นรอบใหม่ได้";
+			close;
+		}
+		set ms_time,0;
+		mes "[ เกมส์จับคู่มอนสเตอร์ ]";
+		mes "ยินดีต้อนรับสู่เกมส์จับคู่มอนสเตอร์";
+		mes "คุณต้องเสีย "+getitemname($@smb_item)+" "+$@smb_amount+" ea. ในการเล่น";
+		mes "โปรดเลือกเมนู";
+		next;
+		menu "- เริ่มเกมส์",StartGame,"- วิธีเล่น",information,"- ยกเลิก",-;
+		close;
+
+	information:
+		mes "[ เกมส์จับคู่มอนสเตอร์ ]";
+		mes "วิธีการเล่นโดยต้องเปิดป้าย";
+		mes "เพื่อจับคู่มอนสเตอร์หน้าเหมือนกัน";
+		mes "มีเวลาในการเล่น ^FF00001 นาที 15 วินาที^000000";
+		mes "หลังจากเริ่ม คุณจะเล่นครั้งต่อไปได้ใน 3 นาที";
+		mes "ต้องเปิดครบทุกคู่ตามเวลาที่กำหนด";
+		next;
+		mes "[ เกมส์จับคู่มอนสเตอร์ ]";
+		mes "เปิดครบทุกคู่รับทันที";
+		mes "^FF0000"+getitemname($@smb_item)+" "+($@smb_amount*$@smb_win)+" ea.^000000";
+		mes "คุณต้องเสีย "+getitemname($@smb_item)+" "+$@smb_amount+" ea. ในการเล่น";
+		next;
+		goto ms_main;
+		close;
+
+	StartGame:
+		if (countitem($@smb_item) < $@smb_amount) {
+			mes "[ เกมส์จับคู่มอนสเตอร์ ]";
+			mes "^FF0000คุณมี "+getitemname($@smb_item)+" ไม่ถึง "+$@smb_amount+" ea.^000000";
+			close;
+		}
+		if ($@ms_aid$ != "") {
+			mes "[ เกมส์จับคู่มอนสเตอร์ ]";
+			mes "^FF0000ขณะนี้คุณ "+$@ms_aid$+" ได้เข้าเล่นอยู่^000000";
+			close;
+		}
+		set ms_time,gettimetick(2) + $@smb_cooldown;
+		close2;
+		if ($@ms_aid || $@ms_aid$ != "") end;
+		set $@ms_aid$,strcharinfo(0);
+		set $@ms_aid,getcharid(3);
+		callsub SetDate;
+		initnpctimer;
+		set @jh,0;
+		set @click$,"";
+		set @clickA$,"";
+		set @clickB$,"";
+		set @sameA$,"";
+		set $@ms_p,0;
+		delitem $@smb_item,$@smb_amount;
+		for(set .@i,1;.@i<=3;set .@i,.@i+1)
+			for(set .@j,1;.@j<=10;set .@j,.@j+1)
+				if(playerattached())
+					hideoffnpc "#mobswitch_"+.@i+"_"+.@j;
+		end;
+	OnTimer75000:
+		for(set .@i,1;.@i<=3;set .@i,.@i+1)
+			for(set .@j,1;.@j<=10;set .@j,.@j+1)
+				if(!playerattached())
+					hideonnpc "#mobswitch_"+.@i+"_"+.@j;
+	ms_final:
+		if (.@final == 1 && .@final_a != 1) {
+			set .@final_a,1;
+			for(set .@i,1;.@i<=3;set .@i,.@i+1)
+				for(set .@j,1;.@j<=10;set .@j,.@j+1)
+					hideonnpc "#mobswitch_"+.@i+"_"+.@j;
+			set .@final_a,0;
+			set .@final,0;
+		}
+		if ($@ms_aid == 0 && $@ms_aid$ == "") end;
+		mapannounce "morocc","[ เกมส์จับคู่มอนสเตอร์ ] : ผู้เล่น "+rid2name($@ms_aid)+" จับคู่ได้ทั้งหมด "+$@ms_p+" คู่",bc_map;
+		setnpcdisplay "#mobswitch_1_1",858;
+		setnpcdisplay "#mobswitch_1_2",858;
+		setnpcdisplay "#mobswitch_1_3",858;
+		setnpcdisplay "#mobswitch_1_4",858;
+		setnpcdisplay "#mobswitch_1_5",858;
+		setnpcdisplay "#mobswitch_1_6",858;
+		setnpcdisplay "#mobswitch_1_7",858;
+		setnpcdisplay "#mobswitch_1_8",858;
+		setnpcdisplay "#mobswitch_1_9",858;
+		setnpcdisplay "#mobswitch_1_10",858;
+		setnpcdisplay "#mobswitch_2_1",858;
+		setnpcdisplay "#mobswitch_2_2",858;
+		setnpcdisplay "#mobswitch_2_3",858;
+		setnpcdisplay "#mobswitch_2_4",858;
+		setnpcdisplay "#mobswitch_2_5",858;
+		setnpcdisplay "#mobswitch_2_6",858;
+		setnpcdisplay "#mobswitch_2_7",858;
+		setnpcdisplay "#mobswitch_2_8",858;
+		setnpcdisplay "#mobswitch_2_9",858;
+		setnpcdisplay "#mobswitch_2_10",858;
+		setnpcdisplay "#mobswitch_3_1",858;
+		setnpcdisplay "#mobswitch_3_2",858;
+		setnpcdisplay "#mobswitch_3_3",858;
+		setnpcdisplay "#mobswitch_3_4",858;
+		setnpcdisplay "#mobswitch_3_5",858;
+		setnpcdisplay "#mobswitch_3_6",858;
+		setnpcdisplay "#mobswitch_3_7",858;
+		setnpcdisplay "#mobswitch_3_8",858;
+		setnpcdisplay "#mobswitch_3_9",858;
+		setnpcdisplay "#mobswitch_3_10",858;
+		set $@ms_aid,0;
+		set $@ms_aid$,"";
+		setnpctimer 0;
+		stopnpctimer;
+		end;
+	function	e	{
+		debugmes ""+getarg(0);
+		return getarg(0);
+	}
+	function	getv	{
+		return getd("$@"+getarg(0)+"view");
+	}
+	function	hnpc	{
+		if(getarg(2))
+		{
+		hideonnpc "#"+getarg(0);
+		hideonnpc "#"+getarg(1);
+		}
+		else{
+		hideoffnpc "#"+getarg(0);
+		hideoffnpc "#"+getarg(1);
+		}
+		return;
+	}
+	function	setnpc	{
+		setnpcdisplay "#"+getarg(0),(!getarg(1)?"":"")+"#"+getarg(0),!getarg(1)?858:getv(getarg(0));
+	}
+	function	viewid	{
+		function 	md	{
+			//while(!strmobinfo(3,set(.@t,rand(1001,1323))));
+			while(1)
+			{
+				set .@zt,.@zt+1;
+				if(.@zt&13)sleep2(1);
+				if(strmobinfo(3,set(.@t,rand(1001,1323))))
+					break;
+			}
+			return .@t;
+		}
+		set .@t,md();
+		for(set .@i,0;.@i<30;set .@i,.@i+1)
+			if(.@t==$@ms_viewid[.@i]||.@t==1285||.@t==1286||.@t==1287||.@t==1288)
+			{
+				set .@t,md();
+				set .@i,-1;
+			}
+		return .@t;
+	}
+	function	gviewid	{
+		set .@n,getarraysize($@ms_viewid);
+		while(1)
+		{
+			set .@zt,.@zt+1;
+			if(.@zt&13)sleep2(1);
+			if(set(.@u,$@ms_viewid[set(.@t,rand(.@n))]))
+				break;
+		}
+		for(;.@t<.@n;set .@t,.@t+1)
+			set $@ms_viewid[.@t],$@ms_viewid[.@t+1];
+		return .@u;
+	}
+	function	rviewid	{
+		setd "$@mobswitch"+getarg(0)+"view",getarg(1);
+		return 0;
+	}
+
+	OnClick:
+		if($@ms_aid != getcharid(3) || @click$ == @clickA$ || @click$ == @clickB$ || @jh) end;
+		set @jh,1;
+		setnpc(@click$,getv(@click$));
+		if(@clickA$ == "" && @clickB$ == "") {
+			set @clickA$,@click$;
+			set @jh,0;
+			set @sameA$,@click$;
+			end;
+		}
+		if (@clickA$ == @click$) end;
+		set @clickB$,@click$;
+		callsub Check;
+		set @click$,"";
+		set @clickA$,"";
+		set @clickB$,"";
+		set @jh,0;
+		end;
+	Check:
+		if(getv(@clickA$)==getv(@clickB$)) {
+			specialeffect 154,AREA,"#"+@clickA$;
+			specialeffect 154,AREA,"#"+@clickB$;
+			set $@ms_p,$@ms_p+1;
+			sleep2(1000);
+			hnpc(@clickA$,@clickB$,1);
+			setnpc(@clickA$,0);
+			setnpc(@clickB$,0);
+			if($@ms_p>=15) {
+				set .@final,1;
+				getitem $@smb_item,$@smb_amount*$@smb_win,$@ms_aid;
+				goto ms_final;
+			}
+			return;
+		}
+		specialeffect 155,AREA,"#"+@clickA$;
+		specialeffect 155,AREA,"#"+@clickB$;
+		set @sameA$,"";
+		sleep2(1000);
+		hnpc(@clickA$,@clickB$,1);
+		setnpc(@clickA$,0);
+		setnpc(@clickB$,0);
+		if($@ms_aid) hnpc(@clickA$,@clickB$,0);
+		return;
+	SetDate:
+		deletearray $@ms_viewid[0],128;
+		for(set .@i,0;.@i<15;set .@i,.@i+1)
+			set $@ms_viewid[.@i+15],set($@ms_viewid[.@i],viewid());
+		for(set .@i,1;.@i<=3;set .@i,.@i+1)
+			for(set .@j,1;.@j<=10;set .@j,.@j+1)
+				setnpc("mobswitch_"+.@i+"_"+.@j,rviewid("_"+.@i+"_"+.@j,gviewid()));
+		return;
+
+	end;
+}

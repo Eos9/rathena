@@ -1,0 +1,53 @@
+-	script	F_DailyReward	-1,{
+	cutin "kafra_08",2;
+//=========================== Settings ================================================================
+	set .@rewname$,"^0000FF[ Item รายวัน ]^000000";// แก้ชื่อ npc ที่นี่
+//======================= Settings End ================================================================
+
+	if(gettimetick(2) - #lastTimeTalked > (60 * 60 * 24)) {
+		
+		mes .@rewname$;
+		mes "สวัสดี "+strcharinfo(0)+" ";
+		mes "ฉันมีของรางวัลมาให้ท่านทุกวัน";
+		mes "ท่านต้องการมันไหม?";
+		cutin "kafra_08",2;
+		next;
+		switch(select("-ใช่,แน่นอน!:-ไม่,ลาก่อน!:-ยกเลิก")) {
+		case 1:
+			mes .@rewname$;
+			mes "รอสักครู่นะ ฉันขอเช็คข้อมูลท่านก่อน !";
+			next;
+			mes .@rewname$;
+			mes "ตอนนี้คุณมีแต้มสะสม VIP";
+			mes "จำนวน [ ^ff0000"+#CASHBONUS+" ^000000 ] แต้ม";
+			next;
+			mes .@rewname$;
+				getitem 22001, 1; 
+				mes "ท่านได้รับรางวัลสำหรับผู้เล่นทั่วไปเรียบร้อยแล้ว";
+			
+			set #lastTimeTalked,gettimetick(2);
+			cutin "",255;
+			close;
+		case 2:
+			mes .@rewname$;
+			mes "เมื่อต้องการก็มาหาได้นะ!";
+			cutin "",255;
+			close;
+		case 3:
+			cutin "",255;
+			close;
+		}
+	}
+
+	mes .@rewname$;
+	mes "ขอโทษด้วย";
+	mes "ท่านสามารถมารับรางวัล ";
+	mes "เมื่อผ่านไป 24 ชม.แล้วเท่านั้น!";
+	close2;
+	cutin "",255;
+
+end;
+}
+
+//payon,137,113,4	duplicate(F_DailyReward)	Item รายวัน	860
+morocc,190,75,4	duplicate(F_DailyReward)	Item รายวัน	860

@@ -1,0 +1,176 @@
+-	shop	RISK_ITEM_SHOW_1	-1,501:100
+-	shop	RISK_ITEM_SHOW_2	-1,501:100
+-	shop	RISK_ITEM_SHOW_3	-1,501:100
+-	shop	RISK_ITEM_SHOW_4	-1,501:100
+-	shop	RISK_ITEM_SHOW_5	-1,501:100
+
+morocc,144,73,4	script	Risk Card#1	563,{
+	mes "[ Jackpot Card ]";
+	mes "ท่านมีอะไรให้ข้าช่วย ?";
+	next;
+	switch(select("- เล่น Jackpot Card [^FF0000"+$@RISKCARD_PAY_+" "+getitemname($@RISKCARD_PAY)+"^000000]:- ดูของรางวัล:- ยกเลิก")) {
+		case 1:
+			mes "[ Jackpot Card ]";
+			if (countitem($@RISKCARD_PAY) < $@RISKCARD_PAY_) {
+				mes "ไอเทมที่ใช้เล่นไม่เพียงพอ";
+				close;
+			}
+			delitem $@RISKCARD_PAY, $@RISKCARD_PAY_;
+			freeloop(1);
+			while (1) {
+				set .@c, rand(getarraysize($@RISKCARD_IMG$));
+				if ($@RISKCARD_PERCENT[.@c] >= rand(100))
+					break;
+			}
+			while (1) {
+				set .@i, rand(getarraysize(getd("$@RISKCARD_REWARD_"+.@c)));
+				set .@r, getd("$@RISKCARD_REWARD_"+.@c+"_["+.@i+"]");
+				if (.@r >= rand(100)) {
+					set .@itm, getd("$@RISKCARD_REWARD_"+.@c+"["+.@i+"]");
+					set .@amt, getd("$@RISKCARD_REWARD_"+.@c+"__["+.@i+"]");
+					set .@ann, getd("$@RISKCARD_REWARD_"+.@c+"_ANN["+.@i+"]");
+					break;
+				}
+			}
+			set .@i, 0;
+			set .@s, 0;
+			set .@ss, 0;
+			while (1) {
+				if (.@i >= getarraysize($@RISKCARD_IMG$))
+					set .@i, 0;
+				cutin $@RISKCARD_IMG$[.@i], 4;
+				if (.@s < 50)
+					set .@ss, .@ss + 1;
+				else if (.@s < 55)
+					set .@ss, .@ss + 10;
+				else if (.@s < 60)
+					set .@ss, .@ss + 100;
+				else if (.@i == .@c)
+					break;
+				sleep2 .@ss;
+				set .@s, .@s + 1;
+				set .@i, .@i + 1;
+			}
+			sleep2 .@ss*2;
+			if (.@i == 0) {
+				mes "ท่านได้รับไพ่แแห่งความโชคร้าย !";
+				mes "^FF0000หรือเรียกง่ายๆว่าเกลือ^000000";
+			} else {
+				getitem .@itm, .@amt;
+				mes "ท่านได้รับ : "+.@amt+" "+getitemname(.@itm)+"";
+				if (.@ann)
+					announce "Jackpot Card : ผู้เล่น "+strcharinfo(0)+" ได้รับ "+.@amt+" "+getitemname(.@itm)+"", bc_all;
+			}
+			freeloop(0);
+			close2;
+			cutin "", 255;
+			end;
+		case 2:
+			switch(select("- รางวัลการ์ดเบอร์ 1:- รางวัลการ์ดเบอร์ 2:- รางวัลการ์ดเบอร์ 3:- รางวัลการ์ดเบอร์ 4:- รางวัลการ์ดเบอร์ 5:- ยกเลิก")) {
+				case 1: close2; callshop "RISK_ITEM_SHOW_1", 1; npcshopattach "RISK_ITEM_SHOW_1"; end;
+				case 2: close2; callshop "RISK_ITEM_SHOW_2", 1; npcshopattach "RISK_ITEM_SHOW_2"; end;
+				case 3: close2; callshop "RISK_ITEM_SHOW_3", 1; npcshopattach "RISK_ITEM_SHOW_3"; end;
+				case 4: close2; callshop "RISK_ITEM_SHOW_4", 1; npcshopattach "RISK_ITEM_SHOW_4"; end;
+				case 5: close2; callshop "RISK_ITEM_SHOW_5", 1; npcshopattach "RISK_ITEM_SHOW_5"; end;
+				case 6: close;
+			}
+			end;
+		case 3:
+			close;
+	}
+	close;
+
+	OnBuyItem: end;
+
+	OnInit:
+
+//		waitingroom "Jackpot", 0;
+
+		set $@RISKCARD_PAY, 20201;	// รหัสไอเทมที่ใช้เล่น
+		set $@RISKCARD_PAY_, 1;	// ราคาที่ใช้เล่นต่อรอบ
+
+		setarray $@RISKCARD_IMG$[0]	// ตั้งชื่อภาพ
+		, "lucky_slot_00"	// ภาพล้มเหลว
+		, "lucky_slot_01"	// ภาพรางวัลระดับที่ 1
+		, "lucky_slot_02"	// ภาพรางวัลระดับที่ 2
+		, "lucky_slot_03"	// ภาพรางวัลระดับที่ 3
+		, "lucky_slot_04"	// ภาพรางวัลระดับที่ 4
+		, "lucky_slot_05"	// ภาพรางวัลระดับที่ 5
+		;
+
+		setarray $@RISKCARD_PERCENT[0]	// โอกาสการออกไพ่
+		, 90	// ล้มเหลว
+		, 40	// รางวัล 1
+		, 20	// รางวัล 2	
+		, 10	// รางวัล 3
+		, 5		// รางวัล 4
+		, 1		// รางวัล 5
+		;
+
+		// ระดับ 1
+		// ของรางวัลแต่ละเลเวล รหัสไอเทม และ โอกาส และ จำนวนที่มอบให้ และ ประกาศ
+		setarray $@RISKCARD_REWARD_1[0],	21001,	21003,	21005,	21004;
+		setarray $@RISKCARD_REWARD_1_[0],	100,	100,	100,	100;
+		setarray $@RISKCARD_REWARD_1__[0],	2,		2,		2,		2;
+		setarray $@RISKCARD_REWARD_1_ANN[0],0,		0,		0,		0;
+
+		// ระดับ 2
+		// ของรางวัลแต่ละเลเวล รหัสไอเทม และ โอกาส และ จำนวนที่มอบให้ และ ประกาศ
+		setarray $@RISKCARD_REWARD_2[0],	21001,	21005,	2293,	2294;
+		setarray $@RISKCARD_REWARD_2_[0],	100,	100,	50,		50;
+		setarray $@RISKCARD_REWARD_2__[0],	4,		4,		1,		1;
+		setarray $@RISKCARD_REWARD_2_ANN[0],0,		0,		0,		0;
+
+		// ระดับ 3
+		// ของรางวัลแต่ละเลเวล รหัสไอเทม และ โอกาส และ จำนวนที่มอบให้ และ ประกาศ
+		setarray $@RISKCARD_REWARD_3[0],	2264,	2259,	2276;
+		setarray $@RISKCARD_REWARD_3_[0],	90,		80,		50;
+		setarray $@RISKCARD_REWARD_3__[0],	1,		1,		1;
+		setarray $@RISKCARD_REWARD_3_ANN[0],0,		0,		0;
+
+		// ระดับ 4
+		// ของรางวัลแต่ละเลเวล รหัสไอเทม และ โอกาส และ จำนวนที่มอบให้ และ ประกาศ
+		setarray $@RISKCARD_REWARD_4[0],	5100,	5073;
+		setarray $@RISKCARD_REWARD_4_[0],	100,	100;
+		setarray $@RISKCARD_REWARD_4__[0],	1,		1;
+		setarray $@RISKCARD_REWARD_4_ANN[0],1,		1;
+
+		// ระดับ 5
+		// ของรางวัลแต่ละเลเวล รหัสไอเทม และ โอกาส และ จำนวนที่มอบให้ และ ประกาศ
+		setarray $@RISKCARD_REWARD_5[0],	5132,	5170;
+		setarray $@RISKCARD_REWARD_5_[0],	100,	100;
+		setarray $@RISKCARD_REWARD_5__[0],	1,		1;
+		setarray $@RISKCARD_REWARD_5_ANN[0],1,		1;
+
+		// Warning
+		npcshopdelitem "RISK_ITEM_SHOW_1", 501;
+		npcshopdelitem "RISK_ITEM_SHOW_2", 501;
+		npcshopdelitem "RISK_ITEM_SHOW_3", 501;
+		npcshopdelitem "RISK_ITEM_SHOW_4", 501;
+		npcshopdelitem "RISK_ITEM_SHOW_5", 501;
+		for (set .@i, 0; .@i < getarraysize($@RISKCARD_REWARD_1); set .@i, .@i + 1)
+			npcshopadditem "RISK_ITEM_SHOW_1", $@RISKCARD_REWARD_1[.@i], 0;
+		for (set .@i, 0; .@i < getarraysize($@RISKCARD_REWARD_2); set .@i, .@i + 1)
+			npcshopadditem "RISK_ITEM_SHOW_2", $@RISKCARD_REWARD_2[.@i], 0;
+		for (set .@i, 0; .@i < getarraysize($@RISKCARD_REWARD_3); set .@i, .@i + 1)
+			npcshopadditem "RISK_ITEM_SHOW_3", $@RISKCARD_REWARD_3[.@i], 0;
+		for (set .@i, 0; .@i < getarraysize($@RISKCARD_REWARD_4); set .@i, .@i + 1)
+			npcshopadditem "RISK_ITEM_SHOW_4", $@RISKCARD_REWARD_4[.@i], 0;
+		for (set .@i, 0; .@i < getarraysize($@RISKCARD_REWARD_5); set .@i, .@i + 1)
+			npcshopadditem "RISK_ITEM_SHOW_5", $@RISKCARD_REWARD_5[.@i], 0;
+			
+	setarray .messages$,"[~] ","J","a","c","k","p","o","t"," ","C","a","r","d";
+		while( 1 )
+		{
+			set .Display$,"";
+			for( set .i,0; .i < getarraysize( .messages$ ); set .i,.i + 1 )
+			{
+				set .Display$,.Display$ + .messages$[.i];
+				delwaitingroom;
+				waitingroom .Display$,0;
+				sleep 100;
+			}
+		sleep 1000;
+		}
+end;	
+}

@@ -1,0 +1,123 @@
+-	script	 ::TreasureEvent	111,{
+	close;
+trevstart:
+	set $@trevent,rand(30,50);
+	set $@ftrevent,0;
+	announce "มอนเตอร์ Picky ปรากฏตัว ณ เมือง morocc จำนวน "+$@trevent+" ตัว มีเวลาในการล่า 5 นาที",0,0xFF1493;
+
+	monster "morocc",0,0,"Picky",1049,$@trevent,"TreasureEvent::OnTreasureDie";
+	end;
+OnTreasureDie:
+	set $@ftrevent,$@ftrevent+1;
+	if($@ftrevent>=$@trevent)
+	announce "ผู้เล่น " + strcharinfo(0) + " ได้ค้นพบ Picky ตัวสุดท้าย",0,FF1493;
+	if($@ftrevent!=$@trevent)
+	announce "ผู้เล่น " + strcharinfo(0) + " ได้ค้นพบ Picky ตัวที่ "+$@ftrevent+"/"+$@trevent+"",0,0xFF1493;
+	getitem 20204,1;
+	end;
+trevend:
+	if($@ftrevent!=$@trevent)
+	announce "หมดเวลาในการล่า Picky ทุกตัวถูกทำลาย",0,0xFF1493;
+	killmonster "morocc","TreasureEvent::OnTreasureDie";
+	end;
+OnTimeout:
+	end;
+
+OnClock0205:
+	goto trevstart;
+	end;
+OnClock0210:
+	goto trevend;
+	end;
+
+OnClock0405:
+	goto trevstart;
+	end;
+OnClock0410:
+	goto trevend;
+	end;
+
+OnClock0605:
+	goto trevstart;
+	end;
+OnClock0610:
+	goto trevend;
+	end;
+
+OnClock0805:
+	goto trevstart;
+	end;
+OnClock0810:
+	goto trevend;
+	end;
+
+OnClock1005:
+	goto trevstart;
+	end;
+OnClock1010:
+	goto trevend;
+	end;
+
+OnClock1205:
+	goto trevstart;
+	end;
+OnClock1210:
+	goto trevend;
+	end;
+
+OnClock1405:
+	goto trevstart;
+	end;
+OnClock1410:
+	goto trevend;
+	end;
+
+OnClock1605:
+	goto trevstart;
+	end;
+OnClock1610:
+	goto trevend;
+	end;
+
+OnClock1805:
+	goto trevstart;
+	end;
+OnClock1810:
+	goto trevend;
+	end;
+
+OnClock2005:
+	goto trevstart;
+	end;
+OnClock2010:
+	goto trevend;
+	end;
+
+OnClock2205:
+	goto trevstart;
+	end;
+OnClock2210:
+	goto trevend;
+	end;
+
+OnClock0005:
+	goto trevstart;
+	end;
+OnClock0010:
+	goto trevend;
+	end;
+}
+
+// ตำแหน่งอธิบายกิจกรรม NPC ->
+//woero,227,154,4	script	ล่ากล่องสมบัติ	72,{
+//mes "[ ^FF0000TreasureBox^000000 ]";
+//mes "ในเมือง Morroc จะมีกล่องสมบัติ";
+//mes "มันจะสุ่มเกิดในเมือง Morroc นี่แหล่ะ";
+//mes "[ ^FF0000เวลาเกิดของมัน^000000 ]";
+//mes "เกิดเวลา 5-10 นาทีแรกในทุกๆ ชั่วโมง";
+//mes "[ ^FF0000ไอเท็มที่ได้จากกล่องสมบัติ^000000 ]";
+//mes "WOE COIN BOX 1 ea";
+//mes "Cash Point 1 ea";
+//mes "^FF0000เจ้าคอยเฝ้าดูให้ดีก็แล้วกัน !!!^000000";
+//close;
+//} 

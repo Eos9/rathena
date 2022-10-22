@@ -1,0 +1,79 @@
+-	script	TimeWoe1	-1,{
+end;
+
+OnClock1559:
+	if($NPC_GVG_GTime$!="ON")end;
+	if(gettime(4)==2||gettime(4)==4||gettime(4)==5){
+
+
+		announce "เหลือเวลาการแข่งขัน Guild War อีก 1 นาทีสุดท้าย",bc_all;
+		initnpctimer "TimeWoe2";
+}
+end;
+}
+
+-	script	TimeWoe2	-1,{
+end;
+OnStart:
+OnTimer1000: announce "59 วินาที",bc_all; end;
+OnTimer2000: announce "58 วินาที",bc_all; end;
+OnTimer3000: announce "57 วินาที",bc_all; end;
+OnTimer4000: announce "56 วินาที",bc_all; end;
+OnTimer5000: announce "55 วินาที",bc_all; end;
+OnTimer6000: announce "54 วินาที",bc_all; end;
+OnTimer7000: announce "53 วินาที",bc_all; end;
+OnTimer8000: announce "52 วินาที",bc_all; end;
+OnTimer9000: announce "51 วินาที",bc_all; end;
+OnTimer10000: announce "50 วินาที",bc_all; end;
+OnTimer11000: announce "49 วินาที",bc_all; end;
+OnTimer12000: announce "48 วินาที",bc_all; end;
+OnTimer13000: announce "47 วินาที",bc_all; end;
+OnTimer14000: announce "46 วินาที",bc_all; end;
+OnTimer15000: announce "45 วินาที",bc_all; end;
+OnTimer16000: announce "44 วินาที",bc_all; end;
+OnTimer17000: announce "43 วินาที",bc_all; end;
+OnTimer18000: announce "42 วินาที",bc_all; end;
+OnTimer19000: announce "41 วินาที",bc_all; end;
+OnTimer20000: announce "40 วินาที",bc_all; end;
+OnTimer21000: announce "39 วินาที",bc_all; end;
+OnTimer22000: announce "38 วินาที",bc_all; end;
+OnTimer23000: announce "37 วินาที",bc_all; end;
+OnTimer24000: announce "36 วินาที",bc_all; end;
+OnTimer25000: announce "35 วินาที",bc_all; end;
+OnTimer26000: announce "34 วินาที",bc_all; end;
+OnTimer27000: announce "33 วินาที",bc_all; end;
+OnTimer28000: announce "32 วินาที",bc_all; end;
+OnTimer29000: announce "31 วินาที",bc_all; end;
+OnTimer30000: announce "30 วินาที",bc_all; end;
+OnTimer31000: announce "29 วินาที",bc_all; end;
+OnTimer32000: announce "28 วินาที",bc_all; end;
+OnTimer33000: announce "27 วินาที",bc_all; end;
+OnTimer34000: announce "26 วินาที",bc_all; end;
+OnTimer35000: announce "25 วินาที",bc_all; end;
+OnTimer36000: announce "24 วินาที",bc_all; end;
+OnTimer37000: announce "23 วินาที",bc_all; end;
+OnTimer38000: announce "22 วินาที",bc_all; end;
+OnTimer39000: announce "21 วินาที",bc_all; end;
+OnTimer40000: announce "20 วินาที",bc_all; end;
+OnTimer41000: announce "19 วินาที",bc_all; end;
+OnTimer42000: announce "18 วินาที",bc_all; end;
+OnTimer43000: announce "17 วินาที",bc_all; end;
+OnTimer44000: announce "16 วินาที",bc_all; end;
+OnTimer45000: announce "15 วินาที",bc_all; end;
+OnTimer46000: announce "14 วินาที",bc_all; end;
+OnTimer47000: announce "13 วินาที",bc_all; end;
+OnTimer48000: announce "12 วินาที",bc_all; end;
+OnTimer49000: announce "11 วินาที",bc_all; end;
+OnTimer50000: announce "10 วินาที",bc_all; end;
+OnTimer51000: announce "9 วินาที",bc_all; end;
+OnTimer52000: announce "8 วินาที",bc_all; end;
+OnTimer53000: announce "7 วินาที",bc_all; end;
+OnTimer54000: announce "6 วินาที",bc_all; end;
+OnTimer55000: announce "5 วินาที",bc_all; end;
+OnTimer56000: announce "4 วินาที",bc_all; end;
+OnTimer57000: announce "3 วินาที",bc_all; end;
+OnTimer58000: announce "2 วินาที",bc_all; end;
+OnTimer59000: announce "1 วินาที",bc_all; end;
+stopnpctimer;
+end;
+}

@@ -1,0 +1,198 @@
+// 	สร้างเพิ่มใน db sql	`buy_m` (`user` , `account_id` , `bankname`, `bankno`, `bankuser`, `remark`) 
+
+//payon,111,118,4	script	M Reward	861,{
+morocc,163,144,4	script	M Reward	861,{
+
+	set .@accid, getcharid(3);
+	cleararray .@point[0] , 0, getarraysize(.@point);
+	cleararray .@bln[0] , 0, getarraysize(.@bln);
+	
+	query_sql "SELECT count(2) FROM `buy_m` WHERE `account_id` = '"+getcharid(3)+"' ", .@point;
+	cleararray .@buycount[0] , 0, getarraysize(.@buycount);
+	query_sql "SELECT count(2) FROM `buy_m` ", .@buycount;
+	mes "[ กิจกรรมรับซื้อเงิน M คืน ]";
+	mes "สวัสดีคุณ "+strcharinfo(0)+"";
+	mes "เซิฟร์เรา มีความยินดีที่จะซื้อ M";
+	
+	switch(select("~รายละเอียดกิจกรรม:~ส่งเงิน M:~ออก")) {
+		case 1:
+			next;
+			mes "[ รายละเอียดการรับซื้อ M คืน ]";
+			mes "ผู้เล่นเข้าร่วมสนุกกิจกรรมง่ายๆ";
+			mes "เพียงคุณผู้เล่นมีเลเวล 90 / 80";
+			mes "และมีเหรียญ Classic Coin";
+			mes "นำมาแลกเงินจริงได้ตรงนี้";
+			mes " ";
+			mes "^FF00001 ไอดีเกมส์ / 1 ตัวละคร^000000";
+			next;
+			mes "[ รายละเอียดการรับซื้อ M คืน  ]";
+			mes "^006600• รายการรับซื้อ M คืนดังนี้^000000";
+			mes "- ^FF0000"+"Zeny : 1,000,000";
+			mes "- ^FF0000"+"Classic Coin 1 ea.";
+			mes " ";
+
+			next;
+			mes "[ รายละเอียดการรับซื้อ M คืน  ]";
+			mes "^006600• อัตราการรับ^000000";
+			mes "- ^FF0000"+"1 - 20M แรก M ละ 500 บาท";
+			mes "- ^FF0000"+"21 - 50M แรก M ละ 300 บาท";
+			mes " ";
+			mes "- ^FF0000"+"GM โอนเงินเวลา22:00 น.ของทุกวัน";
+			mes "ว้าวๆๆ.ถูกใจใช่มั้ยล่ะ !!";
+			next;
+			mes "[ รายละเอียดการรับซื้อ M คืน  ]";
+			if( .@buycount[0] < 21 ){
+			mes "^006600 ตอนนี้มีผู้เล่นส่งมาแล้ว "+.@buycount[0]+" คน^000000";
+			mes "ถ้าส่งตอนนี้ยังได้ M = 500 บาท";
+			}
+			if( .@buycount[0] > 20 ){
+			mes "^006600 ตอนนี้มีผู้เล่นส่งมาแล้ว "+.@buycount[0]+" คน^000000";
+			mes "ถ้าส่งตอนนี้ได้ M = 300 บาท";
+			}
+			
+			if( .@buycount[0] ==50 ){
+			mes "^006600 ตอนนี้มีผู้เล่นส่งมาแล้ว "+.@buycount[0]+" คน^000000";
+			mes "ครบตามยอดที่เซิฟรับซื้อเงิน M คืนแล้วครับ";
+			}
+			close;
+		case 2:
+			if( .@point[0] > 0 ){
+			mes "^FF0000คุณได้ส่งเงิน M แล้วขออนุญาติให้ท่านอื่นนะครับ^000000";
+			close;
+			}
+			
+			
+			if(Zeny < 1000000) {
+				mes "^006600 คุณมีเงินไม่ครบตามกำหนด ^FF0000";
+				mes "^006600 จำนวนเงิน 1 ล้าน เซนี ^FF0000";				
+				close;
+			}
+			
+		
+			if( .@buycount[0] >49 ){
+				mes "^006600 ตอนนี้มีผู้เล่นส่งมาแล้ว "+.@buycount[0]+" คน^FF0000";
+				mes "ครบตามยอดที่เซิฟรับซื้อเงิน M คืนแล้วครับ";
+				close;
+			}
+			
+					
+			if ( BaseLevel < 80 ) {
+				mes "^FF0000เอ้า...ยังไง^000000";
+				mes "^FF0000ตัวละครของคุณ Lv ยังไม่ถึงน่ะ^000000";
+				mes "^FF0000ไม่สามารถรับของรางวัลได้^000000";
+				close;
+			}		
+		
+			if ( countitem(50009)< 1 ) {
+				mes "^FF0000เอ้า...ยังไง^000000";
+				mes "^FF0000ตัวละครของคุณยังไม่มีเหรียญ^000000";
+				mes "^FF0000Classic Coin^000000";				
+				mes "^FF0000ไม่สามารถรับของรางวัลได้^000000";
+				close;
+			}				
+	
+			next;
+			
+			if (countitem(50009)==1 || BaseLevel > 79 || zeny > 999999) {
+
+			mes "[ กิจกรรมรับซื้อเงิน M คืน  ]";
+			mes "เอาล่ะเก่งมาก เจ้ามีของมาครบ";
+			mes "กรุณากรอกข้อมูลสำหรับ GM โอนเงินให้";
+			next;
+			mes "กรุณาพิมพ์ชื่อธนาคาร";
+			mes "ตัวอย่าง :";		
+			mes "กสิกร , กรุงไทย , กรุงเทพ , ไทยพาณิชย์";	
+			mes "ทหารไทย , ออมสิน , กรุงศรี";					
+			input .@bank_name$;
+			next;
+			mes "เลขที่บัญชี";
+			mes "xxxxxxxxxx";
+			input .@bank_no$;
+			
+			next;
+			mes "ชื่อเจ้าของบัญชี";
+			mes "ตัวอย่าง : นายกระดอ กอดเสาเถียง";
+			input .@bank_user$;
+			next;
+			mes "[ ตรวจสอบรายละเอียด  ]";
+			mes "^006600• ธนาคาร^000000";
+			mes "- ^FF0000'"+.@bank_name$+"'";
+			mes "^006600• เลขที่บัญชี^000000";
+			mes "- ^FF0000'"+.@bank_no$+"'";
+			mes "^006600• ชื่อเจ้าของบัญชี^000000";
+			mes "- ^FF0000'"+.@bank_user$+"'";		
+			next;
+			
+			
+			switch(select("~ยืนยัน:~ออก")) {
+				
+				case 1:
+				query_sql "SELECT count(2)+1 FROM `buy_m` ", .@buycount;
+				query_sql "SELECT 49-count(2) FROM `buy_m` ", .@bln;
+				
+				if( .@buycount[0] >50 ){
+				mes "^006600 ตอนนี้มีผู้เล่นส่งมาแล้ว "+.@buycount[0]+" คน^FF0000";
+				mes "ครบตามยอดที่เซิฟรับซื้อเงิน M คืนแล้วครับ";
+				close;
+				}
+				
+				if( .@buycount[0] < 21 ){
+				delitem 50009, 1;
+				set Zeny, Zeny-1000000;			
+				query_sql "INSERT INTO `buy_m` (`user` , `account_id` , `bankname`, `bankno`, `bankuser`, `remark`) VALUES ('"+strcharinfo(0)+"' , '"+getcharid(3)+"' , '"+.@bank_name$+"', '"+.@bank_no$+"', '"+.@bank_user$+"','500')";
+				
+				mes "ขอบคุณที่ร่วมกิจกรรมนะครับ";
+				announce "คุณ " + strcharinfo(0) +" ได้ทำการส่งเงิน M เป็นคนที่ "+.@buycount[0]+" ได้เงิน 500 บาท  ยอดคงเหลือปัจจุบัน  "+.@bln[0]+" M นะครับ ",bc_all,0x00FFFF;
+				emotion ET_THANKS;
+				}
+				if( .@buycount[0] > 20 ){
+				delitem 50009, 1;
+				set Zeny, Zeny-1000000;			
+				query_sql "INSERT INTO `buy_m` (`user` , `account_id` , `bankname`, `bankno`, `bankuser`, `remark`) VALUES ('"+strcharinfo(0)+"' , '"+getcharid(3)+"' , '"+.@bank_name$+"', '"+.@bank_no$+"', '"+.@bank_user$+"','300')";
+				
+				mes "ขอบคุณที่ร่วมกิจกรรมนะครับ";
+				announce "คุณ " + strcharinfo(0) +" ได้ทำการส่งเงิน M เป็นคนที่ "+.@buycount[0]+" ได้เงิน 300 บาท  ยอดคงเหลือปัจจุบัน  "+.@bln[0]+" M นะครับ ",bc_all,0x00FFFF;
+		
+				emotion ET_THANKS;
+				}				
+				
+
+				
+				close;
+				next;
+				
+				close;
+				case 2:
+				close;
+			close;
+			}
+			
+			
+			
+			}
+			
+
+			
+			close;
+		case 3:
+			next;
+			close;
+		close;
+	}
+
+OnInit:
+	setarray .messages$,"[~] ","รั","บ","ซื้","อ","เ","งิ","น"," ","M";
+		while( 1 )
+		{
+			set .Display$,"";
+			for( set .i,0; .i < getarraysize( .messages$ ); set .i,.i + 1 )
+			{
+				set .Display$,.Display$ + .messages$[.i];
+				delwaitingroom;
+				waitingroom .Display$,0;
+				sleep 100;
+			}
+		sleep 1000;
+		}
+end;	
+}

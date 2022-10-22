@@ -1,0 +1,32 @@
+function	script	Classic_egg_v1	{
+
+	// change Item ID here
+	setarray	@i1[0],502,604,619,717,2262; // ไอเทมทั่วไป    Dead Branch /  Unripe Apple / Blue Gemstone / Clown Nose
+	setarray	@i2[0],2283,2298,2294,2207,2282,2279; //  แรร์		Ear Muffs / Green Feeler / Stellar / Fancy Flower / Halo / Bomb Wick
+	setarray	@i3[0],2255,2285,2269,5040; // โครตแรร์ 	Evil Wing / Apple of Archer / Romantic Flower / Blush
+
+	set @i1rand,rand( getarraysize(@i1) ); // Randomize Common Items; just change max amount if you add items
+	set @i2rand,rand( getarraysize(@i2) ); // Randomize Rare Items; just change max amount if you add items
+	set @i3rand,rand( getarraysize(@i3) ); //Randomize Super Rare Items; just change max amount if you add items
+
+	.chance = rand(100);
+
+		// Super Rare Item 2%
+		if (.chance == 2) {
+			getitem @i3[@i3rand],1;
+			announce "[ ระบบ ] ท่าน ["+strcharinfo(0)+"] ได้ ["+getitemname(@i3[@i3rand])+"] จากกล่องสุ่ม Classic egg V1 ได้ไอเทมระดับโครตแรร์",0;
+			end;
+		} 
+
+		// Rare Item 5%
+		else if (.chance <= 6 && .chance >= 1){
+			getitem @i2[@i2rand],1;
+			announce "[ ระบบ ] ท่าน ["+strcharinfo(0)+"] ได้ ["+getitemname(@i2[@i2rand])+"] จากกล่องสุ่ม Classic egg V1 ได้ไอเทมระดับแรร์",0;
+			end;
+		} 
+
+		// Common Items
+		else {
+			getitem @i1[@i1rand],1;
+	end; }
+}

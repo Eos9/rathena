@@ -1,0 +1,43 @@
+-	script	resetrank	FAKE_NPC,{
+
+OnInit:
+bindatcmd	"resetrank",strnpcinfo(3)+"::OnAtcommand";
+end;
+
+OnAtcommand:
+if(getgroupid() < 90)end;
+
+		mes .@npc$;
+		mes "ระบบจัดการคะแนน";
+		next;
+		switch (select("- Reset คะแนน PVP","- Reset คะแนน MVP","- Reset คะแนน EMP")) {
+		case 1:
+			query_sql "UPDATE `char` SET `point_pvp`='0'";
+			mes .@npc$;
+			mes "Reset คะแนน PVP";
+			mes "เรียบร้อยแล้ว";
+			close;
+		break;
+		case 2:
+			query_sql "UPDATE `char` SET `point_mvp`='0'";
+			mes .@npc$;
+			mes "Reset คะแนน MVP";
+			mes "เรียบร้อยแล้ว";
+			close;
+		break;
+		case 3:
+			query_sql "UPDATE `char` SET `point_emp`='0'";
+			mes .@npc$;
+			mes "Reset คะแนน EMP";
+			mes "เรียบร้อยแล้ว";
+			close;
+		break;
+		case 4:
+			query_sql "UPDATE `hwdig` SET `point_total`='0'";
+			mes .@npc$;
+			mes "Reset คะแนน REP";
+			mes "เรียบร้อยแล้ว";
+			close;
+		break;
+		}
+	}

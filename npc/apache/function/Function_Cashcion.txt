@@ -1,0 +1,14 @@
+//============================================================
+//= Cash Coin Function
+//============================================================
+
+function	script	CC_Function	{
+
+	.CashCoin = 20101;
+	.Amounts = countitem(.CashCoin);
+	delitem .CashCoin,.Amounts;
+	.Counts = .Amounts+1;
+	#CASHPOINTS += .Amounts+1;
+	dispbottom "[ Kafra ] : คุณได้รับ "+callfunc("F_InsertComma",.Counts)+" Cash Points | คงเหลือทั้งหมด "+callfunc("F_InsertComma",#CASHPOINTS)+" Cash Points.";
+	end;
+}

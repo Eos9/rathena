@@ -1,0 +1,83 @@
+-	script	war400	-1,{
+set @GID,getcastledata("gefg_cas01",1);
+if (strcharinfo(0) == getguildmaster(@GID)) goto Lpass;
+if (getcharid(2) == @GID) goto Lnotpass;
+mes "[รางวัลกิลด์วอร์]";
+mes "สำหรับหัวหน้ากิลด์ ^ff0000[" + getguildmaster(@GID) + "]^000000";
+close;
+Lpass:
+mes "[รางวัลกิลด์วอร์]";
+mes "กิลด์ของท่านแข็งแกร่งมากรับสิ่งตอบแทนเหล่านี้ไป";
+next;
+getitem 7227,500;
+getitem 501,300;
+getitem 501,30;
+getitem 501,30;
+set zeny,zeny+36000000;
+mes "[รางวัลกิลด์วอร์]";
+mes "เรียบร้อยครับ ยินดีให้บริการครับ";
+disablenpc "Reward War 400#1";
+close;
+Lnotpass:
+mes "[รางวัลกิลด์วอร์]";
+mes "สำหรับหัวหน้ากิลด์ ^5533FF["+ getguildmaster(@GID)+"]^000000";
+mes "ท่านไม่ใช่หัวหน้ากิลด์";
+close;
+}
+morocc,213,68,4	script	visible	-1,{
+OnInit:
+disablenpc "Reward War 400#1";
+end;
+OnAgitEnd:
+if($SW_Status == 3) end;
+enablenpc "Reward War 400#1";
+end;
+OnAgitStart:
+if($SW_Status == 1) end;
+disablenpc "Reward War 400#1";
+end;
+}
+
+morocc,213,68,4	duplicate(war400)	Reward War 400#1	871
+
+-	script	war800	-1,{
+set @GID,getcastledata("gefg_cas01",1);
+if (strcharinfo(0) == getguildmaster(@GID)) goto Lpass1;
+if (getcharid(2) == @GID) goto Lnotpass1;
+mes "[รางวัลกิลด์วอร์]";
+mes "สำหรับหัวหน้ากิลด์ ^ff0000[" + getguildmaster(@GID) + "]^000000";
+close;
+Lpass1:
+mes "[รางวัลกิลด์วอร์]";
+mes "กิลด์ของท่านแข็งแกร่งมากรับสิ่งตอบแทนเหล่านี้ไป";
+next;
+getitem 7227,750;
+getitem 501,450;
+getitem 501,30;
+getitem 501,30;
+set zeny,zeny+50000000;
+mes "[รางวัลกิลด์วอร์]";
+mes "เรียบร้อยครับ ยินดีให้บริการครับ";
+disablenpc "Reward War 800#1";
+close;
+Lnotpass1:
+mes "[รางวัลกิลด์วอร์]";
+mes "สำหรับหัวหน้ากิลด์ ^5533FF["+ getguildmaster(@GID)+"]^000000";
+mes "ท่านไม่ใช่หัวหน้ากิลด์";
+close;
+}
+morocc,213,68,4	script	visible1	-1,{
+OnInit:
+disablenpc "Reward War 800#1";
+end;
+OnAgitEnd:
+if($SW_Status == 3) end;
+enablenpc "Reward War 800#1";
+end;
+OnAgitStart:
+if($SW_Status == 1) end;
+disablenpc "Reward War 800#1";
+end;
+}
+
+morocc,218,68,4	duplicate(war800)	Reward War 800#1	864

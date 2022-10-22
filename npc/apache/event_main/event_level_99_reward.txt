@@ -1,0 +1,219 @@
+/*
+=================== TERMS OF SERVICES. ===================
+1. ALL RIGHT RESERVED RE-SELLER OR SHARE SCRIPT TO PUBLISH.
+2. BUT YOU RE-SELLER OR SHARE SCRIPT WITH OUT UNAUTHORIZRD
+   I WILL ALL CANCEL MY SUPPORT FOR YOU.
+3. MAINTENANCE SCRIPTS WILL BE FREE SERVICES.
+4. I WILL NOT KEEP ANY INFORMATIONS FROMS YOU SERVER THAT
+   YOU SEND FOR ME.
+5. I HOPE YOU WILL ALL ACCEPT TERMS OF SERVICES.
+==========================================================
+Script. Level Up Give Reward																	 
+Create By.  Athena Studio
+Bug Report. Kittisak Sarounram [ FB ]																					 
+Contact Us. Kittisak Sarounram [ FB ]																					 
+TEL. 0909183008 [ TRUE MOVE H ]																					 
+==========================================================
+*/
+
+morocc,152,112,5	script	Level 99 Reward	4_M_JOB_KNIGHT2,{
+	
+	if ( getgmlevel() >= 99 )
+	{
+		switch(select("~ รีเซ็ทกิจกรรม:~ ตั้งค่าของรางวัล:~ เมนูผู้เล่น"))
+		{
+			case 1:
+				mes "[ Reset Quest ]";
+				mes "คุณต้องการรีเซ็ทกิจกรรม ใช่หรือไม่";
+				next;
+				switch(select("~ ใช่,ฉันต้องการรีเซ็ท:~ ยังก่อน,ฉันเริ่มไม่แน่ใจแล้ว"))
+				{
+				case 1:
+				mes "[ Reset Quest ]";
+				mes "รีเซ็ตกิจกรรมเรียบร้อย";
+				query_sql "truncate table `class_reward_status`";
+				query_sql( "UPDATE `class_reward_99` SET `min` = '0' WHERE `job_id` = '7';" );
+				query_sql( "UPDATE `class_reward_99` SET `min` = '0' WHERE `job_id` = '8';" );
+				query_sql( "UPDATE `class_reward_99` SET `min` = '0' WHERE `job_id` = '9';" );
+				query_sql( "UPDATE `class_reward_99` SET `min` = '0' WHERE `job_id` = '10';" );
+				query_sql( "UPDATE `class_reward_99` SET `min` = '0' WHERE `job_id` = '11';" );
+				query_sql( "UPDATE `class_reward_99` SET `min` = '0' WHERE `job_id` = '12';" );
+				query_sql( "UPDATE `class_reward_99` SET `min` = '0' WHERE `job_id` = '23';" );
+				end;
+				
+				case 2:
+				mes "[ Reset Quest ]";
+				mes "ฉันว่าแล้ว...";
+				mes "ยังมีผู้เล่นรับของรางวัลไม่ครบ";
+				close;
+				}
+				
+			case 2:
+				mes "[ Level Reward ]";
+				mes "กรุณากรอกรหัสไอเท็ม";
+				input .@items;
+				next;
+				query_sql( "UPDATE `class_reward_setting` SET `item_id` = '"+ .@items +"';" );
+				mes "[ Level Reward ]";
+				mes "ไอเท็ม : "+ getitemname(.@items) +"";
+				next;
+				mes "[ Level Reward ]";
+				mes "กรุณากรอกจำนวนไอเท็ม";
+				input .@amounts;
+				next;
+				query_sql( "UPDATE `class_reward_setting` SET `amount` = '"+ .@amounts +"';" );
+				mes "[ Level Reward ]";
+				mes "ไอเท็ม : "+ getitemname(.@items) +" x"+ .@amounts +"";
+				next;
+				mes "[ Level Reward ]";
+				mes "กรุณากรอกจำนวนเงิน";
+				input .@zenys;
+				next;
+				query_sql( "UPDATE `class_reward_setting` SET `zeny` = '"+ .@zenys +"';" );
+				mes "[ Level Reward ]";
+				mes "ไอเท็ม : "+ getitemname(.@items) +" x"+ .@amounts +"";
+				mes "จำนวนเงิน : "+ .@zenys +"";
+				mes "เพิ่มลงระบบเรียบร้อยแล้ว";
+				close;
+				
+			case 3: goto Player; end;
+		}
+		end;
+	}
+
+Player:
+	query_sql( "SELECT `status` FROM `class_reward_status` WHERE `char_id` = '"+ getcharid(0) +"'", .@status);
+	if ( .@status >= 1 )
+	{
+		mes "[ Level Reward ]";
+		mes "ชื่อตัวละคร : "+ strcharinfo(0);
+		mes "สถานะ : ^FF0000รับของรางวัลแล้ว^000000";
+		close;
+	}
+	
+	query_sql( "SELECT `item_id`, `amount`, `zeny` FROM `class_reward_setting`", .@item, .@amount, .@zeny);
+	if ( .@item <= 0 && .@amount <= 0 && .@zeny <= 0 )
+	{
+		mes "[ Level Reward ]";
+		mes "ยังไม่ได้ตั้งค่าของรางวัล";
+		mes "จึงไม่สามารถใช้งานได้ในตอนนี้";
+		close;
+	}
+	
+	mes "[ Level Reward ]";
+	mes "ชื่อตัวละคร : "+ strcharinfo(0);
+	mes "สถานะ : ^006600ยังไม่ได้รับของรางวัล^000000";
+	next;
+	switch(select("~ รับของรางวัลประจำอาชีพ:~ เกี่ยวกับกิจกรรม:~ ยกเลิก"))
+	{
+		case 1:
+			query_sql( "SELECT `item_id`, `amount`, `zeny` FROM `class_reward_setting`", .@gitem, .@gamount, .@gzeny);
+			set .@menu$,"";
+			query_sql( "SELECT `job_id`, `min`, `max` FROM `class_reward_99`", .@Job, .@Min, .@Max);
+			for( set .@i, 0; .@i < getarraysize(.Jobs); set .@i,.@i+1 )
+				set .@menu$, .@menu$ +"~ "+ jobname(.@Job[.@i]) +" [ "+ .@Min[.@i] +" / "+ .@Max[.@i] +" ]:";
+			set .@i,( select( .@menu$ ) -1 ) *1;
+			
+			if ( .@Min[.@i] >= .@Max[.@i] )
+			{
+				mes "[ Level Reward ]";
+				mes "มีผู้เล่นคนอื่นมารับของรางวัลกิจกรรมครบจำนวน 3 คนเรียบร้อยแล้ว";
+				close;
+			}
+			
+			if ( Class != .@Job[.@i]  )
+			{
+				mes "[ Level Reward ]";
+				mes "สายอาชีพที่เลือกไม่ตรงกับสายอาชีพของคุณ";
+				close;
+			}
+			
+			if ( BaseLevel != .BaseLevel && BaseJob != .JobLevel )
+			{
+				mes "[ Level Reward ]";
+				mes "จำนวนเลเวลของคุณ หรือ จ็อบเลเวล ไม่เพียงพอต่อการรับของรางวัล";
+				close;
+			}
+			
+			if ( Job_Novice == .@Job[.@i] && BaseLevel != .BaseLevel && BaseJob != .JobNovice )
+			{
+				query_sql( "UPDATE `class_reward_99` SET `min` = `min` + '1' WHERE `job_id` = '"+ .@Job[.@i] +"';" );
+				query_sql( "INSERT INTO `class_reward_status` ( `char_id`, `name`, `status` ) VALUES ( "+ getcharid(0) +", '"+ strcharinfo(0) +"', '1' );" );
+				getitem .@gitem,.@gamount;
+				set Zeny, Zeny + .@gzeny;
+				end;
+			}
+			query_sql( "UPDATE `class_reward_99` SET `min` = `min` + '1' WHERE `job_id` = '"+ .@Job[.@i] +"';" );
+			query_sql( "INSERT INTO `class_reward_status` ( `char_id`, `name`, `status` ) VALUES ( "+ getcharid(0) +", '"+ strcharinfo(0) +"', '1' );" );
+			getitem .@gitem,.@gamount;
+			set Zeny, Zeny + .@gzeny;
+			
+			query_sql( "SELECT `job_id`, `min`, `max` FROM `class_reward_99`", .@Job, .@Min, .@Max);
+			announce  "[ ผู้เล่น "+strcharinfo(0)+" ได้รับของรางวัล [ สายอาชีพ "+ jobname(.@Job[.@i]) +" ] คนที่ "+ .@Min[.@i] +" ทั้งหมด "+ .@Max[.@i] +"คน จากกิจกรรมแข่งขันเก็บ Lv.99 ขอบคุณที่ร่วมสนุกกิจกรรมครั้งนี้ !",bc_all;
+			end;
+			
+		case 2:
+			mes "[ Level Reward Info ]";
+			mes "กิจกรรมแข่งขันเก็บเลเวลไฮคราส";
+			mes "เมื่อผู้เล่นทำการเก็บเลเวลจนถึง เลเวล 99 และ จ็อบ 50 ";
+			mes "ผู้เล่นสามารถรับรางวัลประจำอาชีพได้";
+//			mes "<ITEM>C Bravery Bag<INFO>501</INFO></ITEM> 1ea.";
+			mes "<ITEM>"+getitemname(.item_id)+"<INFO>"+.item_id+"</INFO></ITEM> x^FF0000"+callfunc("F_InsertComma",.item_amount)+"^000000 อัน";
+			mes "^FF0000ของรางวัลมีจำนวนจำกัดในแต่ละอาชีพ^000000";
+			close;
+			
+		case 3:
+			end;
+	}
+	end;
+
+OnInit:
+//	waitingroom "Level 99 Reward !!",0;
+	query_sql "CREATE TABLE IF NOT EXISTS `class_reward_status` (  `char_id` int(11) NOT NULL default '0',  `name` varchar(24) NOT NULL DEFAULT 'NULL', `status` mediumint(6) NOT NULL default '0', PRIMARY KEY  (`char_id`)) ENGINE=MyISAM";
+	query_sql "CREATE TABLE IF NOT EXISTS `class_reward_setting` (  `item_id` int(11) NOT NULL default '0',  `amount` int(11) NOT NULL default '0', `zeny` int(11) NOT NULL default '0', PRIMARY KEY  (`item_id`)) ENGINE=MyISAM";
+	setarray .Jobs[0],7,8,9,10,11,12,23;
+	.BaseLevel = 99;
+	.JobLevel = 50;
+	.JobNovice = 10;
+	.item_id = 20101;
+	.item_amount = 100;
+	
+	setarray .messages$,"[~] ","แ","ข่","ง","เ","ก็","บ","เ","ว","ล"," ","9","9";	
+//	setarray .messages$,"[~] ","L","e","v","e","l"," ","9","9"," ","r","e","w","a","r","d";
+		while( 1 )
+		{
+			set .Display$,"";
+			for( set .i,0; .i < getarraysize( .messages$ ); set .i,.i + 1 )
+			{
+				set .Display$,.Display$ + .messages$[.i];
+				delwaitingroom;
+				waitingroom .Display$,0;
+				sleep 100;
+			}
+		sleep 1000;
+		}
+end;	
+}
+/* Reloadscript before Include SQL
+
+CREATE TABLE `class_reward_99` (
+  `job_id` mediumint(6) NOT NULL DEFAULT '0',
+  `min` mediumint(6) NOT NULL DEFAULT '0',
+  `max` mediumint(6) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO `class_reward_99` (`job_id`, `min`, `max`) VALUES
+(7, 0, 3),
+(8, 0, 3),
+(9, 0, 3),
+(10, 0, 3),
+(11, 0, 3),
+(12, 0, 3),
+(23, 0, 3);
+
+ALTER TABLE `class_reward_99` ADD PRIMARY KEY (`job_id`);
+
+INSERT INTO `class_reward_setting` (`item_id`, `amount`, `zeny`) VALUES
+(0, 0, 0);
+
+*/

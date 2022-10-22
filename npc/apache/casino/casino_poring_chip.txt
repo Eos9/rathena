@@ -1,0 +1,116 @@
+/*
+=================== TERMS OF SERVICES. ===================
+1. ALL RIGHT RESERVED RE-SELLER OR SHARE SCRIPT TO PUBLISH.
+2. BUT YOU RE-SELLER OR SHARE SCRIPT WITH OUT UNAUTHORIZRD
+   I WILL ALL CANCEL MY SUPPORT FOR YOU.
+3. MAINTENANCE SCRIPTS WILL BE FREE SERVICES.
+4. I WILL NOT KEEP ANY INFORMATIONS FROMS YOU SERVER THAT
+   YOU SEND FOR ME.
+5. I HOPE YOU WILL ALL ACCEPT TERMS OF SERVICES.
+==========================================================
+Script. Poring Coin																					 
+Create By. [Eddga-Studio]
+Translator By. Eddga Studio
+Bug Report. Dollaporn Naraphan [ FB ]																					 
+Contact Us. Dollaporn Naraphan [ FB ]																					 																				 
+==========================================================
+*/
+morocc,204,40,3	script	Poring Coin	57,{
+	mes "[ Poring Coin ]";
+	mes "คุณสามารถแลกเปลี่ยน";
+	mes "Zeny เป็น Poring Coin";
+	mes "คุณต้องการแลกเปลี่ยนหรือไม่";	
+	mes " ";
+	mes "หรือคุณต้องการเข้า shop ไอเท็ม";
+//	mes "Poring Coin เป็น Zeny ได้";	
+	next;
+//	switch(select("~ แลก ^FF0000Zeny^000000 เป็น ^0000FFPoring Coin^000000:~ แลก ^0000FFPoring Coin^000000 เป็น ^FF0000Zeny^000000:~ แลกของรางวัล:~ ยกเลิกการสนทนา")) {
+	switch(select("~ แลก ^FF0000Zeny^000000 เป็น ^0000FFPoring Coin^000000:~ แลกของรางวัล:~ ยกเลิกการสนทนา")) {
+		case 1:
+			mes "[ Poring Coin ]";
+			mes "คุณสามารถแลก Zeny เป็น Coin ได้ดังนี้";
+			mes "^FF000040,000 Zeny^000000แลกได้ 1 Coin";	
+			mes " ";
+			mes " ";
+			mes "คุณต้องการแลก Coin เท่าไร ?";
+			set @input,0;
+			input @input;
+			next;  
+			if(zeny < (40000 * @input)) {
+				mes "[ Poring Coin ]";
+				mes "คุณมี Zeny ไม่เพียงพอ";
+				mes "ฉันต้องการใช้ ^FF0000" + callfunc("F_InsertComma",40000 * @input) + "^000000 Zeny";
+				close;
+			}
+			if(@input < 1 ) {
+				mes "[ Poring Coin ]";
+				mes "คุณมี Poring Coin ไม่เพียงพอ";
+				close;
+			}
+			if(@input > 1000 ) {
+				mes "[ Poring Coin ]";
+				mes "คุณสามารถแลกซื้อไอเท็มได้ไม่เกิน 1,000 ea ต่อ ครั้ง";
+				close;
+			}
+			mes "[ Poring Coin ]";
+			mes "ตรวจสอบข้อมูล สักครู่...";
+			next;  
+			set Zeny, Zeny - (40000 * @input);
+			getitem 20204, @input;
+			mes "[ Poring Coin ]";
+			mes "ขอบคุณที่ใช้บริการ";
+			dispbottom "[ Poring Coin ] ระบบได้หักเงิน จำนวน : " + callfunc("F_InsertComma",40000 * @input) + " zeny.",0xFFFFFF;
+			dispbottom "[ Poring Coin ] คุณได้รับ Poring Coin จำนวน : " + @input + " ea.",0xFFFFFF;
+		close;
+/*		
+		case 2:
+			mes "[ Poring Zeny ]";
+			mes "คุณสามารถแลก Coin เป็น Zeny";
+			mes "1 Coin เป็น Zeny ได้ ^FF0000 10,000 Zeny ^000000";	
+			mes "คุณต้องการแลกทั้งหมดกี่ ea";
+			set @input,0;
+			input @input;
+			next;  
+			if(countitem(20204)<1) {
+				mes "[ Poring Coin ]";
+				mes "คุณมี Zeny ไม่เพียงพอ";
+				mes "ฉันต้องการใช้ ^FF0000" + callfunc("F_InsertComma",40000 * @input) + "^000000 Zeny";
+				close;
+			}
+			if(@input < 1 ) {
+				mes "[ Poring Zeny ]";
+				mes "คุณมีไอเท็มไม่เพียงพอ";
+				close;
+			}
+			if(@input > 1000 ) {
+				mes "[ Poring Zeny ]";
+				mes "ฉันรับซื้อไอเท็มได้ไม่เกิน 1,000 ea ต่อ ครั้ง";
+				close;
+			}
+			mes "[ Poring Coin ]";
+			mes "ตรวจสอบข้อมูล สักครู่...";
+			next;  
+			if(@input > countitem(20204)) {
+				mes "[ Poring Zeny ]";
+				mes "คุณมีไอเท็มไม่เพียงพอ";
+				close;
+			}
+			set Zeny, Zeny + (10000 * @input);
+			delitem 20204, @input;
+			mes "[ Poring Coin ]";
+			mes "ขอบคุณที่ใช้บริการ";
+			dispbottom "[ Poring Zeny ] คุณได้แลก Poring Coin ทั้งหมด : " + @input + " ea.",0xFFFFFF;
+			dispbottom "[ Poring Zeny ] คุณได้รับเงิน จำนวน : " + callfunc("F_InsertComma",10000 * @input) + " zeny.",0xFFFFFF;
+		close;
+*/		
+		case 2:
+			callfunc "func_poring_shop",1;
+		close;
+		
+		case 3:
+			mes "[ Poring Coin ]";
+			mes "แล้วพบกันใหม่ อีกครั้ง....";
+		close;
+	
+	}
+}

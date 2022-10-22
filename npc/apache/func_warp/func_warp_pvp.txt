@@ -1,0 +1,127 @@
+function	script	Warp_GuildWar	{
+	if (getgmlevel() >= 60) {
+		mes "[ ^ff0000Warp Guild Support^000000 ]";
+		mes "ยินดีต้อนรับเจ้านาย";
+		mes "ฉันเป็นผู้ช่วยดูแลระบบกิลด์วอร์";
+		mes "สามารถควบคุมได้ทุกอย่าง";
+		mes " ";
+		mes " ";
+		mes "ท่านต้องการให้ช่วยเหลือหรือไม่?";
+		next;
+
+		switch(select("~ เมนูสำหรับผู้เล่น:~ จัดการวาร์ปกิลด์")){
+		case 1:
+			break;
+				
+		case 2:
+			doevent "NpcWarpGuild::OnGameMaster";
+			end;
+			
+		}		
+	}
+		
+ 	switch(select("~ วาปเข้าปราสาทเพื่อไปกิลด์วอร์")){
+	case 1:
+		doevent "NpcWarpGuild::OnWarp";
+		end;
+	}
+}
+
+-	script	Warp-PVP	-1,{
+	mes "[ ^FF0000ลานประลอง^000000 ]";
+	mes "ศึกสงครามระหว่างผู้เล่น VS ผู้เล่น";
+	mes "จัดขึ้นทุกวัน จันทร์ , พุธ , ศุกร์";
+	mes "ตั้งแต่เวลา 21.00-22.00น.";
+	mes "หรือทดลองดาเมจต่างๆใน PvP";
+	next;
+//	switch(select("~ วาปเข้าปราสาทเพื่อไปกิลด์วอร์:~ ลานประลอง Izlude ^FF0000["+getmapusers("pvp_y_1-2")+"]^000000 คน:~ Death Match ^FF0000["+getmapusers("guild_vs3")+"]^000000 คน:~ ไม่ล่ะ,ฉันยังละอ่อนอ่อนเกินไป")){
+	switch(select("~ วาปเข้าปราสาทเพื่อไปกิลด์วอร์:~ ลานประลอง Izlude ^FF0000["+getmapusers("pvp_y_1-2")+"]^000000 คน:~ ไม่ล่ะ,ฉันยังละอ่อนอ่อนเกินไป")){
+	case 1:
+		doevent "NpcWarpGuild::OnWarp";
+		end;
+	case 2:
+		warp "pvp_y_1-2",0,0;
+		mapannounce "morocc","[ PvP ROOM : คุณ "+strcharinfo(0)+" ได้เข้าลานประลอง เมือง Izlude ! ]",bc_map;
+		end;
+	case 3:
+		warp "guild_vs3",0,0;
+		mapannounce "morocc","[ PvP ROOM : คุณ "+strcharinfo(0)+" ได้เข้าลานประลอง Death Match ]",bc_map;
+		end;
+	case 4:
+	end;
+	}
+
+OnInit:
+	while (1) {
+		delwaitingroom;
+		set .@count, getmapusers("pvp_y_1-2");
+		waitingroom "ลานประลอง "+ .@count + ((.@count==1) ? " คน" : " คน") +"",0;
+		sleep 1000;
+	}
+end;
+}
+
+-	script	SystemDeathMap1	-1,{
+	end;
+
+OnPCDieEvent:
+	if (strcharinfo(3) != "guild_vs3") end;
+	sleep2 1000;
+	atcommand "@alive";
+	atcommand "@repairall";
+	percentheal 100,100;
+	sc_start SC_BLESSING,1000*60*15,5;
+	sc_start SC_INCREASEAGI,1000*60*15,5;
+	sc_end SC_Poison;
+	sc_end SC_Freeze;
+	sc_end SC_Sleep;
+	sc_end SC_Stan;
+	sc_end SC_Stone;
+	sc_end SC_Silence;
+	sc_end SC_Blind;
+	sc_end SC_Bleeding;
+	sc_end SC_Confusion;
+	sc_end SC_Curse;
+	sc_end SC_Hallucination;
+	warp "guild_vs3",0,0;
+	end;
+}
+-	script	message	-1,{
+OnPCDieEvent:
+if (strcharinfo(3) != "guild_vs3") end;
+message strcharinfo(0),"ทำมัยตายอีกแล้ว !";
+emotion ET_HUK,2;
+}
+// PVP
+pvp_y_1-2	mapflag	pvp	
+pvp_y_1-2	mapflag	noteleport
+pvp_y_1-2	mapflag	nomemo
+pvp_y_1-2	mapflag	noicewall
+pvp_y_1-2	mapflag	nobranch
+pvp_y_1-2	mapflag	noreturn
+pvp_y_1-2	mapflag	nowarp
+pvp_y_1-2	mapflag	nowarpto
+pvp_y_1-2	mapflag	nodrop
+pvp_y_1-2	mapflag	nosave	SavePoint
+// Death Match
+// guild_vs3	mapflag	pvp
+guild_vs3	mapflag	noteleport
+guild_vs3	mapflag	nomemo
+guild_vs3	mapflag	noicewall
+guild_vs3	mapflag	nobranch
+guild_vs3	mapflag	noreturn
+guild_vs3	mapflag	nowarp
+guild_vs3	mapflag	nowarpto
+guild_vs3	mapflag	nodrop
+guild_vs3	mapflag	nosave	SavePoint
+//====================================================
+morocc,270,78,4	duplicate(Warp-PVP)	ลานประลอง#00	669
+morocc,234,46,4	duplicate(Warp-PVP)	ลานประลอง#01	669
+morocc,219,103,4	duplicate(Warp-PVP)	ลานประลอง#02	669
+morocc,101,53,5	duplicate(Warp-PVP)	ลานประลอง#03	669
+morocc,151,259,5	duplicate(Warp-PVP)	ลานประลอง#04	669
+morocc,240,204,5	duplicate(Warp-PVP)	ลานประลอง#05	669
+
+
+//morocc,275,247,3	duplicate(Warp-PVP)	ลานประลอง#06	669
+//morocc,63,64,3	duplicate(Warp-PVP)	ลานประลอง#07	669

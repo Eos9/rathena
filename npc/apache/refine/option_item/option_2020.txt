@@ -1,0 +1,460 @@
+morocc,52,62,5	script	Option Costume	4_M_CATMAN2,{
+	disable_items;
+	set .@OptIDR, callfunc("F_Rand",9,10,11,12,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,87,88,89,90,91,92,93,95,96,97,98,99,100,101,102,103,104,105);
+	set .@OptIDR2, callfunc("F_Rand",9,10,11,12,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,87,88,89,90,91,92,93,95,96,97,98,99,100,101,102,103,104,105);
+	set .@OptValR, rand(1,10); // สุ่มค่าที่ได้ใน Random Option
+	set @cardH, callfunc("F_Rand",4700,4701,4702,4710,4711,4712,4720,4721,4722,4730,4731,4732,4740,4741,4742,4750,4751,4752,4795,4800); // สุ่มเลเวล 1 - 5
+	set @cardH2, callfunc("F_Rand",4700,4701,4702,4710,4711,4712,4720,4721,4722,4730,4731,4732,4740,4741,4742,4750,4751,4752,4795,4800); // สุ่มเลเวล 1 - 5
+	.@ref = getequiprefinerycnt(.@id);
+	if (checkweight(1201,1) == 0) {
+		mes "[Option Costume]";
+		mes "ช่องเก็บของเต็ม";
+		close;
+	}
+	if (MaxWeight - Weight < 10000) {
+		mes "[Option Costume]";
+		mes "น้ำหนักเกิน";
+		close;
+	}
+	
+		mes "[Option Costume]";		
+		mes "ข้าจะสุ่มค่าสเตตัสให้กับ Costume";
+		mes "ในช่องใส่การ์ด ^FF0000สุ่มทีละ 1 ช่อง";
+		mes "^000000โดยจะสุ่มค่าดังนี้ต่อ 1 ช่อง";
+		mes "^000099Str Agi Vit Int Dex Luk Hp Sp";				
+		mes "^009900ในการสุ่ม 1 ช่องข้าคิดแค่ ^000099100k";
+		mes "^FF0000โอกาศติดที่ ^000099" + .rate + " %^000000";
+	next;
+	switch(select("^FF0000• ^000000ข้าอยากออฟคอสตูม","^FF0000• ^000000ข้าขอฟังรายละเอียดก่อน","^FF0000• ^000000ลบออฟให้ข้าที^000000", "^FF0000• ^000000ยกเลิก")) {
+	
+case 1:					
+	mes "[Option Costume]";
+	mes "เลือกคอสตูมที่เจ้าต้องการจะออฟ ?";
+	setarray .@indices[1], EQI_COSTUME_HEAD_TOP,EQI_COSTUME_HEAD_MID,EQI_COSTUME_HEAD_LOW,EQI_COSTUME_GARMENT;
+	setarray .@eqi_name$[1], "ส่วนหัว","ส่วนหู","ส่วนปาก","ผ้าคลุม";
+	for( set .@i,1; .@i <= 4; set .@i,.@i+1 ) {
+		if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + .@eqi_name$[.@i]+" - [ " + getequipname(.@indices[.@i]) + " ]";
+	set .@menu$, .@menu$ + ":";
+	}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	
+// anti-hack
+	if (callfunc("F_IsEquipIDHack", .@id, .@part))
+		close;
+		
+	if (countitem(.@part) > 1 ) {
+	next;
+	mes "[Option Costume]";
+	mes "เจ้ามีคอสที่เหมือนกัน.";
+	mes "ข้าออฟได้ทีละอันเท่านั้น.";
+	mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+	close;
+	}
+	next;
+	mes "[Option Costume]";
+	mes "เจ้าได้เลือกที่จะออฟ ^000099" + getequipname(.@id) + "^000000";
+
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	
+	if (@card2 > 0) {
+		mes " ";
+		mes "^FF0000เสียงใจด้วย ? ไอเท็มออฟชั่นได้สูงสุด 2 ช่องเท่านั้น กรุณาเลือกใหม่";
+		close;
+	}
+
+	if ( @card1 && @card2 && @card3 && !@card4) goto enc4;
+		else if ( @card1 && @card2 && !@card3 && !@card4) goto enc3;
+		else if ( @card1 && !@card2 && !@card3 && !@card4) goto enc2;
+		else if ( !@card1 && !@card2 && !@card3 && !@card4) goto enc1;
+	
+enc1:
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	if (rand(100) < .rate) {					
+		callfunc "Chkprogress2";
+		specialeffect2 154;
+		delitem2 .@part, 1, 1, .@ref, 0, @card1, @card2, @card3, @card4;
+		getitem2 .@part, 1, 1, .@ref, 0, @cardH, @card2, @card3, @card4;
+		equip .@part;
+		mes "[Option Costume]";
+		mes "^000099ออฟสำเร็จ^000000.";
+		close;
+	}
+	else {
+		callfunc "Chkprogress2";
+		specialeffect2 155;
+		delitem .@part,1;
+		getitem .@part,1;
+		equip .@part;
+		mes "[Option Costume]";
+		mes "^009900ออฟไม่สำเร็จ^000000.";
+		close;
+	}	
+enc2:
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	if (rand(100) < .rate) {					
+		callfunc "Chkprogress2";
+		specialeffect2 154;
+		delitem2 .@part, 1, 1, .@ref, 0, @card1, @card2, @card3, @card4;
+		getitem2 .@part, 1, 1, .@ref, 0, @card1, @cardH, @card3, @card4;
+		equip .@part;
+		mes "[Option Costume]";
+		mes "^000099ออฟสำเร็จ^000000.";
+		close;
+	}
+	else {
+		callfunc "Chkprogress2";
+		specialeffect2 155;
+		delitem .@part,1;
+		getitem .@part,1;
+		equip .@part;
+		mes "[Option Costume]";
+		mes "^009900ออฟไม่สำเร็จ^000000.";
+		close;
+	}	
+enc3:
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);				
+	if (rand(100) < .rate) {
+		callfunc "Chkprogress2";
+		specialeffect2 154;
+		delitem2 .@part, 1, 1, .@ref, 0, @card1, @card2, @card3, @card4;
+		getitem2 .@part, 1, 1, .@ref, 0, @card1, @card2, @cardH2, @card4;
+		equip .@part;
+		mes "[Option Costume]";
+		mes "^000099ออฟสำเร็จ^000000.";
+		close;
+	}
+	else {
+		callfunc "Chkprogress2";
+		specialeffect2 155;
+		delitem .@part,1;
+		getitem .@part,1;
+		equip .@part;
+		mes "[Option Costume]";
+		mes "^009900ออฟไม่สำเร็จ^000000.";
+		close;
+	}
+
+enc4:
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);					
+	if (rand(100) < .rate) {
+		callfunc "Chkprogress2";
+		specialeffect2 154;
+		delitem2 .@part, 1, 1, .@ref, 0, @card1, @card2, @card3, @card4;
+		getitem2 .@part, 1, 1, .@ref, 0, @card1, @card2, @card3, @cardH2;
+		equip .@part;
+		mes "[Option Costume]";
+		mes "^000099ออฟสำเร็จ^000000.";
+		close;
+	}
+	else {
+		callfunc "Chkprogress2";
+		specialeffect2 155;
+		delitem .@part,1;
+		getitem .@part,1;
+		equip .@part;
+		mes "[Option Costume]";
+		mes "^009900ออฟไม่สำเร็จ^000000.";
+		close;
+	}
+	
+enc5:					
+	if (getequiprandomoption(.@id,4,ROA_ID)) goto enc10;
+	else if (getequiprandomoption(.@id,3,ROA_ID)) goto enc9;
+	else if (getequiprandomoption(.@id,2,ROA_ID)) goto enc8;
+	else if (getequiprandomoption(.@id,1,ROA_ID)) goto enc7;
+	else if (getequiprandomoption(.@id,0,ROA_ID)) goto enc6;
+	else if ( @card1 && @card2 && @card3 && @card4) goto enc11;
+			
+enc6:	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	if (rand(100) < .rate) {				
+		callfunc "Chkprogress2";
+		specialeffect2 154;
+		setrandomoption(.@id,1,.@OptIDR2,.@OptValR,1);
+		mes "[Option Costume]";
+		mes "^000099ออฟสำเร็จ^000000.";
+		close;
+	}
+	else {
+		callfunc "Chkprogress2";
+		specialeffect2 155;
+		delitem2 .@part, 1, 1, .@ref, 0, @card1, @card2, @card3, @card4;
+		getitem2 .@part, 1, 1, .@ref, 0, @card1, @card2, @card3, @card4;
+		equip .@part;
+		mes "[Option Costume]";
+		mes "^009900ออฟไม่สำเร็จ^000000.";
+		close;
+	}
+
+enc7:
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);				
+	if (rand(100) < .rate) {
+		callfunc "Chkprogress2";
+		specialeffect2 154;
+		setrandomoption(.@id,2,.@OptIDR,.@OptValR,2);
+		mes "[Option Costume]";
+		mes "^000099ออฟสำเร็จ^000000.";
+		close;
+	}
+	else {
+		callfunc "Chkprogress2";
+		specialeffect2 155;
+		delitem2 .@part, 1, 1, .@ref, 0, @card1, @card2, @card3, @card4;
+		getitem2 .@part, 1, 1, .@ref, 0, @card1, @card2, @card3, @card4;
+		equip .@part;
+		mes "[Option Costume]";
+		mes "^009900ออฟไม่สำเร็จ^000000.";
+		close;
+	}
+
+enc8:	
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);				
+	if (rand(100) < .rate) {
+		callfunc "Chkprogress2";
+		specialeffect2 154;
+		setrandomoption(.@id,3,.@OptIDR,.@OptValR,3);
+		mes "[Option Costume]";
+		mes "^000099ออฟสำเร็จ^000000.";
+		close;
+	}
+	else {
+		callfunc "Chkprogress2";
+		specialeffect2 155;
+		delitem2 .@part, 1, 1, .@ref, 0, @card1, @card2, @card3, @card4;
+		getitem2 .@part, 1, 1, .@ref, 0, @card1, @card2, @card3, @card4;
+		equip .@part;
+		mes "[Option Costume]";
+		mes "^009900ออฟไม่สำเร็จ^000000.";
+		close;
+	}
+			
+enc9:
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);				
+	if (rand(100) < .rate) {
+		callfunc "Chkprogress2";
+		specialeffect2 154;
+		setrandomoption(.@id,4,.@OptIDR,.@OptValR,4);
+		mes "[Option Costume]";
+		mes "^000099ออฟสำเร็จ^000000.";
+		close;
+	}
+	else {
+		callfunc "Chkprogress2";
+		specialeffect2 155;
+		delitem2 .@part, 1, 1, .@ref, 0, @card1, @card2, @card3, @card4;
+		getitem2 .@part, 1, 1, .@ref, 0, @card1, @card2, @card3, @card4;
+		equip .@part;
+		mes "[Option Costume]";
+		mes "^009900ออฟไม่สำเร็จ^000000.";
+		close;
+	}
+			
+enc10:
+	next;				
+	mes "[Option Costume]";
+	mes "เจ้าไม่สามารถออฟต่อได้แล้ว.";
+	mes "คอสของเจ้า^009900ออฟเต็ม^000000แล้ว.";
+	mes "กรุณาไปลบออฟออกก่อน.";
+	close;
+
+enc11:
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	if (rand(100) < .rate) {
+		callfunc "Chkprogress2";
+		specialeffect2 154;
+		setrandomoption(.@id,0,.@OptIDR2,.@OptValR,0);
+		mes "[Option Costume]";
+		mes "^000099ออฟสำเร็จ^000000.";
+		close;
+	}
+	else {
+		callfunc "Chkprogress2";
+		specialeffect2 155;
+		delitem2 .@part, 1, 1, .@ref, 0, @card1, @card2, @card3, @card4;
+		getitem2 .@part, 1, 1, .@ref, 0, @card1, @card2, @card3, @card4;
+		equip .@part;
+		mes "[Option Costume]";
+		mes "^009900ออฟไม่สำเร็จ^000000.";
+		close;
+	}
+	
+case 2:
+	mes "[Option Costume]";
+	mes "^009900ได้ข้าจะอธิบายให้ฟัง...";
+	mes "ข้าจะสุ่มค่าสเตตัสให้กับ Costume";
+	mes "ในช่องใส่การ์ด ^FF0000สุ่มทีละ 1 ช่อง";
+	mes "^000000โดยจะสุ่มค่าดังนี้ต่อ 1 ช่อง";
+	mes "^000099Str Agi Vit Int Dex Luk Hp Sp";	
+	mes "^009900ในการสุ่ม 1 ช่องข้าคิดแค่ ^000099100K";
+	next;	
+	mes "^FF0000โอกาศติดที่ ^000099" + .rate + " %^000000";
+	mes "^FF0000ถ้าล้มเหลว ^000000ออฟจะหายไปทั้งหมด^000000.";
+	mes "แต่ไอเท็มยังอยู่^000099สุ่มสูงสุด 2 ช่อง";	
+	mes "^ff3800-----------------------------------";
+	mes "^003300ส่วนในการลบออฟนั้น...";
+	mes "ข้าจะทำการลบออฟออกทั้ง 2 ช่อง";
+	mes "^0000995ค่าลบออฟทั้ง 2 ช่องข้าคิดแค่ 200K";
+	close;
+
+case 3:	
+	mes "[Option Costume]";
+	mes "เจ้าอยากจะลบออฟอะไร ?";
+	next;				
+	switch(select("^FF0000• ^000000ยกเลิก","^FF0000• ^000000ลบออฟทั้งหมด")) {
+
+	case 1:	
+	mes "[Option Costume]";
+	mes "ถ้าเจ้าเปลี่ยนใจ.";
+	mes "อยากลบออฟให้มาหาข้าน่ะ.";
+	close;
+	
+	case 2:	
+	if (Zeny < .costRE){ //money check
+		mes "[Option Costume]";
+		mes "เจ้ามีเงินพ้อยไม่พอ.";
+		close;
+	}
+	mes "[Option Costume]";
+	mes "เลือกคอสตูมที่เจ้าต้องการจะลบออฟ ?";
+	setarray .@indices[1], EQI_COSTUME_HEAD_TOP,EQI_COSTUME_HEAD_MID,EQI_COSTUME_HEAD_LOW,EQI_COSTUME_GARMENT;
+	setarray .@eqi_name$[1], "ส่วนหัว","ส่วนหู","ส่วนปาก","ผ้าคลุม";
+	for( set .@i,1; .@i <= 4; set .@i,.@i+1 ) {
+		if( getequipisequiped(.@indices[.@i]) )
+	set .@menu$, .@menu$ + .@eqi_name$[.@i]+" - [ " + getequipname(.@indices[.@i]) + " ]";
+	set .@menu$, .@menu$ + ":";
+	}
+	set .@id, .@indices[ select(.@menu$) ];
+	set .@part, getequipid(.@id);
+	@card1 = getequipcardid(.@id,0);
+	@card2 = getequipcardid(.@id,1);
+	@card3 = getequipcardid(.@id,2);
+	@card4 = getequipcardid(.@id,3);
+	
+	if ( !@card1 && !@card2 && !@card3 && !@card4) {
+		mes "[Option Costume]";
+		mes "คอสตูมที่เจ้าเลือกยังไม่เคย.";
+		mes "ออฟ Option เลย.";
+		mes "เจ้าคงตาฝาด.";
+		close;
+	}
+	if (countitem(.@part) > 1 ) {
+	next;
+		mes "[Option Costume]";
+		mes "เจ้ามีคอสที่เหมือนกัน.";
+		mes "ข้าลบออฟได้ทีละอันเท่านั้น.";
+		mes "เอาไปเก็บในคลังก่อนแล้วค่อยมาใหม่.";
+		close;
+	}
+	next;
+	mes "[Option Costume]";
+	mes "เจ้าได้เลือกที่จะลบออฟ ^000099" + getequipname(.@id) + "^000000";
+	next;			
+		mes "[Option Costume]";
+		mes "เจ้าจะลบออฟทั้งหมดใช่ไหม ?";
+		mes "^000099ค่าลบออฟทั้ง 2 ช่องข้าคิดแค่ 200k";
+	if (select( "^FF0000• ^000000 ใช่", "^FF0000• ^000000 ไม่ใช่." ) == 2) {
+		mes "[Option Costume]";
+		mes "ถ้าเจ้าเปลี่ยนใจ.";
+		mes "อยากลบออฟให้มาหาข้าน่ะ.";
+		close;
+	}
+	specialeffect2 EF_REPAIRWEAPON;
+	set Zeny,Zeny-.costRE;
+	if (!getequipisequiped(.@id)) { //custom check
+		mes "[Option Costume]";
+		mes "เจ้าไม่ได้สวมคอสไว้.";
+		close;
+	}	
+		delitem .@part,1;
+		getitem .@part,1;
+	next;				
+	mes "[Option Costume]";
+	mes "^000099ลบออฟเรียบร้อย^000000.";
+	mes "ขอให้โชคดีในการออฟ.";
+	close;
+}
+	
+case 4:	
+	mes "[Option Costume]";
+	mes "แล้วเจอกันใหม่";
+	close;
+	}
+	
+
+OnInit:
+	setarray .messages$,"[~] ","อ","อ","ฟ","ชั่","น"," ","ค","อ","ส","ตู","ม";
+		while( 1 )
+		{
+			set .Display$,"";
+			for( set .i,0; .i < getarraysize( .messages$ ); set .i,.i + 1 )
+			{
+				set .Display$,.Display$ + .messages$[.i];
+				delwaitingroom;
+				waitingroom .Display$,0;
+				sleep 100;
+			}
+		sleep 1000;
+		}
+end;	
+
+
+
+	//waitingroom " ออฟชั่นคอสตูม",0;
+	.cost = 100000; // ค่าออฟ zeny (แก้ให้เหมือนกันกับข้างล่าง)
+	.costRE = 200000; // ค่าลบออฟ zeny
+	.rate = 100; // โอกาสติด ในช่องที่ 3 4 และ แถวที่ 3 4 5 พลาดออฟหายไอเท็มยังอยู่
+}
+
+function	script	Chkprogress2	{
+	next;
+	.cost = 100000; // ค่าออฟ zeny (แก้ให้เหมือนกันกับข้างบน)
+	if (Zeny < .cost){ //money check
+		mes "[Option Costume]";
+		mes "เจ้ามีเงินไม่พอ.";
+		close;
+	}
+		mes "[Option Costume]";
+		mes "ออฟเลยไหม ?";
+		next;
+	if (select( "^FF0000• ^000000 เอาเลย", "^FF0000• ^000000 ยังก่อน." ) == 2) {
+		mes "[Option Costume]";
+		mes "ข้าเชื่อในการตัดสินใจของเจ้า.";
+		mes "อยากออฟให้มาหาข้าน่ะ.";
+		close;
+	}
+	specialeffect2 EF_REPAIRWEAPON;
+	progressbar "0x00ff00",2;
+	set Zeny,Zeny-.cost;
+	return;
+}

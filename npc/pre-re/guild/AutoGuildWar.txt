@@ -1,0 +1,72 @@
+-	script	AutoGuildWar	-1,{
+end;
+OnClock1304: //เวลาเปิด
+callsub OnCheck;
+setbattleflag "emblem_woe_change", 1;
+announce "[ระบบ] : ขณะนี้ สงคราม Guild War ได้เริ่มขึ้นแล้ว",16;
+agitstart;
+end;
+OnClock2045:
+callsub OnCheck;
+setbattleflag "emblem_woe_change", 0;
+announce "[ระบบ] : สงคราม Guild War 15 นาทีสุดท้าย",16;
+end;
+OnClock2050: //บอกเวลาก่อนจะปิด
+callsub OnCheck;
+announce "[ระบบ] : สงคราม Guild War 10 นาทีสุดท้าย",16;
+end;
+OnClock2051: //บอกเวลาก่อนจะปิด
+callsub OnCheck;
+announce "[ระบบ] : สงคราม Guild War 9 นาทีสุดท้าย",16;
+end;
+OnClock2052: //บอกเวลาก่อนจะปิด
+callsub OnCheck;
+announce "[ระบบ] : สงคราม Guild War 8 นาทีสุดท้าย",16;
+end;
+OnClock2053: //บอกเวลาก่อนจะปิด
+callsub OnCheck;
+announce "[ระบบ] : สงคราม Guild War 7 นาทีสุดท้าย",16;
+end;
+OnClock2054: //บอกเวลาก่อนจะปิด
+callsub OnCheck;
+announce "[ระบบ] : สงคราม Guild War 6 นาทีสุดท้าย",16;
+end;
+OnClock2055: //บอกเวลาก่อนจะปิด
+callsub OnCheck;
+announce "[ระบบ] : สงคราม Guild War 5 นาทีสุดท้าย",16;
+end;
+OnClock2056: //บอกเวลาก่อนจะปิด
+callsub OnCheck;
+announce "[ระบบ] : สงคราม Guild War 4 นาทีสุดท้าย",16;
+end;
+OnClock2057: //บอกเวลาก่อนจะปิด
+callsub OnCheck;
+announce "[ระบบ] : สงคราม Guild War 3 นาทีสุดท้าย",16;
+end;
+OnClock2058: //บอกเวลาก่อนจะปิด
+callsub OnCheck;
+announce "[ระบบ] : สงคราม Guild War 2 นาทีสุดท้าย",16;
+end;
+OnClock1308: //บอกเวลาก่อนจะปิด
+callsub OnCheck;
+announce "[ระบบ] : สงคราม Guild War 1 นาทีสุดท้าย",16;
+set .@count,60;
+while(.@count) {
+if (.@count <= 15)
+announce "[ระบบ] : สงคราม Guild War "+.@count+" วินาทีสุดท้าย",16;
+set .@count,.@count-1;
+sleep 1000;
+}
+sleep 1000;
+announce "[ระบบ] : ขณะนี้ สงคราม Guild War ได้จบลงแล้ว",16;
+agitend;
+setbattleflag "emblem_woe_change", 1;
+end;
+OnCheck:
+return;
+if ((gettime(3) == 21 || gettime(3) == 22) && (gettime(4) == 2 || gettime(4) == 4 || gettime(4) == 6 || gettime(4) == 0))
+return;
+if ((gettime(3) == 20 || gettime(3) == 21) && (gettime(4) == 1 || gettime(4) == 3 || gettime(4) == 5))
+return;
+end;
+}

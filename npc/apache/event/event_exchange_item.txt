@@ -1,0 +1,170 @@
+/*
+=================== TERMS OF SERVICES. ===================
+1. ALL RIGHT RESERVED RE-SELLER OR SHARE SCRIPT TO PUBLISH.
+2. BUT YOU RE-SELLER OR SHARE SCRIPT WITH OUT UNAUTHORIZRD
+   I WILL ALL CANCEL MY SUPPORT FOR YOU.
+3. MAINTENANCE SCRIPTS WILL BE FREE SERVICES.
+4. I WILL NOT KEEP ANY INFORMATIONS FROMS YOU SERVER THAT
+   YOU SEND FOR ME.
+5. I HOPE YOU WILL ALL ACCEPT TERMS OF SERVICES.
+==========================================================
+Script. Exchange Item																									 =
+Create By. Athena Studio																										 =
+Bug Report. Kittisak Sarounram [ FB ]																					 =
+Contact Us. Kittisak Sarounram [ FB ]																					 =
+TEL. 0909183008 [ TRUE MOVE H ]																					 =
+==========================================================
+*/
+
+morocc,109,69,5	script	Exchange Item	4_M_DESERT,{
+
+	mes "^0000FF[ กิจกรรมแลกไอเท็ม ]^000000";
+	mes "สวัสดี, นักผจญภัยทั้งหลาย";
+	mes "ฉันมีกิจกรรมดีๆนำเสนอให้คุณ";
+	mes "คือ กิจกรรมแลกไอเท็ม []";
+	mes "เพื่อนแลกไอเท็มกล่องปั้ม";
+	mes "เพื่อนๆต้องการกันอยู่แล้วใช่มัย";
+	mes "^FF0000- โปรดเลือกรายการที่ต้องการ -^000000";
+	next;
+	switch(select("~ รายละเอียดกิจกรรม:~ ^CC6633ดูอันดับ Ranking^000000:~ ^009900แลกไอเท็มเป็นแต้มสะสม^000000:~ ไม่ล่ะ,เดี๋ยวมาใหม่"))
+	{
+		case 1:
+			mes "^0000FF[ ระยะเวลากิจกรรม ]^000000";
+			mes "- ^ff0000เริ่มกิจกรรม^000000 : 20 กันยายน 65";
+			mes "- ^0000ffสิ้นสุดกิจกรรม^000000 : 29 กันยายน 65";
+			mes "หรือหลังปิดปรับปรุงเซิร์ฟเวอร์";
+			mes "จัดอันดับ Ranking ที่ 1-10";
+			mes "แจกเงินรางวัลมูลค่า^ff00001,000บาท^000000";
+			mes "^0000ffประกาศผล วันที่ 30 กันยายน 65^000000";
+			next;
+			mes "^0000FF[ รายละเอียดกิจกรรม ]^000000";
+			mes "ฉันต้องการไอเท็ม[] ที่ไม่ได้ใช้งาน";
+			mes "นำไอเท็มมาแลกแต้มสะสม";
+			mes "เพื่อแลกของรางวัลในร้านค้า";
+			mes "ไอเท็มที่นำมาแลกกับฉันนั้น..";
+			next;
+			mes "^0000FF[ รายละเอียดกิจกรรม ]^000000";
+			mes "ให้ตามความเหมาะสมไอเท็มเหล่านั้นๆ";
+			mes "หวังว่าพวกท่านจะเข้าใจน่ะ";
+			mes " ";
+			mes " ";
+			mes "- อ่านรายละเอียดกิจกรรม";
+			mes "- https://goo.gl/99EqdJ";
+			close;
+			
+		case 2:	
+			mes "^0000FF[ Ranking Exchange Item ]^000000";
+			mes "^FF0000อันดับ 1 ได้รับ 10,000 CASHPOINTS^000000";
+			mes "^660099อันดับ 2 ได้รับ 5,000 CASHPOINTS^000000";
+			mes "^CC0099อันดับ 3 ได้รับ 3,000 CASHPOINTS^000000";
+			mes "^336600อันดับ 4-10 ได้รับ 500 CASHPOINTS^000000";
+			mes "- ประกาศผลแจกรางวัล";
+			mes "- วันที่ 30 กันยายน 65 12.00น.";
+			dispbottom "========================================================",0xFFFFFF;
+			dispbottom "================= จัดอันดับ Ranking Exchange Point ==================",0xFFFFFF;
+			query_sql( "SELECT `name`, `point` FROM `ex_ranking` ORDER BY `point` DESC LIMIT 10", .@name$, .@point);
+			if ( getarraysize(.@name$) )
+			{
+				for( set .@i,0; .@i < getarraysize(.@name$); set .@i, .@i + 1 )
+					dispbottom "อันดับที่ ["+( .@i + 1) +"] . "+ .@name$[.@i] +" Ex Point "+ callfunc("F_InsertComma",.@point[.@i]) +" Points",0xFFFF00;
+				
+			}
+			else
+			{
+				dispbottom "ไม่พบรายการจัดอันดับใดๆ...",0xFFFFFF;
+			}
+			dispbottom "========================================================",0xFFFFFF;
+			close;
+		case 3:
+				deletearray @sold_nameid[0],getarraysize(@sold_nameid);
+				callshop "event_shops",2;
+				npcshopattach "event_shops";
+				end;
+		case 4:
+		close;
+	}
+	end;
+	
+OnSellItem:
+	mes "^0000FF[ กิจกรรมแลกไอเท็ม ]^000000";
+	mes "คุณแน่ใจแล้วใช่หรือไม่ ??";
+	mes "ที่ต้องการแลกเปลี่ยนไอเท็ม";
+	mes " ";
+	mes " ";
+	mes " ";
+	mes "^FF0000- โปรดยืนยันการแลกเปลี่ยน -^000000";
+	next;
+	switch(select("~ ยืนยัน,แลกเปลี่ยน:~ ไม่ล่ะ,เดี๋ยวมาใหม่"))
+	{
+	case 1:
+	for ( set .@i, 0; .@i < getarraysize(@sold_nameid); set .@i, .@i+1 )
+	{
+		set .@first, compare(.first$,""+ @sold_nameid[.@i] +""); set .@second, compare(.second$,""+ @sold_nameid[.@i] +""); set .@third, compare(.third$,""+ @sold_nameid[.@i] +"");  set .@four, compare(.four$,""+ @sold_nameid[.@i] +"");  set .@five, compare(.five$,""+ @sold_nameid[.@i] +"");  set .@six, compare(.six$,""+ @sold_nameid[.@i] +"");  set .@seven, compare(.seven$,""+ @sold_nameid[.@i] +"");  set .@eight, compare(.eight$,""+ @sold_nameid[.@i] +"");  set .@nine, compare(.nine$,""+ @sold_nameid[.@i] +"");  set .@ten, compare(.ten$,""+ @sold_nameid[.@i] +"");
+		.@compare = -1;  if ( .@second ) { .@compare = 1 ; } else if ( .@third ) { .@compare = 2 ; } else if ( .@four ) { .@compare = 3 ; } else if ( .@five ) { .@compare = 4 ; } else if ( .@six ) { .@compare = 5 ; } else if ( .@seven ) { .@compare = 6 ; } else if ( .@eight ) { .@compare = 7 ; } else if ( .@nine ) { .@compare = 8 ; } else if ( .@ten ) { .@compare = 9 ; } else if ( .@first ) { .@compare = 0; }
+		if ( .@compare != -1 ) { set .@count, .@count+(@sold_quantity[.@i]*.gets[.@compare]); set .@id[getarraysize(.@id)], @sold_nameid[.@i]; set .@amount[getarraysize(.@amount)], @sold_quantity[.@i]; }
+	}
+	deletearray @sold_nameid[0],getarraysize(@sold_nameid);
+	deletearray @sold_quantity[0],getarraysize(@sold_quantity);
+		if ( !.@id ) { 
+			mes "^0000FF[ กิจกรรมแลกไอเท็ม ]^000000";
+			mes "รายการไอเท็มบางชนิดไม่ได้อยู่ใน";
+			mes "เงื่อนใขสำหรับการแลกเปลี่ยน";
+			mes "กรุณาตรวจสอบใหม่อีกครั้ง"; 
+			close; 
+		}
+		
+		mes "^0000FF[ กิจกรรมแลกไอเท็ม ]^000000";
+		mes "ทำรายการสำเสร็จ";
+		mes "คุณได้รับ :";
+		mes "- ^0033FFExchange Points^000000";
+		mes "จำนวน :";
+		mes "- ^FF3333"+ callfunc("F_InsertComma",.@count) +" Ex Points.^000000";
+		mes "ขอบคุณที่ร่วมกิจกรรมครั้งนี้ !";
+		for ( set .@i, 0; .@i < getarraysize(.@id); set .@i, .@i+1 )
+			delitem .@id[.@i],.@amount[.@i];
+			//getitem .exchange,.@count;
+			set #EXPOINTS,(#EXPOINTS + .@count);
+			if ( query_sql( "SELECT `point` FROM `ex_ranking` WHERE `char_id` = '"+ getcharid(0) +"';", @points ) )
+				query_sql( "UPDATE `ex_ranking` SET `point` = `point`+'"+ .@count +"' WHERE `char_id` = '"+ getcharid(0) +"';" );
+			else
+				query_sql( "INSERT INTO `ex_ranking` ( `char_id`, `name`, `point` ) VALUES ( "+ getcharid(0) +", '"+ strcharinfo(0) +"', '"+ .@count +"' );" );
+			dispbottom "[ Exchange System : คุณได้รับ Ex Point ทั้งหมด : "+callfunc("F_InsertComma",.@count)+" Points ]",0xFFFFFF;
+	close;
+
+	case 2:
+	close;
+	}
+end;
+	
+OnInit:
+//	waitingroom "~ แลกไอเท็มเป็นแต้ม",0;
+	query_sql "CREATE TABLE IF NOT EXISTS `ex_ranking` (  `char_id` int(11) NOT NULL default '0',  `name` varchar(24) NOT NULL DEFAULT 'NULL',  `point` mediumint(6) NOT NULL default '0',	PRIMARY KEY  (`char_id`)) ENGINE=MyISAM";
+	set .first$,"0";
+	set .second$,"0";
+	set .third$,"2404,2102";
+	set .four$,"0";
+	set .five$,"0";
+	set .six$,"2406,2104,2504,2322";
+	set .seven$,"2315,2326,2331,2106";
+	set .eight$,"0";
+	set .nine$,"0";
+	set .ten$,"2320,2506,2108";
+	//set .exchange,25005;
+	setarray .gets[0],1,2,3,4,5,6,7,8,9,10;
+
+	setarray .messages$,"[~] ","แ","ล","ก","ไ","อ","เ","ท็","ม"," ","เ","ป็","น","แ","ต้","ม";
+		while( 1 )
+		{
+			set .Display$,"";
+			for( set .i,0; .i < getarraysize( .messages$ ); set .i,.i + 1 )
+			{
+				set .Display$,.Display$ + .messages$[.i];
+				delwaitingroom;
+				waitingroom .Display$,0;
+				sleep 100;
+			}
+		sleep 1000;
+		}
+end;	
+}
+-	shop	event_shops	-1,501:-1

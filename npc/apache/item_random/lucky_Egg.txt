@@ -1,0 +1,120 @@
+//============================================================
+//= Lucky Egg Function
+//============================================================
+// ตัวอย่าง: item_db
+/*
+  - Id: 910143
+    AegisName: test_item
+    Name: test item
+    Type: Usable
+    Script: |
+      callfunc "lucky_egg";
+*/
+
+function	script	lucky_egg	{
+	//---------------------------------
+	// - egg id.
+	//---------------------------------
+	.eggid = 25031; // ไอดีไข่สุ่ม
+	
+	//---------------------------------
+	// - rate setting.
+	//---------------------------------
+	/*
+	การคำนวนอัตราการออก คือ สุ่มตัวเลขจาก .max_rate
+	โดยค่าพื้นฐานจะอยู่ที่ 100 ซึ่งก็คือ 100 ตัวเลข คิดเป็น 100%
+	โดยกำหนดค่าของ rate ระดับต่างๆที่จะให้ออก
+	จะเริ่มที่ ssr > sr > r > uc ที่เหลือจะออก c เสมอ
+	โดยให้เฉลี่ยค่าให้ได้ 100 หรือ % ที่ท่านกำหนด
+	ตัวอย่าง : 
+	ssr อยากให้ออก 3 % จะได้ .rate_ssr = 3; หากสุ่มได้เลขระหว่าง 1-3 ก็จะเข้า ssr
+	sr อยากให้ออก 5 % จะได้  .rate_ssr = 8; โดยเอา 3 จาก ssr มาบวก ได้ 5+3 = 8 
+	เวลามันคำนวน คือ หากสุ่มได้เลขระหว่างเลข 4-8 ก็จะเข้า sr รวมเป็น 5 %
+	*/
+	
+	.max_rate = 100;	//อัตราเรทสูงสุด %
+	.rate_ssr = 1;		//อัตราการออก 1 % (1)
+	.rate_sr  = 6;		//อัตราการออก 5 % (2-6)
+	.rate_r	  = 21;		//อัตราการออก 15 % (7-15)
+	.rate_uc  = 51;		//อัตราการออก 30 % (22-51)
+						// ที่เหลือ อีก 49 % (52-100) จะออก เกลือ
+	
+	//---------------------------------
+	// - super super rare item list.
+	//---------------------------------
+	setarray .ssr_item,		5042, 5068;
+	setarray .ssr_amount,	1, 1;
+ 
+	//---------------------------------
+	// - super rare item list.
+	//---------------------------------
+	setarray .sr_item,		616, 617, 603;
+	setarray .sr_amount,	1, 1, 1;
+	
+	//---------------------------------
+	// - rare item list.
+	//---------------------------------
+	setarray .r_item,		604, 607, 608, 610;
+	setarray .r_amount,		3, 1, 5, 1;
+	
+	//---------------------------------
+	// - uncommon item list.
+	//---------------------------------
+	setarray .uc_item,		501, 502, 503, 504, 505;
+	setarray .uc_amount,	3, 3, 3, 1, 1;
+	
+	//---------------------------------
+	// - common item list.
+	//---------------------------------
+	setarray .c_item,		507, 508, 509, 510, 511;
+	setarray .c_amount,		10, 10, 5, 3, 10;
+	
+	//---------------------------------
+	// - Random function
+	//---------------------------------
+	.@r = rand(.max_rate);
+	// super super rare
+	if (.@r <= .rate_ssr  && .@r < .rate_sr) {
+		.@random = rand(0,getarraysize(.ssr_item)-1);
+		.@item   = .ssr_item[.@random];
+		.@amount = .ssr_amount[.@random];
+		getitem .@item,.@amount;
+		announce "[ประกาศ]: "+strcharinfo(0)+" เปิด "+getitemname(.eggid)+" ได้รับ "+getitemname(.@item)+" x "+.@amount+" !",bc_all,0x1E90FF;
+		end;
+	}
+	// super rare
+	if (.@r > .rate_ssr && .@r <= .rate_sr) {
+		.@random = rand(0,getarraysize(.sr_item)-1);
+		.@item   = .sr_item[.@random];
+		.@amount = .sr_amount[.@random];
+		getitem .@item,.@amount;
+		announce "[ประกาศ]: "+strcharinfo(0)+" เปิด "+getitemname(.eggid)+" ได้รับ "+getitemname(.@item)+" x "+.@amount+" !",bc_all,0x1E90FF;
+		end;
+	}
+	// rare
+	else if (.@r > .rate_sr && .@r <= .rate_r) {
+		.@random = rand(0,getarraysize(.r_item)-1);
+		.@item   = .r_item[.@random];
+		.@amount = .r_amount[.@random];
+		getitem .@item,.@amount;
+		end;		
+	}
+	// uncommon
+	else if (.@r > .rate_r && .@r <= .rate_uc) {
+		.@random = rand(0,getarraysize(.uc_item)-1);
+		.@item   = .uc_item[.@random];
+		.@amount = .uc_amount[.@random];
+		getitem .@item,.@amount;
+		end;
+	} 
+	// common
+	else {
+		.@random = rand(0,getarraysize(.c_item)-1);
+		.@item   = .c_item[.@random];
+		.@amount = .c_amount[.@random];
+		getitem .@item,.@amount;
+		end;
+	}
+	end;
+}
+	

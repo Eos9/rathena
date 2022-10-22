@@ -1,0 +1,249 @@
+//===== rAthena Script =======================================
+//= Healer
+//===== By: ================================================== 
+//= mr.TAURUS
+//===== Current Version: ===================================== 
+//= 3.0
+//===== Compatible With: ===================================== 
+//= rAthena Project
+//============================================================
+
+-	script	Healer	-1,{
+
+OnTalk:
+	.@is_gm = (getgmlevel() == 99);
+	.@is_vip = (getgroupid() == 5);
+	mes .heading$;
+	mes "สวัสดี, ^0000FF"+ strcharinfo(0) +"^000000.";
+	mes "ฉันมีหน้าที่อำนวยความสะดวก";
+	mes "ให้กับผู้เล่นค่อยสนับสนุนช่วยเหลือ";
+	mes "ค่าบริการ ^FF0000ฟรี^000000 สำหรับผู้เล่นใหม่";	
+	mes "ผู้เล่นที่มี Lv.50 ขึ้นไป จะมีค่าบริการ "+ callfunc("F_InsertComma", .Price) +"z / ครั้ง";
+	mes "คุณต้องการใช้บริการหรือไม่ ?";
+	next;
+	switch( select(
+		"• [^006400Free^000000] Buffs",
+		"• [^FF0000"+.Price+"^000000z] Buffs",
+		(.@is_vip) ? "• [^0000FFVIP^000000] Buffs" : "",
+		(.@is_gm) ? "• [^9400D3GM^000000] Buffs" : ""
+	)) {
+	
+	case 1:
+		next;
+		if ( BaseLevel < 70)	{
+			mes .heading$;
+			mes "และนี่คือบัฟของคุณ!!";
+			
+		} else if(.@BaseLevel < 70) {
+			mes "คุณมี Lv เกิน 70 แล้วนะครับ.";
+			close;
+			end;
+		}
+		progressbar "FF0000",1;
+		//----- บัฟต่างๆ -----
+		sc_start SC_INCREASEAGI,.nTime*60*1000,1;
+		//----- effect -----
+		specialeffect2 EF_INCAGILITY;
+		next;
+		mes .heading$;		
+		mes "ขอบคุณที่ใช้บริการครับ";
+		close2;
+		cutin "0",255;
+		end;
+		
+	case 2:
+		if (Zeny < (.Price)) {
+			mes .heading$;		
+			mes "ดูเหมือนคุณจะมีเงินไม่พอจ่ายค่าบริการนะครับ.";
+			close2;
+			cutin "0",255;
+			end;
+			
+		}
+		next;
+		set Zeny,Zeny-(.Price);
+		mes .heading$;		
+		mes "และนี่คือบัฟของคุณ!!";
+		progressbar "FF0000",1;
+		//----- บัฟต่างๆ -----
+		sc_start SC_INCREASEAGI,.bTime*60*1000,1;
+		sc_start SC_BLESSING,.bTime*60*1000,1;
+		//----- effect -----
+		specialeffect2 EF_INCAGILITY;
+		specialeffect2 EF_BLESSING;
+		next;
+		mes .heading$;
+		mes "ขอบคุณที่ใช้บริการครับ";
+		close2;
+		cutin "0",255;
+		end;
+	
+	case 3:
+		next;
+		mes .heading$;
+		mes "และนี่คือบัฟของคุณ!!";
+		progressbar "FF0000",1;
+		//----- เช็คไอเทมที่เสียหายถ้ามีซ่อมให้ทันที -----
+		//----- บัฟต่างๆ -----
+		sc_start SC_INCREASEAGI,.vTime*60*1000,1;
+		sc_start SC_BLESSING,.vTime*60*1000,1;		
+		//sc_start SC_MAGNIFICAT,.vTime*60*1000,1;		
+		//----- effect -----
+		specialeffect2 EF_INCAGILITY;
+		specialeffect2 EF_BLESSING;
+		next;
+		mes .heading$;
+		mes "ขอบคุณที่ใช้บริการครับ";
+		close2;
+		cutin "0",255;
+		end;	
+		
+	case 4:
+		next;
+		mes .heading$;
+		mes "ท่านคือ GM!";
+		next;
+		//cutin "malaya_nursea04",2;
+		mes .heading$;
+		mes "และนี่คือบัฟของท่าน!!";
+		progressbar "FF0000",1;
+		//----- เช็คไอเทมที่เสียหายถ้ามีซ่อมให้ทันที -----
+		if (getbrokenid(1) > 0) {
+			atcommand "@repairall"; specialeffect2 101;
+		}
+		//----- แก้สถานะต่างๆ -----
+		sc_end SC_Poison;
+		sc_end SC_Freeze;
+		sc_end SC_Sleep;
+		sc_end SC_Stan;
+		sc_end SC_Stun;
+		sc_end SC_Stone;
+		sc_end SC_Silence;
+		sc_end SC_Blind;
+		sc_end SC_Bleeding;
+		sc_end SC_Confusion;
+		sc_end SC_Curse;
+		sc_end SC_Hallucination;
+		sc_end SC_ORCISH;
+		//----- บัฟต่างๆ -----
+		sc_start SC_MAGNIFICAT,.GmTime*60*1000,5;
+		sc_start SC_GLORIA,.GmTime*60*1000,5;
+		sc_start SC_BLESSING,.GmTime*60*1000,10;
+		sc_start SC_INCREASEAGI,.GmTime*60*1000,10;
+		sc_start SC_ASSUMPTIO,.GmTime*60*1000,10;
+		sc_start SC_ANGELUS,.GmTime*60*1000,10;
+		sc_start SC_IMPOSITIO,.GmTime*60*1000,5;
+		//----- บัฟอาหาร -----
+		sc_start SC_FOOD_STR_CASH,.GmTime*60*1000, 15;
+		sc_start SC_FOOD_AGI_CASH,.GmTime*60*1000, 15;
+		sc_start SC_FOOD_VIT_CASH,.GmTime*60*1000, 15;
+		sc_start SC_FOOD_INT_CASH,.GmTime*60*1000, 15;
+		sc_start SC_FOOD_DEX_CASH,.GmTime*60*1000, 15;
+		sc_start SC_FOOD_LUK_CASH,.GmTime*60*1000, 15;
+		//----- Protections -----
+		sc_start SC_CP_WEAPON,.GmTime*60*1000,5;
+		sc_start SC_CP_SHIELD,.GmTime*60*1000,5;
+		sc_start SC_CP_ARMOR,.GmTime*60*1000,5;
+		sc_start SC_CP_HELM,.GmTime*60*1000,5;
+		//----- EXP & Drops -----
+		sc_start SC_EXPBOOST,.GmTime*60*1000,100;
+		sc_start SC_JEXPBOOST,.GmTime*60*1000,100;
+		sc_start SC_ITEMBOOST,.GmTime*60*1000,100;
+		sc_start SC_LIFEINSURANCE,.GmTime*60*1000,0;
+		//----- บัฟบากิและเซอวิส -----
+		sc_start4 SC_SERVICE4U,.GmTime*60*1000,10,40,40,0;
+		sc_start4 SC_POEMBRAGI,.GmTime*60*1000,10,80,100,0;
+		//----- Extras Items Buff -----
+		sc_start SC_SpeedUp1,.GmTime*60*1000,50;
+		sc_start SC_ATKPOTION,.GmTime*60*1000,50;
+		sc_start SC_MATKPOTION,.GmTime*60*1000,50;
+		sc_start SC_ASPDPOTION2,.GmTime*60*1000,0;
+		sc_start SC_INCCRI,.GmTime*60*1000,30;
+		sc_start SC_INCHEALRATE,.GmTime*60*1000,20;
+		sc_start SC_DEF_RATE,.GmTime*60*1000,3;
+		sc_start SC_MDEF_RATE,.GmTime*60*1000,3;
+		//----- Extra Skills Buff -----
+		sc_start SC_MELTDOWN,.GmTime*60*1000,5;
+		sc_start SC_WINDWALK,.GmTime*60*1000,5;
+		sc_start SC_ENDURE,.GmTime*60*1000,10;
+		sc_start 44,.GmTime*60*1000,5;
+		sc_start 46,.GmTime*60*1000,5;
+		sc_start SC_OVERTHRUST,.GmTime*60*1000,5;
+		sc_start SC_AURABLADE,.GmTime*60*1000,5;
+		sc_start SC_ADRENALINE2,.GmTime*60*1000,1;
+		sc_start SC_CONCENTRATION,.GmTime*60*1000,10;
+		sc_start SC_CONCENTRATE,.GmTime*60*1000,10;
+		sc_start SC_EDP,.GmTime*60*1000,5;
+		sc_start SC_ENERGYCOAT,.GmTime*60*1000,1;
+		//----- Heal -----
+		percentheal 100,100;
+		//----- effect -----
+		specialeffect2 EF_HEAL;
+		specialeffect2 EF_INCAGILITY;
+		specialeffect2 EF_BLESSING;
+		specialeffect2 EF_ANGELUS;
+		specialeffect2 441;
+		dispbottom "สถานะผิดปกติทั้งหมดถูกล้างแล้ว.";
+		dispbottom "คุณได้อยู่ในสถานะ ( A Poem of Bragi & Service for You ) เป็นเวลา 60 นาที.";
+		next;
+		cutin "malaya_nursea02",2;
+		mes .heading$;
+		mes "ขอบคุณที่ใช้บริการครับ";
+		close2;
+		cutin "0",255;
+		end;	
+	}
+	close2;
+	cutin "0",255;
+	end;
+	
+	
+
+OnInit:
+	.heading$ = "[^FF7F00 Healer ^000000]";		
+	.Price = 2500;	// ราคา
+	.nTime = 1;	// เวลาบัฟ (นาที) : สำหรับผู้เล่นทั่วไป
+	.bTime = 2;	// เวลาบัฟ (นาที) : สำหรับผู้เล่นทั่วไป (เสียเงิน)
+	.vTime = 4;	// เวลาบัฟ (นาที) : สำหรับผู้เล่น VIP
+	.GmTime = 10;	// เวลาบัฟ (นาที) : สำหรับ GM
+	.cast = 60;		// ระยะเวลาร่าย (วินาที) : ดีเลย์การรับบัฟ
+	.BaseLevel = 50;
+}
+
+// --------------------------------------------------
+//	Duplicates: ตำแหน่ง NPC ตามเมืองต่างๆ
+// --------------------------------------------------
+new_1-3,91,36,4	duplicate(Healer)	Healer#new_1-3	4_F_NURSE
+
+prontera,146,92,5	duplicate(Healer)	Healer#prontera1	4_F_NURSE
+//prontera,29,210,5	duplicate(Healer)	Healer#prontera2	4_F_NURSE
+//prontera,282,198,1	duplicate(Healer)	Healer#prontera3	4_F_NURSE
+//prontera,29,210,1	duplicate(Healer)	Healer#prontera4	4_F_NURSE
+prt_fild05,290,227,3	duplicate(Healer)	Healer#prontera5	4_F_NURSE
+
+alberta,28,239,4	duplicate(Healer)	Healer#alberta1	4_F_NURSE
+alberta,114,62,3	duplicate(Healer)	Healer#alberta2	4_F_NURSE
+
+aldebaran,146,119,4	duplicate(Healer)	Healer#aldebaran	4_F_NURSE
+
+comodo,197,149,3	duplicate(Healer)	Healer#comodo	4_F_NURSE
+
+geffen,126,64,4	duplicate(Healer)	Healer#geffen1	4_F_NURSE
+//geffen,203,126,4	duplicate(Healer)	Healer#geffen2	4_F_NURSE
+//geffen,126,64,4	duplicate(Healer)	Healer#geffen3	4_F_NURSE
+//geffen,126,64,4	duplicate(Healer)	Healer#geffen4	4_F_NURSE
+
+izlude,136,91,4	duplicate(Healer)	Healer#izlude	4_F_NURSE
+izlu2dun,109,58,4	duplicate(Healer)	Healer#izlu2dun	4_F_NURSE
+
+xmas,140,129,5	duplicate(Healer)	Healer#xmas	4_F_NURSE
+
+morocc,162,97,4	duplicate(Healer)	Healer#morocc1	4_F_NURSE
+morocc,276,78,4	duplicate(Healer)	Healer#morocc2	4_F_NURSE
+morocc,240,46,4	duplicate(Healer)	Healer#morocc3	4_F_NURSE
+morocc,225,103,4	duplicate(Healer)	Healer#morocc4	4_F_NURSE
+morocc,107,53,4	duplicate(Healer)	Healer#morocc5	4_F_NURSE
+morocc,157,258,4	duplicate(Healer)	Healer#morocc6	4_F_NURSE
+
+payon,97,118,4	duplicate(Healer)	Healer#payon	4_F_NURSE
+pay_arche,40,134,4	duplicate(Healer)	Healer#pay_arche	4_F_NURSE

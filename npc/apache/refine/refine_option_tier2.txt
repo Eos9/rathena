@@ -1,0 +1,1819 @@
+//===== Current Version: =====================================
+//= 18.2 
+//===== Compatible With: =====================================
+//= rAthena SVN
+//===== Credit: ==============================================
+//= มารี
+//===== Discord: =============================================
+//= Neko-Miku #4381
+//============================================================
+
+morocc,47,59,5	script	Option#15425	4_M_NFDEADMAN2,{
+disable_items;
+				.@ref = getequiprefinerycnt(.@id);
+				if (checkweight(1201,1) == 0) { mes "[เสริมพลัง]"; mes "ช่องเก็บของเต็ม"; close; }
+				if (MaxWeight - Weight < 10000) { mes "[เสริมพลัง]"; mes "น้ำหนักเกิน"; close; }
+				mes "[ ผู้พัฒนาอุปกรณ์สวมใส่]";
+				mes "หวัดดีคุณ, "+strcharinfo(0)+"!";
+				mes "วัตถุดิบที่ใช้ ";
+				mes "- Elunium 50 ea";
+				mes "- Oridecon 50 ea";				
+				mes "- 500,000 Zeny";
+				mes "เลือกอุปกรณ์ของท่าน...";
+	next;
+				disable_items;
+				callshop "option_shop",2; npcshopattach "option_shop";
+				end;
+
+OnSellItem:
+disable_items;
+	.ZenyNoSaft = 500000; 
+	.OriNoSaft = 50; 
+	.RuneSaft20 = 1;
+	.RuneSaft100 = 1;
+					mes "รายการ Option ที่จะแลก:";
+					mes "-----------------------------------";
+					for(set .@i,0; .@i<getarraysize(@sold_nameid); set .@i,.@i+1)
+					if ((@sold_nameid[.@i] > 50000 && @sold_nameid[.@i] < 50600)) {
+					mes "= ^ff0000"+getitemname(@sold_nameid[.@i])+"^000000 =";
+					set .@itemoption_id[getarraysize(.@itemoption_id)], @sold_nameid[.@i];
+					set .@itemoption_amt[getarraysize(.@itemoption_amt)], @sold_quantity[.@i];
+//--------------------------------------------------------------------------------------------//
+					if (.@itemoption_id > 50000 && .@itemoption_id < 50017){ next;
+					switch(select("- ทั่วไป [^CC33FF50%^000000]:- Lucky Craft 20% [^FF990070%^000000]:- Lucky Craft 100% [^00CC00100%^000000]:> ออก")) {
+			case 1: mes "[Option]";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";
+					mes "ในการออฟ";
+					callfunc "OptionNoSaft50"; goto HLEM1;
+			case 2: mes "[Option]";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ^FFFFFF<ITEM>^4D4DFF[Lucky Craft 20%]^000000<INFO>50601</INFO></ITEM>^000000 "+ .RuneSaft20 +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";
+					mes "ในการออฟ";
+					callfunc "OptionSaft70"; goto HLEM2;
+			case 3: mes "[Option]";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Lucky Craft 50%]^000000<INFO>50602</INFO></ITEM>^000000 "+ .RuneSaft100 +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";
+					mes "ในการออฟ";
+					callfunc "OptionSaft100"; goto HLEM3;
+			case 4: mes "[Option]"; close; } }
+//--------------------------------------------------------------------------------------------//
+					if (.@itemoption_id > 50100 && .@itemoption_id < 50112){ next;
+					switch(select("- ทั่วไป [^CC33FF50%^000000]:- Lucky Craft 20% [^FF990070%^000000]:- Lucky Craft 100% [^00CC00100%^000000]:> ออก")) {
+			case 1: mes "[Option]";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";
+					mes "ในการออฟ";
+					callfunc "OptionNoSaft50"; goto ARMOR1;
+			case 2: mes "[Option]";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ^FFFFFF<ITEM>^4D4DFF[Lucky Craft 20%]^000000<INFO>50601</INFO></ITEM>^000000 "+ .RuneSaft20 +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";
+					mes "ในการออฟ";
+					callfunc "OptionSaft70"; goto ARMOR2;
+			case 3: mes "[Option]";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Lucky Craft 50%]^000000<INFO>50602</INFO></ITEM>^000000 "+ .RuneSaft100 +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";
+					mes "ในการออฟ";
+					callfunc "OptionSaft100"; goto ARMOR3;
+			case 4: mes "[Option]"; close; } }
+//--------------------------------------------------------------------------------------------//
+					if (.@itemoption_id > 50200 && .@itemoption_id < 50216){ next;
+					switch(select("- ทั่วไป [^CC33FF50%^000000]:- Lucky Craft 20% [^FF990070%^000000]:- Lucky Craft 100% [^00CC00100%^000000]:> ออก")) {
+			case 1: mes "[Option]";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";
+					mes "ในการออฟ";
+					callfunc "OptionNoSaft50"; goto GARMENT1;
+			case 2: mes "[Option]";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ^FFFFFF<ITEM>^4D4DFF[Lucky Craft 20%]^000000<INFO>50601</INFO></ITEM>^000000 "+ .RuneSaft20 +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";
+					mes "ในการออฟ";
+					callfunc "OptionSaft70"; goto GARMENT2;
+			case 3: mes "[Option]";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Lucky Craft 50%]^000000<INFO>50602</INFO></ITEM>^000000 "+ .RuneSaft100 +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";
+					mes "ในการออฟ";
+					callfunc "OptionSaft100"; goto GARMENT3;
+			case 4: mes "[Option]"; close; } }
+//--------------------------------------------------------------------------------------------//
+					if (.@itemoption_id > 50300 && .@itemoption_id < 50311){ next;
+					switch(select("- ทั่วไป [^CC33FF50%^000000]:- Lucky Craft 20% [^FF990070%^000000]:- Lucky Craft 100% [^00CC00100%^000000]:> ออก")) {
+			case 1: mes "[Option]";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";
+					mes "ในการออฟ";
+					callfunc "OptionNoSaft50"; goto SHOES1;
+			case 2: mes "[Option]";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ^FFFFFF<ITEM>^4D4DFF[Lucky Craft 20%]^000000<INFO>50601</INFO></ITEM>^000000 "+ .RuneSaft20 +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";
+					mes "ในการออฟ";
+					callfunc "OptionSaft70"; goto SHOES2;
+			case 3: mes "[Option]";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Lucky Craft 50%]^000000<INFO>50602</INFO></ITEM>^000000 "+ .RuneSaft100 +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";
+					mes "ในการออฟ";
+					callfunc "OptionSaft100"; goto SHOES3;
+			case 4: mes "[Option]"; close; } }
+//--------------------------------------------------------------------------------------------//
+					if (.@itemoption_id > 50400 && .@itemoption_id < 50415){ next;
+					switch(select("- ทั่วไป [^CC33FF50%^000000]:- Lucky Craft 20% [^FF990070%^000000]:- Lucky Craft 100% [^00CC00100%^000000]:> ออก")) {
+			case 1: mes "[Option]";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";
+					mes "ในการออฟ";
+					callfunc "OptionNoSaft50"; goto HANDL1;
+			case 2: mes "[Option]";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ^FFFFFF<ITEM>^4D4DFF[Lucky Craft 20%]^000000<INFO>50601</INFO></ITEM>^000000 "+ .RuneSaft20 +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";
+					mes "ในการออฟ";
+					callfunc "OptionSaft70"; goto HANDL2;
+			case 3: mes "[Option]";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Lucky Craft 50%]^000000<INFO>50602</INFO></ITEM>^000000 "+ .RuneSaft100 +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";
+					mes "ในการออฟ";
+					callfunc "OptionSaft100"; goto HANDL3;
+			case 4: mes "[Option]"; close; } }
+//--------------------------------------------------------------------------------------------//
+	if (.@itemoption_id > 50500 && .@itemoption_id < 50526){ next;
+					switch(select("- ทั่วไป [^CC33FF50%^000000]:- Lucky Craft 20% [^FF990070%^000000]:- Lucky Craft 100% [^00CC00100%^000000]:> ออก")) {
+			case 1: mes "[Option]";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";
+					mes "ในการออฟ";
+					callfunc "OptionNoSaft50"; goto WEAPON1;
+			case 2: mes "[Option]";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ^FFFFFF<ITEM>^4D4DFF[Lucky Craft 20%]^000000<INFO>50601</INFO></ITEM>^000000 "+ .RuneSaft20 +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";
+					mes "ในการออฟ";
+					callfunc "OptionSaft70"; goto WEAPON2;
+			case 3: mes "[Option]";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Lucky Craft 50%]^000000<INFO>50602</INFO></ITEM>^000000 "+ .RuneSaft100 +" ea";	// ไอเทมทั้วไป
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";
+					mes "ในการออฟ";
+					callfunc "OptionSaft100"; goto WEAPON3;
+			case 4: mes "[Option]"; close; } }
+		close; }
+//--------------------------------------------------------------------------------------------//
+//--------------------------------------------------------------------------------------------//
+	deletearray @sold_nameid[0], getarraysize(@sold_nameid);
+	if (!.@itemoption_id) { mes "  ^770000(No Item)^000000"; close;}
+//--------------------------------------------------------------------------------------------//
+//=================================HLEM======================================================//	
+		HLEM1:  mes " "; next; 
+				if(select(" > ^0055FFแลกเปลี่ยน...^000000: > ^777777ยกเลิก^000000") == 2) {
+				mes "[Option]";
+				mes "โอ้, ได้เลย..."; close; }
+				for(set .@i,0; .@i<getarraysize(.@itemoption_id); set .@i,.@i+1)
+				setarray .@position$[1], "ส่วนหัว"; setarray .@indices[1], EQI_HEAD_TOP;
+				for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+				set .@menu$, .@menu$ + .@position$[.@i] + "-[" + getequipname(.@indices[.@i]) + "]"; set .@menu$, .@menu$ + ":"; }
+				set .@id, .@indices[ select(.@menu$) ]; set .@part, getequipid(.@id);
+				@card1 = getequipcardid(.@id,0); @card2 = getequipcardid(.@id,1); @card3 = getequipcardid(.@id,2); @card4 = getequipcardid(.@id,3); next;
+				if (getequiprandomoption(.@id,0,ROA_ID)){ set .rand, rand(0,100); set .OptionHelmRandNoSaft, rand(1,100);
+				if (.@itemoption_id == 50001){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50001,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,204,3,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50001,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50002){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50002,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,12,10,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50002,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ..."; 
+				close; } }
+				if (.@itemoption_id == 50003){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50003,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,22,5,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50003,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50004){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50004,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,1,100,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50004,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50005){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50005,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,207,1,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50005,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50006){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50006,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,16,3,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50006,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50007){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50007,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,17,8,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50007,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50008){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50008,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,18,10,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50008,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50009){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50009,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,150,5,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50009,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50010){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50010,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,170,1,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50010,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50011){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50011,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,157,5,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50011,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50012){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50012,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,159,5,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50012,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50013){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50013,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,209,1,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50013,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50014){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50014,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,94,3,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50014,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50015){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50015,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,187,5,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50015,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50016){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50016,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,189,5,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50016,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				}
+				mes "[Option]";
+				mes "ไอเทม ยังไม่ได้ ออฟเทียร์1...";
+				close; next;
+				mes "[Option]";
+				mes "เรียบร้อย!";
+				close;
+//--------------------------------------------------------------------------------------------//
+		HLEM2:	mes " "; next;
+				if(select(" > ^0055FFแลกเปลี่ยน...^000000: > ^777777ยกเลิก^000000") == 2) {
+				mes "[Option]";
+				mes "โอ้, ได้เลย..."; close; }
+				for(set .@i,0; .@i<getarraysize(.@itemoption_id); set .@i,.@i+1)
+				setarray .@position$[1], "ส่วนหัว"; setarray .@indices[1], EQI_HEAD_TOP;
+				for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+				set .@menu$, .@menu$ + .@position$[.@i] + "-[" + getequipname(.@indices[.@i]) + "]"; set .@menu$, .@menu$ + ":"; }
+				set .@id, .@indices[ select(.@menu$) ]; set .@part, getequipid(.@id);
+				@card1 = getequipcardid(.@id,0); @card2 = getequipcardid(.@id,1); @card3 = getequipcardid(.@id,2); @card4 = getequipcardid(.@id,3); next;
+				if (getequiprandomoption(.@id,0,ROA_ID)){ set .rand, rand(0,100); set .OptionHelmRandNoSaft, rand(1,100);
+				if (.@itemoption_id == 50001){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50001,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,204,3,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50001,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50002){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50002,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,12,10,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50002,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50003){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50003,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,22,5,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50003,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50004){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50004,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,1,100,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50004,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50005){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50005,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,207,1,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50005,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50006){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50006,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,16,3,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50006,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50007){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50007,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,17,8,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50007,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50008){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50008,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,18,10,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50008,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50009){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50009,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,150,5,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50009,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50010){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50010,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,170,1,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50010,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50011){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50011,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,157,5,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50011,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50012){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50012,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,159,5,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50012,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50013){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50013,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,209,1,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50013,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50014){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50014,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,94,3,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50014,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50015){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50015,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,187,5,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50015,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50016){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50016,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,189,5,0); close;}
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50016,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				}
+				mes "[Option]";
+				mes "ไอเทม ยังไม่ได้ ออฟเทียร์1...";
+				close; next;
+				mes "[Option]";
+				mes "เรียบร้อย!";
+				close;
+//--------------------------------------------------------------------------------------------//
+		HLEM3:	mes " "; next;
+				if(select(" > ^0055FFแลกเปลี่ยน...^000000: > ^777777ยกเลิก^000000") == 2) {
+				mes "[Option]";
+				mes "โอ้, ได้เลย..."; close; }
+				for(set .@i,0; .@i<getarraysize(.@itemoption_id); set .@i,.@i+1)
+				setarray .@position$[1], "ส่วนหัว"; setarray .@indices[1], EQI_HEAD_TOP;
+				for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+				set .@menu$, .@menu$ + .@position$[.@i] + "-[" + getequipname(.@indices[.@i]) + "]"; set .@menu$, .@menu$ + ":"; }
+				set .@id, .@indices[ select(.@menu$) ]; set .@part, getequipid(.@id);
+				@card1 = getequipcardid(.@id,0); @card2 = getequipcardid(.@id,1); @card3 = getequipcardid(.@id,2); @card4 = getequipcardid(.@id,3); next;
+				if (getequiprandomoption(.@id,0,ROA_ID)){
+				if (.@itemoption_id == 50001){ delitem 50001,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,204,3,0); close; }
+				if (.@itemoption_id == 50002){ delitem 50002,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,12,10,0); close; }
+				if (.@itemoption_id == 50003){ delitem 50003,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,22,5,0); close; }
+				if (.@itemoption_id == 50004){ delitem 50004,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,1,100,0); close; }
+				if (.@itemoption_id == 50005){ delitem 50005,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,207,1,0); close; }
+				if (.@itemoption_id == 50006){ delitem 50006,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,16,3,0); close; }
+				if (.@itemoption_id == 50007){ delitem 50007,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,17,8,0); close; }
+				if (.@itemoption_id == 50008){ delitem 50008,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,18,10,0); close; }
+				if (.@itemoption_id == 50009){ delitem 50009,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,150,5,0); close; }
+				if (.@itemoption_id == 50010){ delitem 50010,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,170,1,0); close; }
+				if (.@itemoption_id == 50011){ delitem 50011,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,157,5,0); close; }
+				if (.@itemoption_id == 50012){ delitem 50012,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,159,5,0); close; }
+				if (.@itemoption_id == 50013){ delitem 50013,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,209,1,0); close; }
+				if (.@itemoption_id == 50014){ delitem 50014,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,94,3,0); close; }
+				if (.@itemoption_id == 50015){ delitem 50015,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,187,5,0); close; }
+				if (.@itemoption_id == 50016){ delitem 50016,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,189,5,0); close; }
+				}
+				mes "[Option]";
+				mes "ไอเทม ยังไม่ได้ ออฟเทียร์1...";
+				close; next;
+				mes "[Option]";
+				mes "เรียบร้อย!";
+				close; 
+//=================================ARMOR======================================================//	
+		ARMOR1:	mes " "; next;
+				if(select(" > ^0055FFแลกเปลี่ยน...^000000: > ^777777ยกเลิก^000000") == 2) {
+				mes "[Option]";
+				mes "โอ้, ได้เลย..."; close; }
+				for(set .@i,0; .@i<getarraysize(.@itemoption_id); set .@i,.@i+1)
+				setarray .@position$[1], "เสื้อเกราะ"; setarray .@indices[1], EQI_ARMOR;
+				for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+				set .@menu$, .@menu$ + .@position$[.@i] + "-[" + getequipname(.@indices[.@i]) + "]"; set .@menu$, .@menu$ + ":"; }
+				set .@id, .@indices[ select(.@menu$) ]; set .@part, getequipid(.@id);
+				@card1 = getequipcardid(.@id,0); @card2 = getequipcardid(.@id,1); @card3 = getequipcardid(.@id,2); @card4 = getequipcardid(.@id,3); next;
+				if (getequiprandomoption(.@id,0,ROA_ID)){ set .rand, rand(0,100); set .OptionArmorRandNoSaft, rand(1,100);
+				if (.@itemoption_id == 50101){
+				if ( .OptionArmorRandNoSaft <= 50 ){ delitem 50101,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,204,3,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50101,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50102){
+				if ( .OptionArmorRandNoSaft <= 50 ){ delitem 50102,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,12,10,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50102,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50103){
+				if ( .OptionArmorRandNoSaft <= 50 ){ delitem 50103,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,22,5,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50103,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ..."; close; } }
+				if (.@itemoption_id == 50104){
+				if ( .OptionArmorRandNoSaft <= 50 ){ delitem 50104,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,1,100,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50104,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50105){
+				if ( .OptionArmorRandNoSaft <= 50 ){ delitem 50105,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,207,1,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50105,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50106){
+				if ( .OptionArmorRandNoSaft <= 50 ){ delitem 50106,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,2,10,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50106,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50107){
+				if ( .OptionArmorRandNoSaft <= 50 ){ delitem 50107,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,21,3,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50107,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50108){
+				if ( .OptionArmorRandNoSaft <= 50 ){ delitem 50108,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,160,3,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50108,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50109){
+				if ( .OptionArmorRandNoSaft <= 50 ){ delitem 50109,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,162,3,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50109,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50110){
+				if ( .OptionArmorRandNoSaft <= 50 ){ delitem 50110,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,206,3,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50110,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50111){
+				if ( .OptionArmorRandNoSaft <= 50 ){ delitem 50111,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,193,5,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50111,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				}
+				mes "[Option]";
+				mes "ไอเทม ยังไม่ได้ ออฟเทียร์1...";
+				close; next;
+				mes "[Option]";
+				mes "เรียบร้อย!";
+				close;
+//--------------------------------------------------------------------------------------------//
+		ARMOR2: mes " "; next;
+				if(select(" > ^0055FFแลกเปลี่ยน...^000000: > ^777777ยกเลิก^000000") == 2) {
+				mes "[Option]";
+				mes "โอ้, ได้เลย..."; close; }
+				for(set .@i,0; .@i<getarraysize(.@itemoption_id); set .@i,.@i+1)
+				setarray .@position$[1], "เสื้อเกราะ"; setarray .@indices[1], EQI_ARMOR;
+				for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+				set .@menu$, .@menu$ + .@position$[.@i] + "-[" + getequipname(.@indices[.@i]) + "]"; set .@menu$, .@menu$ + ":"; }
+				set .@id, .@indices[ select(.@menu$) ]; set .@part, getequipid(.@id);
+				@card1 = getequipcardid(.@id,0); @card2 = getequipcardid(.@id,1); @card3 = getequipcardid(.@id,2); @card4 = getequipcardid(.@id,3); next;
+				if (getequiprandomoption(.@id,0,ROA_ID)){ set .rand, rand(0,100); set .OptionArmorRandNoSaft, rand(1,100);
+				if (.@itemoption_id == 50101){
+				if ( .OptionArmorRandNoSaft <= 70 ){ delitem 50101,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,204,3,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50101,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50102){
+				if ( .OptionArmorRandNoSaft <= 70 ){ delitem 50102,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,12,10,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50102,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50103){
+				if ( .OptionArmorRandNoSaft <= 70 ){ delitem 50103,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,22,5,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50103,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50104){
+				if ( .OptionArmorRandNoSaft <= 70 ){ delitem 50104,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,1,100,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50104,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50105){
+				if ( .OptionArmorRandNoSaft <= 70 ){ delitem 50105,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,207,1,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50105,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50106){
+				if ( .OptionArmorRandNoSaft <= 70 ){ delitem 50106,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,2,10,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50106,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50107){
+				if ( .OptionArmorRandNoSaft <= 70 ){ delitem 50107,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,21,3,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50107,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50108){
+				if ( .OptionArmorRandNoSaft <= 70 ){ delitem 50108,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,160,3,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50108,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50109){
+				if ( .OptionArmorRandNoSaft <= 70 ){ delitem 50109,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,162,3,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50109,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50110){
+				if ( .OptionArmorRandNoSaft <= 70 ){ delitem 50110,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,206,3,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50110,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50111){
+				if ( .OptionArmorRandNoSaft <= 70 ){ delitem 50111,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,193,5,0); close;}
+				if ( .OptionArmorRandNoSaft <= 100 ){ delitem 50111,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				}
+				mes "[Option]";
+				mes "ไอเทม ยังไม่ได้ ออฟเทียร์1...";
+				close; next;
+				mes "[Option]";
+				mes "เรียบร้อย!";
+				close;
+//--------------------------------------------------------------------------------------------//	
+		ARMOR3:	mes " "; next;
+				if(select(" > ^0055FFแลกเปลี่ยน...^000000: > ^777777ยกเลิก^000000") == 2) {
+				mes "[Option]";
+				mes "โอ้, ได้เลย..."; close; }
+				for(set .@i,0; .@i<getarraysize(.@itemoption_id); set .@i,.@i+1)
+				setarray .@position$[1], "เสื้อเกราะ"; setarray .@indices[1], EQI_ARMOR;
+				for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+				set .@menu$, .@menu$ + .@position$[.@i] + "-[" + getequipname(.@indices[.@i]) + "]"; set .@menu$, .@menu$ + ":"; }
+				set .@id, .@indices[ select(.@menu$) ]; set .@part, getequipid(.@id);
+				@card1 = getequipcardid(.@id,0); @card2 = getequipcardid(.@id,1); @card3 = getequipcardid(.@id,2); @card4 = getequipcardid(.@id,3); next;
+				if (getequiprandomoption(.@id,0,ROA_ID)){
+				if (.@itemoption_id == 50101){ delitem 50101,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,204,3,0); close; }
+				if (.@itemoption_id == 50102){ delitem 50102,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,12,10,0); close; }
+				if (.@itemoption_id == 50103){ delitem 50103,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,22,5,0); close; }
+				if (.@itemoption_id == 50104){ delitem 50104,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,1,100,0); close; }
+				if (.@itemoption_id == 50105){ delitem 50105,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,207,1,0); close; }
+				if (.@itemoption_id == 50106){ delitem 50106,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,2,10,0); close; }
+				if (.@itemoption_id == 50107){ delitem 50107,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,21,3,0); close; }
+				if (.@itemoption_id == 50108){ delitem 50108,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,160,3,0); close; }
+				if (.@itemoption_id == 50109){ delitem 50109,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,162,3,0); close; }
+				if (.@itemoption_id == 50110){ delitem 50110,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,206,3,0); close; }
+				if (.@itemoption_id == 50111){ delitem 50111,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,193,5,0); close; }
+				}
+				mes "[Option]";
+				mes "ไอเทม ยังไม่ได้ ออฟเทียร์1...";
+				close; next;
+				mes "[Option]";
+				mes "เรียบร้อย!";
+				close;
+//=================================GARMENT======================================================//	
+	GARMENT1: 	mes " "; next;
+				if(select(" > ^0055FFแลกเปลี่ยน...^000000: > ^777777ยกเลิก^000000") == 2) {
+				mes "[Option]";
+				mes "โอ้, ได้เลย..."; close; }
+				for(set .@i,0; .@i<getarraysize(.@itemoption_id); set .@i,.@i+1)
+				setarray .@position$[1], "ผ้าคลุม"; setarray .@indices[1], EQI_GARMENT;
+				for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+				set .@menu$, .@menu$ + .@position$[.@i] + "-[" + getequipname(.@indices[.@i]) + "]"; set .@menu$, .@menu$ + ":"; }
+				set .@id, .@indices[ select(.@menu$) ]; set .@part, getequipid(.@id);
+				@card1 = getequipcardid(.@id,0); @card2 = getequipcardid(.@id,1); @card3 = getequipcardid(.@id,2); @card4 = getequipcardid(.@id,3); next;
+				if (getequiprandomoption(.@id,0,ROA_ID)){ set .rand, rand(0,100); set .OptionGarmentRandNoSaft, rand(1,100);
+				if (.@itemoption_id == 50201){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50201,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,204,3,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50201,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50202){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50202,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,12,10,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50202,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50203){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50203,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,1,100,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50203,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50204){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50204,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,208,8,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50204,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50205){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50205,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,207,1,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50205,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50206){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50206,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,2,10,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50206,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50207){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50207,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,21,3,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50207,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50208){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50208,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,34,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50208,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50209){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50209,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,30,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50209,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50210){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50210,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,26,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50210,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50211){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50211,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,29,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50211,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50212){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50212,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,31,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50212,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50213){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50213,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,28,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50213,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50214){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50214,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,27,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50214,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50215){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50215,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,33,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50215,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				}
+				mes "[Option]";
+				mes "ไอเทม ยังไม่ได้ ออฟเทียร์1...";
+				close; next; 
+				mes "[Option]";
+				mes "เรียบร้อย!";
+				close;
+//--------------------------------------------------------------------------------------------//
+	GARMENT2: 	mes " "; next;
+				if(select(" > ^0055FFแลกเปลี่ยน...^000000: > ^777777ยกเลิก^000000") == 2) {
+				mes "[Option]";
+				mes "โอ้, ได้เลย..."; close; }
+				for(set .@i,0; .@i<getarraysize(.@itemoption_id); set .@i,.@i+1)
+				setarray .@position$[1], "ผ้าคลุม"; setarray .@indices[1], EQI_GARMENT;
+				for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+				set .@menu$, .@menu$ + .@position$[.@i] + "-[" + getequipname(.@indices[.@i]) + "]"; set .@menu$, .@menu$ + ":"; }
+				set .@id, .@indices[ select(.@menu$) ]; set .@part, getequipid(.@id);
+				@card1 = getequipcardid(.@id,0); @card2 = getequipcardid(.@id,1); @card3 = getequipcardid(.@id,2); @card4 = getequipcardid(.@id,3); next;
+				if (getequiprandomoption(.@id,0,ROA_ID)){ set .rand, rand(0,100); set .OptionGarmentRandNoSaft, rand(1,100);
+				if (.@itemoption_id == 50201){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50201,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,204,3,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50201,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50202){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50202,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,12,10,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50202,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50203){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50203,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,1,100,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50203,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50204){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50204,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,208,8,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50204,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50205){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50205,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,207,1,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50205,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50206){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50206,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,2,10,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50206,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50207){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50207,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,21,3,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50207,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50208){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50208,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,34,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50208,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50209){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50209,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,30,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50209,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50210){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50210,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,26,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50210,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50211){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50211,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,29,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50211,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50212){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50212,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,31,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50212,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50213){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50213,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,28,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50213,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50214){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50214,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,27,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50214,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50215){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50215,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,33,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50215,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				}
+				mes "[Option]";
+				mes "ไอเทม ยังไม่ได้ ออฟเทียร์1...";
+				close; next; 
+				mes "[Option]";
+				mes "เรียบร้อย!";
+				close;
+//--------------------------------------------------------------------------------------------//
+	GARMENT3: 	mes " "; next;
+				if(select(" > ^0055FFแลกเปลี่ยน...^000000: > ^777777ยกเลิก^000000") == 2) {
+				mes "[Option]";
+				mes "โอ้, ได้เลย..."; close; }
+				for(set .@i,0; .@i<getarraysize(.@itemoption_id); set .@i,.@i+1)
+				setarray .@position$[1], "ผ้าคลุม"; setarray .@indices[1], EQI_GARMENT;
+				for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+				set .@menu$, .@menu$ + .@position$[.@i] + "-[" + getequipname(.@indices[.@i]) + "]"; set .@menu$, .@menu$ + ":"; }
+				set .@id, .@indices[ select(.@menu$) ]; set .@part, getequipid(.@id);
+				@card1 = getequipcardid(.@id,0); @card2 = getequipcardid(.@id,1); @card3 = getequipcardid(.@id,2); @card4 = getequipcardid(.@id,3); next;
+				if (getequiprandomoption(.@id,0,ROA_ID)){
+				if (.@itemoption_id == 50201){ delitem 50201,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,204,3,0); close;} 
+				if (.@itemoption_id == 50202){ delitem 50202,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,12,10,0); close;}
+				if (.@itemoption_id == 50203){ delitem 50203,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,1,100,0); close;}
+				if (.@itemoption_id == 50204){ delitem 50204,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,208,8,0); close;}
+				if (.@itemoption_id == 50205){ delitem 50205,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,207,1,0); close;}
+				if (.@itemoption_id == 50206){ delitem 50206,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,2,10,0); close;}
+				if (.@itemoption_id == 50207){ delitem 50207,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,21,3,0); close;}
+				if (.@itemoption_id == 50208){ delitem 50208,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,34,5,0); close;}
+				if (.@itemoption_id == 50209){ delitem 50209,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,30,5,0); close;}
+				if (.@itemoption_id == 50210){ delitem 50210,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,26,5,0); close;}
+				if (.@itemoption_id == 50211){ delitem 50211,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,29,5,0); close;}
+				if (.@itemoption_id == 50212){ delitem 50212,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,31,5,0); close;}
+				if (.@itemoption_id == 50213){ delitem 50213,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,28,5,0); close;}
+				if (.@itemoption_id == 50214){ delitem 50214,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,27,5,0); close;}
+				if (.@itemoption_id == 50215){ delitem 50215,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,33,5,0); close;}
+				}
+				mes "[Option]";
+				mes "ไอเทม ยังไม่ได้ ออฟเทียร์1...";
+				close; next; 
+				mes "[Option]";
+				mes "เรียบร้อย!";
+				close;
+//=================================SHOES======================================================//	
+		SHOES1:	mes " "; next;
+				if(select(" > ^0055FFแลกเปลี่ยน...^000000: > ^777777ยกเลิก^000000") == 2) {
+				mes "[Option]";
+				mes "โอ้, ได้เลย..."; close; }
+				for(set .@i,0; .@i<getarraysize(.@itemoption_id); set .@i,.@i+1)
+				setarray .@position$[1], "รองเท้า"; setarray .@indices[1], EQI_SHOES;
+				for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+				set .@menu$, .@menu$ + .@position$[.@i] + "-[" + getequipname(.@indices[.@i]) + "]"; set .@menu$, .@menu$ + ":"; }
+				set .@id, .@indices[ select(.@menu$) ]; set .@part, getequipid(.@id);
+				@card1 = getequipcardid(.@id,0); @card2 = getequipcardid(.@id,1); @card3 = getequipcardid(.@id,2); @card4 = getequipcardid(.@id,3); next;
+				if (getequiprandomoption(.@id,0,ROA_ID)){ set .rand, rand(0,100); set .OptionGarmentRandNoSaft, rand(1,100);
+				if (.@itemoption_id == 50301){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50301,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,204,3,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50301,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50302){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50302,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,12,10,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50302,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50303){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50303,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,166,3,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50303,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50304){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50304,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,1,100,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50304,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50305){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50305,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,22,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50305,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50306){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50306,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,207,1,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50306,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50307){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50307,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,2,10,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50307,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50308){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50308,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,21,3,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50308,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50309){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50309,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,6,4,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50309,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50310){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50310,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,14,4,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50310,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				}
+				mes "[Option]";
+				mes "ไอเทม ยังไม่ได้ ออฟเทียร์1...";
+				close; next;
+				mes "[Option]";
+				mes "เรียบร้อย!";
+				close;
+//--------------------------------------------------------------------------------------------//
+		SHOES2:	mes " "; next;
+				if(select(" > ^0055FFแลกเปลี่ยน...^000000: > ^777777ยกเลิก^000000") == 2) {
+				mes "[Option]";
+				mes "โอ้, ได้เลย..."; close; }
+				for(set .@i,0; .@i<getarraysize(.@itemoption_id); set .@i,.@i+1)
+				setarray .@position$[1], "รองเท้า"; setarray .@indices[1], EQI_SHOES;
+				for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+				set .@menu$, .@menu$ + .@position$[.@i] + "-[" + getequipname(.@indices[.@i]) + "]"; set .@menu$, .@menu$ + ":"; }
+				set .@id, .@indices[ select(.@menu$) ]; set .@part, getequipid(.@id);
+				@card1 = getequipcardid(.@id,0); @card2 = getequipcardid(.@id,1); @card3 = getequipcardid(.@id,2); @card4 = getequipcardid(.@id,3); next;
+				if (getequiprandomoption(.@id,0,ROA_ID)){ set .rand, rand(0,100); set .OptionGarmentRandNoSaft, rand(1,100);
+				if (.@itemoption_id == 50301){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50301,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,204,3,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50301,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50302){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50302,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,12,10,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50302,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50303){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50303,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,166,3,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50303,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50304){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50304,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,1,100,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50304,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50305){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50305,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,22,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50305,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50306){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50306,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,207,1,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50306,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50307){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50307,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,2,10,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50307,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50308){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50308,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,21,3,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50308,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50309){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50309,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,6,4,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50309,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50310){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50310,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,14,4,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50310,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				}
+				mes "[Option]";
+				mes "ไอเทม ยังไม่ได้ ออฟเทียร์1...";
+				close; next;
+				mes "[Option]";
+				mes "เรียบร้อย!";
+				close;
+//--------------------------------------------------------------------------------------------//
+		SHOES3:	mes " "; next;
+				if(select(" > ^0055FFแลกเปลี่ยน...^000000: > ^777777ยกเลิก^000000") == 2) {
+				mes "[Option]";
+				mes "โอ้, ได้เลย..."; close; }
+				for(set .@i,0; .@i<getarraysize(.@itemoption_id); set .@i,.@i+1)
+				setarray .@position$[1], "รองเท้า"; setarray .@indices[1], EQI_SHOES;
+				for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) {
+				if( getequipisequiped(.@indices[.@i]) )
+				set .@menu$, .@menu$ + .@position$[.@i] + "-[" + getequipname(.@indices[.@i]) + "]"; set .@menu$, .@menu$ + ":"; }
+				set .@id, .@indices[ select(.@menu$) ]; set .@part, getequipid(.@id);
+				@card1 = getequipcardid(.@id,0); @card2 = getequipcardid(.@id,1); @card3 = getequipcardid(.@id,2); @card4 = getequipcardid(.@id,3); next;
+				if (getequiprandomoption(.@id,0,ROA_ID)){
+				set .rand, rand(0,100); set .OptionGarmentRandNoSaft, rand(1,100);
+				if (.@itemoption_id == 50301){ delitem 50301,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,204,3,0); close;}
+				if (.@itemoption_id == 50302){ delitem 50302,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,12,10,0); close;}
+				if (.@itemoption_id == 50303){ delitem 50303,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,166,3,0); close;}
+				if (.@itemoption_id == 50304){ delitem 50304,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,1,100,0); close;}
+				if (.@itemoption_id == 50305){ delitem 50305,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,22,5,0); close;}
+				if (.@itemoption_id == 50306){ delitem 50306,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,207,1,0); close;}
+				if (.@itemoption_id == 50307){ delitem 50307,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,2,10,0); close;}
+				if (.@itemoption_id == 50308){ delitem 50308,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,21,3,0); close;}
+				if (.@itemoption_id == 50309){ delitem 50309,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,6,4,0); close;}
+				if (.@itemoption_id == 50310){ delitem 50310,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,14,4,0); close;}
+				}
+				mes "[Option]";
+				mes "ไอเทม ยังไม่ได้ ออฟเทียร์1...";
+				close; next;
+				mes "[Option]";
+				mes "เรียบร้อย!";
+				close;
+//=================================Shield======================================================//	
+		HANDL1:	mes " "; next;
+				if(select(" > ^0055FFแลกเปลี่ยน...^000000: > ^777777ยกเลิก^000000") == 2) {
+				mes "[Option]"; mes "โอ้, ได้เลย..."; close; }
+				for(set .@i,0; .@i<getarraysize(.@itemoption_id); set .@i,.@i+1)
+				setarray .@position$[1], "มือซ้าย"; setarray .@indices[1], EQI_HAND_L;
+				for(set .@i,1; .@i<getarraysize(.@indices); set .@i,.@i+1){
+				if(getequipisequiped(.@indices[.@i])){
+				set @refine_rate,getequippercentrefinery(.@indices[.@i]);
+				set .@menu$, .@menu$ + .@position$[.@i] + "-[" + getequipname(.@indices[.@i]) + " ] "; set .@equipped,1; } 		
+				set .@menu$,.@menu$+":"; } set .@part,.@indices[select(.@menu$)];	
+				if(getequipweaponlv(.@part) == 1)+ (getequipweaponlv(.@part) == 2)+ (getequipweaponlv(.@part) == 3)+ (getequipweaponlv(.@part) == 4){
+				mes "[Option]"; mes "อาวุธไม่สามารถออฟได้..."; close; }
+				set .@id, .@indices[ select(.@menu$) ]; set .@part, getequipid(.@id);
+				@card1 = getequipcardid(.@id,0); @card2 = getequipcardid(.@id,1); @card3 = getequipcardid(.@id,2); @card4 = getequipcardid(.@id,3); next;
+				if(getequipweaponlv(.@hand) == 0 )+(getequipweaponlv(.@hand) == 5 ){
+				if (getequiprandomoption(.@id,0,ROA_ID)){ set .rand, rand(0,100); set .OptionGarmentRandNoSaft, rand(1,100);
+				if (.@itemoption_id == 50401){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50401,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,204,3,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50401,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50402){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50402,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,1,100,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50402,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50403){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50403,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,2,100,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50403,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50404){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50404,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,21,3,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50404,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50405){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50405,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,96,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50405,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50406){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50406,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,92,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50406,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50407){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50407,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,89,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50407,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50408){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50408,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,87,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50408,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50409){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50409,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,90,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50409,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50410){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50410,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,93,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50410,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50411){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50411,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,91,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50411,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50412){
+				if ( .OptionGarmentRandNoSaft <= 50 ){ delitem 50412,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,150,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50412,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+		}
+		}
+				mes "[Option]";
+				mes "ไอเทม ยังไม่ได้ ออฟเทียร์1...";
+				close; next;
+				mes "[Option]";
+				mes "เรียบร้อย!";
+				close;
+//--------------------------------------------------------------------------------------------//
+		HANDL2:	mes " "; next;
+				if(select(" > ^0055FFแลกเปลี่ยน...^000000: > ^777777ยกเลิก^000000") == 2) {
+				mes "[Option]"; mes "โอ้, ได้เลย..."; close; }
+				for(set .@i,0; .@i<getarraysize(.@itemoption_id); set .@i,.@i+1)
+				setarray .@position$[1], "มือซ้าย"; setarray .@indices[1], EQI_HAND_L;
+				for(set .@i,1; .@i<getarraysize(.@indices); set .@i,.@i+1){
+				if(getequipisequiped(.@indices[.@i])){
+				set @refine_rate,getequippercentrefinery(.@indices[.@i]);
+				set .@menu$, .@menu$ + .@position$[.@i] + "-[" + getequipname(.@indices[.@i]) + " ] "; set .@equipped,1; } 		
+				set .@menu$,.@menu$+":"; } set .@part,.@indices[select(.@menu$)];	
+				if(getequipweaponlv(.@part) == 1)+ (getequipweaponlv(.@part) == 2)+ (getequipweaponlv(.@part) == 3)+ (getequipweaponlv(.@part) == 4){
+				mes "[Option]"; mes "อาวุธไม่สามารถออฟได้..."; close; }
+				set .@id, .@indices[ select(.@menu$) ]; set .@part, getequipid(.@id);
+				@card1 = getequipcardid(.@id,0); @card2 = getequipcardid(.@id,1); @card3 = getequipcardid(.@id,2); @card4 = getequipcardid(.@id,3); next;
+				if(getequipweaponlv(.@hand) == 0 )+(getequipweaponlv(.@hand) == 5 ){
+				if (getequiprandomoption(.@id,0,ROA_ID)){ set .rand, rand(0,100); set .OptionGarmentRandNoSaft, rand(1,100);
+				if (.@itemoption_id == 50401){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50401,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,204,3,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50401,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50402){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50402,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,1,100,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50402,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50403){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50403,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,2,100,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50403,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50404){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50404,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,21,3,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50404,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50405){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50405,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,96,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50405,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50406){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50406,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,92,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50406,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50407){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50407,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,89,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50407,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50408){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50408,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,87,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50408,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50409){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50409,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,90,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50409,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50410){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50410,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,93,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50410,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50411){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50411,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,91,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50411,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50412){
+				if ( .OptionGarmentRandNoSaft <= 70 ){ delitem 50412,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,150,5,0); close;}
+				if ( .OptionGarmentRandNoSaft <= 100 ){ delitem 50412,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+		}
+		}
+				mes "[Option]";
+				mes "ไอเทม ยังไม่ได้ ออฟเทียร์1...";
+				close; next;
+				mes "[Option]";
+				mes "เรียบร้อย!";
+				close;
+//--------------------------------------------------------------------------------------------//
+		HANDL3:	mes " "; next;
+				if(select(" > ^0055FFแลกเปลี่ยน...^000000: > ^777777ยกเลิก^000000") == 2) {
+				mes "[Option]"; mes "โอ้, ได้เลย..."; close; }
+				for(set .@i,0; .@i<getarraysize(.@itemoption_id); set .@i,.@i+1)
+				setarray .@position$[1], "มือซ้าย"; setarray .@indices[1], EQI_HAND_L;
+				for(set .@i,1; .@i<getarraysize(.@indices); set .@i,.@i+1){
+				if(getequipisequiped(.@indices[.@i])){
+				set @refine_rate,getequippercentrefinery(.@indices[.@i]);
+				set .@menu$, .@menu$ + .@position$[.@i] + "-[" + getequipname(.@indices[.@i]) + " ] "; set .@equipped,1; } 		
+				set .@menu$,.@menu$+":"; } set .@part,.@indices[select(.@menu$)];	
+				if(getequipweaponlv(.@part) == 1)+ (getequipweaponlv(.@part) == 2)+ (getequipweaponlv(.@part) == 3)+ (getequipweaponlv(.@part) == 4){
+				mes "[Option]"; mes "อาวุธไม่สามารถออฟได้..."; close; }
+				set .@id, .@indices[ select(.@menu$) ]; set .@part, getequipid(.@id);
+				@card1 = getequipcardid(.@id,0); @card2 = getequipcardid(.@id,1); @card3 = getequipcardid(.@id,2); @card4 = getequipcardid(.@id,3); next;
+				if(getequipweaponlv(.@hand) == 0 )+(getequipweaponlv(.@hand) == 5 ){
+				if (getequiprandomoption(.@id,0,ROA_ID)){
+				if (.@itemoption_id == 50401){ delitem 50401,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,204,3,0); close;}
+				if (.@itemoption_id == 50402){ delitem 50402,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,1,100,0); close;}
+				if (.@itemoption_id == 50403){ delitem 50403,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,2,100,0); close;}
+				if (.@itemoption_id == 50404){ delitem 50404,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,21,3,0); close;}
+				if (.@itemoption_id == 50405){ delitem 50405,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,96,5,0); close;}
+				if (.@itemoption_id == 50406){ delitem 50406,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,92,5,0); close;}
+				if (.@itemoption_id == 50407){ delitem 50407,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,89,5,0); close;}
+				if (.@itemoption_id == 50408){ delitem 50408,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,87,5,0); close;}
+				if (.@itemoption_id == 50409){ delitem 50409,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,90,5,0); close;}
+				if (.@itemoption_id == 50410){ delitem 50410,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,93,5,0); close;}
+				if (.@itemoption_id == 50411){ delitem 50411,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,91,5,0); close;}
+				if (.@itemoption_id == 50412){ delitem 50412,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,150,5,0); close;}
+				}
+				}
+				mes "[Option]";
+				mes "ไอเทม ยังไม่ได้ ออฟเทียร์1...";
+				close; next;
+				mes "[Option]";
+				mes "เรียบร้อย!";
+				close;
+//=================================WEAPON======================================================//	
+		WEAPON1:	mes " "; next;
+				if(select(" > ^0055FFแลกเปลี่ยน...^000000: > ^777777ยกเลิก^000000") == 2) {
+				mes "[Option]"; mes "โอ้, ได้เลย..."; close; }
+				for(set .@i,0; .@i<getarraysize(.@itemoption_id); set .@i,.@i+1)
+				setarray .@position$[1], "มือขวา"; setarray .@indices[1], EQI_HAND_R;
+				for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) { if( getequipisequiped(.@indices[.@i]) )
+				set .@menu$, .@menu$ + .@position$[.@i] + "-[" + getequipname(.@indices[.@i]) + "]"; set .@menu$, .@menu$ + ":"; }
+				set .@id, .@indices[ select(.@menu$) ]; set .@part, getequipid(.@id);
+				@card1 = getequipcardid(.@id,0); @card2 = getequipcardid(.@id,1); @card3 = getequipcardid(.@id,2); @card4 = getequipcardid(.@id,3); next;
+				if (getequiprandomoption(.@id,0,ROA_ID)){set .rand, rand(0,100); set .OptionHelmRandNoSaft, rand(1,100);
+				if (.@itemoption_id == 50501){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50501,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,47,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50501,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50502){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50502,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,39,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50502,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50503){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50503,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,45,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50503,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50504){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50504,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,49,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50504,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50505){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50505,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,55,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50505,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50506){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50506,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,43,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50506,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50507){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50507,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,41,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50507,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50508){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50508,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,53,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50508,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50509){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50509,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,51,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50509,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50510){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50510,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,14,10,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50510,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50511){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50511,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,97,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50511,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50512){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50512,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,98,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50512,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50513){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50513,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,99,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50513,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50514){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50514,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,100,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50514,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50515){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50515,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,101,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50515,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50516){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50516,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,102,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50516,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50517){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50517,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,103,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50517,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50518){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50518,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,104,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50518,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50519){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50519,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,105,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50519,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50520){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50520,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,106,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50520,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50521){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50521,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,148,10,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50521,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50522){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50522,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,166,6,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50522,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50523){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50523,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,164,6,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50523,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50524){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50524,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,207,1,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50524,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50525){
+				if ( .OptionHelmRandNoSaft <= 50 ){ delitem 50525,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,170,1,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50525,1; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				}
+				mes "[Option]";
+				mes "ไอเทม ยังไม่ได้ ออฟเทียร์1...";
+				close; next;
+				mes "[Option]";
+				mes "เรียบร้อย!";
+				close;
+//--------------------------------------------------------------------------------------------//
+		WEAPON2:	mes " "; next;
+				if(select(" > ^0055FFแลกเปลี่ยน...^000000: > ^777777ยกเลิก^000000") == 2) {
+				mes "[Option]"; mes "โอ้, ได้เลย..."; close; }
+				for(set .@i,0; .@i<getarraysize(.@itemoption_id); set .@i,.@i+1)
+				setarray .@position$[1], "มือขวา"; setarray .@indices[1], EQI_HAND_R;
+				for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) { if( getequipisequiped(.@indices[.@i]) )
+				set .@menu$, .@menu$ + .@position$[.@i] + "-[" + getequipname(.@indices[.@i]) + "]"; set .@menu$, .@menu$ + ":"; }
+				set .@id, .@indices[ select(.@menu$) ]; set .@part, getequipid(.@id);
+				@card1 = getequipcardid(.@id,0); @card2 = getequipcardid(.@id,1); @card3 = getequipcardid(.@id,2); @card4 = getequipcardid(.@id,3); next;
+				if (getequiprandomoption(.@id,0,ROA_ID)){set .rand, rand(0,100); set .OptionHelmRandNoSaft, rand(1,100);
+				if (.@itemoption_id == 50501){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50501,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,47,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50501,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50502){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50502,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,39,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50502,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50503){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50503,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,45,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50503,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50504){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50504,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,49,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50504,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50505){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50505,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,55,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50505,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50506){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50506,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,43,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50506,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50507){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50507,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,41,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50507,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50508){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50508,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,53,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50508,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50509){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50509,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,51,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50509,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50510){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50510,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,14,10,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50510,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50511){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50511,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,97,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50511,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50512){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50512,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,98,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50512,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50513){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50513,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,99,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50513,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50514){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50514,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,100,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50514,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50515){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50515,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,101,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50515,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50516){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50516,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,102,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50516,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50517){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50517,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,103,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50517,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50518){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50518,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,104,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50518,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50519){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50519,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,105,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50519,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50520){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50520,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,106,5,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50520,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50521){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50521,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,148,10,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50521,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50522){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50522,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,166,6,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50522,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50523){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50523,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,164,6,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50523,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50524){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50524,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,207,1,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50524,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				if (.@itemoption_id == 50525){
+				if ( .OptionHelmRandNoSaft <= 70 ){ delitem 50525,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,170,1,0); close; }
+				if ( .OptionHelmRandNoSaft <= 100 ){ delitem 50525,1; delitem 50601,.RuneSaft20; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 135;
+				mes "[Option]";
+				mes "ออฟไม่สำเร็จ...";
+				close; } }
+				}
+				mes "[Option]";
+				mes "ไอเทม ยังไม่ได้ ออฟเทียร์1...";
+				close; next;
+				mes "[Option]";
+				mes "เรียบร้อย!";
+				close;
+//--------------------------------------------------------------------------------------------//
+		WEAPON3:	mes " "; next;
+				if(select(" > ^0055FFแลกเปลี่ยน...^000000: > ^777777ยกเลิก^000000") == 2) {
+				mes "[Option]"; mes "โอ้, ได้เลย..."; close; }
+				for(set .@i,0; .@i<getarraysize(.@itemoption_id); set .@i,.@i+1)
+				setarray .@position$[1], "มือขวา"; setarray .@indices[1], EQI_HAND_R;
+				for( set .@i,1; .@i <= 1; set .@i,.@i+1 ) { if( getequipisequiped(.@indices[.@i]) )
+				set .@menu$, .@menu$ + .@position$[.@i] + "-[" + getequipname(.@indices[.@i]) + "]"; set .@menu$, .@menu$ + ":"; }
+				set .@id, .@indices[ select(.@menu$) ]; set .@part, getequipid(.@id);
+				@card1 = getequipcardid(.@id,0); @card2 = getequipcardid(.@id,1); @card3 = getequipcardid(.@id,2); @card4 = getequipcardid(.@id,3); next;
+				if (getequiprandomoption(.@id,0,ROA_ID)){
+				if (.@itemoption_id == 50501){ delitem 50501,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,47,5,0); close; }
+				if (.@itemoption_id == 50502){ delitem 50502,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,39,5,0); close; }
+				if (.@itemoption_id == 50503){ delitem 50503,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,45,5,0); close; }
+				if (.@itemoption_id == 50504){ delitem 50504,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,49,5,0); close; }
+				if (.@itemoption_id == 50505){ delitem 50505,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,55,5,0); close; }
+				if (.@itemoption_id == 50506){ delitem 50506,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,43,5,0); close; }
+				if (.@itemoption_id == 50507){ delitem 50507,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,41,5,0); close; }
+				if (.@itemoption_id == 50508){ delitem 50508,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,53,5,0); close; }
+				if (.@itemoption_id == 50509){ delitem 50509,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,51,5,0); close; }
+				if (.@itemoption_id == 50510){ delitem 50510,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,14,10,0); close; }
+				if (.@itemoption_id == 50511){ delitem 50511,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,97,5,0); close; }
+				if (.@itemoption_id == 50512){ delitem 50512,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,98,5,0); close; }
+				if (.@itemoption_id == 50513){ delitem 50513,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,99,5,0); close; }
+				if (.@itemoption_id == 50514){ delitem 50514,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,100,5,0); close; }
+				if (.@itemoption_id == 50515){ delitem 50515,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,101,5,0); close; }
+				if (.@itemoption_id == 50516){ delitem 50516,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,102,5,0); close; }
+				if (.@itemoption_id == 50517){ delitem 50517,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,103,5,0); close; }
+				if (.@itemoption_id == 50518){ delitem 50518,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,104,5,0); close; }
+				if (.@itemoption_id == 50519){ delitem 50519,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,105,5,0); close; }
+				if (.@itemoption_id == 50520){ delitem 50520,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,106,5,0); close; }
+				if (.@itemoption_id == 50521){ delitem 50521,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,148,10,0); close; }
+				if (.@itemoption_id == 50522){ delitem 50522,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,166,6,0); close; }
+				if (.@itemoption_id == 50523){ delitem 50523,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,164,6,0); close; }
+				if (.@itemoption_id == 50524){ delitem 50524,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,207,1,0); close; }
+				if (.@itemoption_id == 50525){ delitem 50525,1; delitem 50602,.RuneSaft100; delitem 984,.OriNoSaft; delitem 985,.OriNoSaft; set Zeny,(Zeny-.ZenyNoSaft); specialeffect2 131; setrandomoption(.@id,1,170,1,0); close; }
+				}
+				mes "[Option]";
+				mes "ไอเทม ยังไม่ได้ ออฟเทียร์1...";
+				close; next;
+				mes "[Option]";
+				mes "เรียบร้อย!";
+				close;
+//--------------------------------------------------------------------------------------------//
+OnInit: setarray .messages$,"O","p","t","i","o","n"," ","T","i","e","r"," ","2"," "," "," ";
+		while( 1 ) { set .Display$,""; for( set .i,0; .i < getarraysize( .messages$ ); set .i,.i + 1 )
+				{ set .Display$,.Display$ + .messages$[.i]; delwaitingroom; waitingroom .Display$,0; sleep 100;
+				} sleep 1000; } end;}
+//=============================================================================================//
+-	shop	option_shop	-1,909:-1
+//=============================================================================================//
+
+
+function	script	OptionNoSaft50	{
+	next;
+	.ZenyNoSaft = 500000; // จำนวนไอเทม
+	.OriNoSaft = 50; // จำนวนไอเทม
+				if (countitem(984) < .OriNoSaft){ //รหัสไอเทมทั้วไป
+					mes "[Option]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					close; }
+				if (countitem(985) < .OriNoSaft){ //รหัสไอเทมทั้วไป
+					mes "[Option]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					close; }
+				if (Zeny < .ZenyNoSaft){
+					mes "[Option]";
+					mes "เจ้าไม่มีเงินพอที่จะออฟ.";
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";	
+					close; }
+					mes "[Option]";
+					mes "พร้อมหรือยัง ?";
+				if (select( "^000099พร้อม^000000.", "ยังก่อน." ) == 2) {
+					mes "[Option]";
+					mes "ข้าเชื่อในการตัดสินใจของเจ้า.";
+					close; }
+					return; }
+//=============================================================================================//
+function	script	OptionSaft70	{
+	next;
+	.ZenyNoSaft = 500000; // จำนวนไอเทม
+	.OriNoSaft = 50; // จำนวนไอเทม
+	.RuneSaft20 = 1;
+				if (countitem(984) < .OriNoSaft){ //รหัสไอเทมทั้วไป
+					mes "[Option]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					close; }
+				if (countitem(985) < .OriNoSaft){ //รหัสไอเทมทั้วไป
+					mes "[Option]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					close; }
+				if (countitem(50601) < .RuneSaft20){ //รหัสไอเทมทั้วไป
+					mes "[Option]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Lucky Craft 20%]^000000<INFO>50601</INFO></ITEM>^000000 "+ .RuneSaft20 +" ea";	// ไอเทมทั้วไป
+					close; }
+				if (Zeny < .ZenyNoSaft){
+					mes "[Option]";
+					mes "เจ้าไม่มีเงินพอที่จะออฟ.";
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";	
+					close; }
+					mes "[Option]";
+					mes "พร้อมหรือยัง ?";
+				if (select( "^000099พร้อม^000000.", "ยังก่อน." ) == 2) {
+					mes "[Option]";
+					mes "ข้าเชื่อในการตัดสินใจของเจ้า.";
+					close; }
+					return; }
+//=============================================================================================//
+function	script	OptionSaft100	{
+	next;
+	.ZenyNoSaft = 500000; // จำนวนไอเทม
+	.OriNoSaft = 50; // จำนวนไอเทม
+	.RuneSaft100 = 1;
+				if (countitem(984) < .OriNoSaft){ //รหัสไอเทมทั้วไป
+					mes "[Option]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Oridecon]^000000<INFO>984</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					close; }
+				if (countitem(985) < .OriNoSaft){ //รหัสไอเทมทั้วไป
+					mes "[Option]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Elunium]^000000<INFO>985</INFO></ITEM>^000000 "+ .OriNoSaft +" ea";	// ไอเทมทั้วไป
+					close; }
+				if (countitem(50602) < .RuneSaft100){ //รหัสไอเทมทั้วไป
+					mes "[Option]";
+					mes "เจ้าไม่มีไอเทมที่ใช้ออฟชั่น.";
+					mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Lucky Craft 50%]^000000<INFO>50602</INFO></ITEM>^000000 "+ .RuneSaft100 +" ea";	// ไอเทมทั้วไป
+					close; }
+				if (Zeny < .ZenyNoSaft){
+					mes "[Option]";
+					mes "เจ้าไม่มีเงินพอที่จะออฟ.";
+					mes "ข้อต้องการ ^FF0000"+ .ZenyNoSaft +" ^000000Zeny";	
+					close; }
+					mes "[Option]";
+					mes "พร้อมหรือยัง ?";
+				if (select( "^000099พร้อม^000000.", "ยังก่อน." ) == 2) {
+					mes "[Option]";
+					mes "ข้าเชื่อในการตัดสินใจของเจ้า.";
+					close; }
+					return; }
+//=============================================================================================//

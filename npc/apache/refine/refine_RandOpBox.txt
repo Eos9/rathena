@@ -1,0 +1,30 @@
+//===== Current Version: =====================================
+//= 18.2 
+//===== Compatible With: =====================================
+//= rAthena SVN
+//===== Credit: ==============================================
+//= มารี
+//===== Discord: =============================================
+//= Neko-Miku #4381
+//============================================================
+
+//========================[ กล่องทั่วไป ]===========================================//
+function	script	RandOpBox	{
+				if (countitem(50600) < 1){ mes "[Option Box]"; mes "ข้อต้องการ ^FFFFFF<ITEM>^4D4DFF[Key Option]^000000<INFO>50600</INFO></ITEM>^000000 1 ea";	 close; }
+				set .rand, rand(0,100); set .RandOpBox, rand(1,100);
+				if ( .RandOpBox <= 80 ){ setarray .RandBox[0],50604,50605,50606,50607,50608,50609; set .Random,rand(getarraysize(.RandBox)); getitem .RandBox[ .Random ], 1; delitem 50600,1; end; }
+				if ( .RandOpBox <= 95 ){ announce "ผู้เล่น ["+strcharinfo(0)+"] เปิดกล่องสุ่มออฟชั่น ได้รับ "+getitemname(50601)+" ",bc_all,0xFFFF00; getitem 50601, 1; delitem 50600,1; end; }
+				if ( .RandOpBox <= 100 ){ announce "ผู้เล่น ["+strcharinfo(0)+"] เปิดกล่องสุ่มออฟชั่น ได้รับ "+getitemname(50602)+" ",bc_all,0x00FFFF; getitem 50602, 1; delitem 50600,1; end; }
+	}
+//========================[ หมวก ]===========================================//
+function	script	RandOpHelmBox	{ setarray .RandBox[0],50001,50002,50003,50004,50005,50006,50007,50008,50009,50010,50011,50012,50013,50014,50015,50016; set .Random, rand( getarraysize( .RandBox ) ); getitem .RandBox[ .Random ], 1; }
+//========================[ เสื้อเกราะ ]===========================================//
+function	script	RandOpArmorBox	{ setarray .RandBox[0],50101,50102,50103,50104,50105,50106,50107,50108,50109,50110,50111; set .Random, rand( getarraysize( .RandBox ) ); getitem .RandBox[ .Random ], 1; }
+//========================[ ผ้าคลุม ]===========================================//
+function	script	RandOpGarmentBox	{ setarray .RandBox[0],50201,50202,50203,50204,50205,50206,50207,50208,50209,50210,50211,50212,50213,50214,50215; set .Random, rand( getarraysize( .RandBox ) ); getitem .RandBox[ .Random ], 1; }
+//========================[ รองเท้า ]===========================================//
+function	script	RandOpShoesBox	{ setarray .RandBox[0],50301,50302,50303,50304,50305,50306,50307,50308,50309,50310; set .Random, rand( getarraysize( .RandBox ) ); getitem .RandBox[ .Random ], 1; }
+//========================[ โล่ ]===========================================//
+function	script	RandOpShieldBox	{ setarray .RandBox[0],50401,50402,50403,50404,50405,50406,50407,50408,50409,50410,50411,50412; set .Random, rand( getarraysize( .RandBox ) ); getitem .RandBox[ .Random ], 1; }
+//========================[ อาวุธ ]===========================================//
+function	script	RandOpWeaponBox	{ setarray .RandBox[0],50501,50502,50503,50504,50505,50506,50507,50508,50509,50510,50511,50512,50513,50514,50515,50516,50517,50518,50519,50520,50521,50522,50523,50524,50525; set .Random, rand( getarraysize( .RandBox ) );  getitem .RandBox[ .Random ], 1; }

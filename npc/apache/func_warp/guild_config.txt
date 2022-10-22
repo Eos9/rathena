@@ -1,0 +1,36 @@
+aldeg_cas01	mapflag	loadevent
+aldeg_cas02	mapflag	loadevent
+aldeg_cas03	mapflag	loadevent
+aldeg_cas04	mapflag	loadevent
+aldeg_cas05	mapflag	loadevent
+gefg_cas01	mapflag	loadevent
+gefg_cas02	mapflag	loadevent
+gefg_cas03	mapflag	loadevent
+gefg_cas04	mapflag	loadevent
+gefg_cas05	mapflag	loadevent
+payg_cas01	mapflag	loadevent
+payg_cas02	mapflag	loadevent
+payg_cas03	mapflag	loadevent
+payg_cas04	mapflag	loadevent
+payg_cas05	mapflag	loadevent
+prtg_cas01	mapflag	loadevent
+prtg_cas02	mapflag	loadevent
+prtg_cas03	mapflag	loadevent
+prtg_cas04	mapflag	loadevent
+prtg_cas05	mapflag	loadevent
+
+-	script	CheckWarpGuild	-1,{
+end;
+OnPCLoadMapEvent:
+	query_sql "SELECT `map` FROM  `warp_guild` WHERE  `state` =0",.@SQL_map$;
+	set .@countmap,getarraysize(.@SQL_map$);
+	for(set .@i,0; .@i < .@countmap; set .@i,.@i+1) {
+		getmapxy(.@mapt$, .@xt, .@yt, BL_PC);
+		if (.@mapname$ == .@SQL_map$[.@i]) {
+			sleep2 1000;
+			warp "SavePoint",0,0;
+			end;
+		}
+	}
+end;
+}

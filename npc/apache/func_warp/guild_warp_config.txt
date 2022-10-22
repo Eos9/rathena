@@ -1,0 +1,74 @@
+/*
+วิธีเปิดปิด 
+วาปไปบ้านแต่ละหลัง ให้เปิดใน db sql ใน warp_guild เปลี่ยนจาก
+ปิด  = 0
+เปิด = 1
+
+วิธีใช้ เพิ่ม  db sql warp_guild.sql
+*/
+
+-	script	NpcWarpGuild	-1,{
+end;
+
+OnWarp:	
+	mes "[ ^00aaffPre Guild War^000000 ]";
+	mes "สวัสดีคุณ,^FF0000"+strcharinfo(0)+"^000000";
+	mes "ต้องการเข้าร่วมกิลด์วอร์หรือไม่?";
+	
+	query_sql "SELECT `map`,`state` FROM  `warp_guild`",.@SQL_map$,.@SQL_state;
+	set .@menu$,"";
+	for(set .@i,0; .@i <= 19; set .@i,.@i+1)
+	{
+		if(.@SQL_state[.@i] )
+			set .@menu$, .@menu$+"~ บ้าน "+ getcastlename(.@SQL_map$[.@i]) +" จำนวน ^FF0000["+getmapusers(.@SQL_map$[.@i])+"]^000000 คน";
+		set .@menu$, .@menu$ + ":";
+	}	
+	set .@menu$, .@menu$+"~ ยกเลิก";	
+	set .@part,select(.@menu$)-1;
+	if (.@part == 20) close;
+	
+	if(.@part==0){ warp "alde_gld",48,84; }
+	if(.@part==1){ warp "alde_gld",95,247; }
+	if(.@part==2){ warp "alde_gld",142,87; }
+	if(.@part==3){ warp "alde_gld",236,242; }
+	if(.@part==4){ warp "alde_gld",269,90; }
+	if(.@part==5){ warp "gef_fild13",215,75; }
+	if(.@part==6){ warp "gef_fild13",308,240; }
+	if(.@part==7){ warp "gef_fild13",147,239; }
+	if(.@part==8){ warp "gef_fild13",191,276; }
+	if(.@part==9){ warp "gef_fild13",315,94; }
+	if(.@part==10){ warp "pay_gld",121,232; }
+	if(.@part==11){ warp "pay_gld",298,116; }
+	if(.@part==12){ warp "pay_gld",313,292; }
+	if(.@part==13){ warp "pay_gld",140,166; }
+	if(.@part==14){ warp "pay_gld",194,274; }
+	if(.@part==15){ warp "prt_gld",142,64; }
+	if(.@part==16){ warp "prt_gld",241,133; }
+	if(.@part==17){ warp "prt_gld",153,132; }
+	if(.@part==18){ warp "prt_gld",118,239; }
+	if(.@part==19){ warp "prt_gld",201,239; }
+	end;
+		
+OnGameMaster:
+	query_sql "SELECT `map`,`state` FROM  `warp_guild`",.@SQL_map$,.@SQL_state;
+	set .@menu$,"";
+	for(set .@i,0; .@i <= 19; set .@i,.@i+1)
+	{
+		set .@menu$, .@menu$+"~ "+ .@SQL_map$[.@i] +" สถานะ "+((.@SQL_state[.@i])?"^006600[ เปิด ]^000000":"^ff0000[ ปิด ]^000000")+":";
+	}
+	set .@menu$, .@menu$+"^777777-^000000 ยกเลิก";	
+	set .@part,select(.@menu$)-1;
+	if (.@part == 20) close;
+	query_sql "UPDATE `warp_guild` SET  `state` =  "+ ((.@SQL_state[.@part])?"0":"1") +" WHERE  `map` =  '"+ .@SQL_map$[.@part] +"'";
+	goto OnGameMaster;
+	end;
+
+OnCastle:
+	query_sql "SELECT `map` FROM  `warp_guild` ORDER BY `map` ASC",.@SQL_map$;
+	for(set .@i,0; .@i < 19; set .@i, .@i +1) {
+		set .@t, getcastledata(.@SQL_map$[.@i],1);
+		mes "~ "+getcastlename(.@SQL_map$[.@i])+" :";
+		mes "    "+((.@t)?"^0055FF"+getguildname(.@t):"^777777ไม่ถูกครอบครอง")+"^000000";
+	}
+	close;
+}

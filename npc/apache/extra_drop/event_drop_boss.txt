@@ -1,0 +1,57 @@
+//===== rAthena Script =======================================
+//= Extra Drop and Announce
+//===== By: ================================================== 
+//= mr.TAURUS
+//============================================================
+
+-	script	Extra_Drop_Announce	-1,{
+	OnNPCKillEvent:
+		//------------------------------------------------------
+		// เปิด | ปิด สคริป true: on | false: off
+		.extra = true;
+		
+		// มอนสเตอร์ ID.
+		setarray .mobid, 		1038, 1039, 1046, 1059, 1086, 1087, 1112, 1115, 1147, 1150, 1159, 1190, 1251, 1272, 1312;
+		// รายการไอเทมดรอปของมอนแต่ละตัว.
+		setarray .item_reward, 	 20203, 20203, 20203, 20203, 20203, 20203, 20203, 20203, 20203, 20203, 20203, 20203, 20203, 20203, 20203;
+		// จำนวนที่ดรอปของมอนแต่ละตัว.
+		setarray .item_amount, 	   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1,   1;
+		// อัตราดรอปของไอเทมแต่ละตัว.
+		setarray .drop_rate, 	  50,   50,   50,   50,   50,   50,   50,   50,   50,   50,   50,   50,   50,   50,   50;
+		// อัตราดรอปสูงสุด 100 = 100%.
+		.max_drop_rate = 100;
+		// บอกอัตราดรอป true: on | false: off
+		.announce_rate = false;
+		// ประกาศเมื่อได้รับไอเทม true: on | false: off
+		.announce = false;
+		// ลบไอเทมที่ดรอปตาม db ออก true: on | false: off
+		.del_normal_drop = false;
+		// โหมดการดรอปไอเทม 1: เข้าตัวอัตโนมัติ | 2: ตกลงพื้น
+		.drop_mode = 2;
+		//------------------------------------------------------
+		if (.extra) {
+			for (.@i = 0; .@i < getarraysize(.mobid); .@i++ ) {
+				if (.del_normal_drop) { delmonsterdrop(.mobid[.@i],.item_reward[.@i]); }
+				if (killedrid == .mobid[.@i]) {
+					if (.announce_rate)
+						dispbottom "[ระบบ] : "+getmonsterinfo(.mobid[.@i],MOB_NAME)+" มีโอกาสดรอป "+getitemname(.item_reward[.@i])+" x"+.item_amount[.@i]+" : ["+.drop_rate[.@i]+"%]";
+					.@r = rand(.max_drop_rate);
+					if (.@r <= .drop_rate[.@i]) {
+						if (.drop_mode < 1 || .drop_mode > 2) {
+							dispbottom "[ระบบ] : เกิดข้อผิดพลาดในการตั้งค่าโหมดการดรอปไอเทม !!",0xFF0000;
+							.announce = false;
+						}
+						if (.drop_mode == 1) { getitem .item_reward[.@i],.item_amount[.@i]; }
+						if (.drop_mode == 2) {
+							getmapxy(.@map$,.@x,.@y,BL_PC);
+							makeitem .item_reward[.@i],.item_amount[.@i],.@map$,.@x,.@y;
+						}
+						if (.announce) {
+							announce "[ระบบ] : ยินดีด้วย คุณ [ " + strcharinfo(PC_NAME) + " ] โชคดีจริงๆ ที่สังหาร "+getmonsterinfo(.mobid[.@i],MOB_NAME)+" ได้รับ "+getitemname(.item_reward[.@i])+" x"+.item_amount[.@i]+"!", bc_all;
+						}
+					}
+				}
+			}	
+		}
+	end;
+}	

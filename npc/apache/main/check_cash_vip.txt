@@ -1,0 +1,22 @@
+-	script	Check	-1,{
+OnPCLoginEvent:
+	if (getgmlevel() < 99) {
+			mes	"สวัสดีคุณ,^FF0000"+strcharinfo(0)+"^000000";
+			mes "คุณมีแต้มทั้งหมด : ";		
+			mes "^FF0000Cash  Points^000000  "+#CASHPOINTS+" Points";	
+			mes "^00c000Kafra Points^000000  " +#KAFRAPOINTS+" Points";	
+			mes "^0000ffBonus Points^000000  "+#CASHBONUS+" Points";	
+			mes "-----------------------------------";
+			next;
+		if ( vip_status(1) ) {
+			set .@Timer, vip_status(2);	
+			mes	"สวัสดีคุณ,^FF0000"+strcharinfo(0)+"^000000";			
+            mes "^0000ffระบบ  :  VIP ของคุณ^000000";
+            mes "คงเหลือ : ";
+            mes ""+ callfunc("Time2Str",.@Timer);
+			mes " ";			
+			mes "ขอให้โชคดี";
+			mes "-----------------------------------";
+		}	
+    }
+}

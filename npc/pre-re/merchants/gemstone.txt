@@ -1,0 +1,96 @@
+payon,99,134,3	script	Gemstones#pay	754,{
+	if (checkweight(1201,1) == 0) {
+		mes "^3355FFรอสักครู่! เอาล่ะ คุณแบกไอเทมมากเกินไป กลับมาใหม่เมื่อท่านนำไอเทมไปฝากไว้กับ Kafra Storage.^000000";
+		end;
+	}
+	mes "[Jade]";
+	mes "ถ้าเจ้านำ";
+	mes "Gemstones 2 เม็ด";
+	mes "สีเดียวกันมาให้ข้า";
+	mes "ข้าจะทำ Gemstones";
+	mes "สีอื่นที่เจ้าต้องการ";
+	next;
+	switch(select("^3300FFBlue Gemstones^000000 เป็น ^FF0033Red Gemstones^000000:^FF0033Red Gemstones^000000 เป็น ^FF6600Yellow Gemstones^000000:^FF6600Yellow Gemstones^000000 เป็น ^3300FFBlue Gemstones^000000")) {
+	case 1: callsub S_TradeGems,717,716;
+	case 2: callsub S_TradeGems,716,715;
+	case 3: callsub S_TradeGems,715,717;
+	}
+
+S_TradeGems:
+	if (countitem(getarg(0)) < 2) {
+		mes "[Jade]";
+		mes "ฮ่า...!";
+		mes "เจ้าล้อเล่นใช่มั้ย?";
+		mes "ข้าไม่สามารถช่วยเจ้าได้";
+		mes "ถ้าเจ้ามี Gemstone";
+		mes "นำมาให้ข้าน้อยกว่า";
+		mes "2 "+getitemname(getarg(0))+"s!";
+		end;
+	}
+	else {
+		set .@gems,countitem(getarg(0))/2;
+		mes "[Jade]";
+		mes "ข้าเชื่อว่าข้าทำได้";
+		mes "ถ้าเจ้าจะแลก " + .@gems + " " + getitemname(getarg(1)) + "s";
+		mes "เจ้ามีอยู่ "+getitemname(getarg(0))+"s";
+		mes "ที่คุณมีอยู่";
+		mes "เจ้าต้องกาแลกเท่าไรล่ะ?";
+		next;
+		switch(select("แลกทั้งหมด:ระบุจำนวน:ออก")) {
+		case 1:
+			delitem getarg(0),.@gems * 2;
+			getitem getarg(1),.@gems;
+			mes "[Jade]";
+			mes "เจ้าจะรู้สึก";
+			mes "อยากกลับมา";
+			mes "ทุกเวลา";
+			mes "หืม..เจ้ามองอะไรอยู่น่ะ?";
+			mes "มีอะไรบนหน้าของข้า?";
+			end;
+		case 2:
+			mes "[Jade]";
+			mes "เอาเท่าไรล่ะ";
+			mes "เจ้าต้องการเท่าไร?";
+			mes "สูงสุดคือ 100 เม็ด";
+			next;
+			while(1) {
+				input .@input,0,101;
+				if (.@input == 0) {
+					mes "[Jade]";
+					mes "ไม่ใส่อะไรเลย?";
+					mes "ข้าแนะนำว่า";
+					mes "ใเจ้าคิดใหม่...";
+					end;
+				}
+				else if (.@input > 100) {
+					mes "[Jade]";
+					mes "อืม...";
+					mes "ข้าคิดว่าเจ้าาน";
+					mes "ใส่ตัวเลขมากกว่า";
+					mes "จำนวน 100 เม็ด จำได้มั้ย...?";
+					next;
+				}
+				else {
+					break;
+				}
+			}
+
+			if (.@gems > .@input) {
+				delitem getarg(0),.@input * 2;
+				getitem getarg(1),.@input;
+				mes "[Jade]";
+				mes "นี่สำหรับเจ้า";
+				mes "เจ้าจะรู้สึกอยากกลับมา";
+				mes "หาข้าทุกเวลา";
+				mes "เจ้ามองอะไรอยู่น่ะ?";
+				mes "มีอะไรบนหน้าข้างั้นรึ?";
+			}
+			end;
+		case 3:
+			mes "[Jade]";
+			mes "โอเค ไม่มีปัญหา";
+			mes "แล้วกลับมาใหม่ละกัน";
+			end;
+		}
+	}
+}

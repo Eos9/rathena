@@ -1,0 +1,17 @@
+-	script	Only1perMAC	-1,{
+OnPCLoginEvent:
+if (getgmlevel() >= 99) end;
+set .@name$, strcharinfo(0);
+if (query_sql("SELECT `char`.`name` FROM `char` LEFT JOIN login ON `char`.account_id=login.account_id WHERE login.last_mac=(SELECT last_mac FROM login WHERE account_id="+getcharid(3)+") AND `char`.online=1 AND `char`.char_id!="+getcharid(0), .@name$) >= 3) {
+	for (set .@i,0; .@i<getarraysize(.@name$); set .@i,.@i+1) {
+		if (checkvending(.@name$[.@i]) != 3)
+			set .@samemac, .@samemac +1;
+	}
+	if (.@samemac >= 3) {
+		announce "ขออภัย สามารถเข้าสู่ระบบได้ครั้งละ 3 บัญชีต่อคอมพิวเตอร์เท่านั้น.", bc_self;
+		sleep 1000;
+		atcommand "@kick " + .@name$;
+	}
+}
+end;
+}

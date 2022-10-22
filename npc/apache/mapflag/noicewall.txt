@@ -1,0 +1,5 @@
+// EOS_STUDIO ====================
+alde_dun02	mapflag	noicewall
+alde_dun04	mapflag	noicewall
+cmd_fild03	mapflag	noicewall
+gef_fild14	mapflag	noicewall

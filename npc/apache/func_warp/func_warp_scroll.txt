@@ -1,0 +1,191 @@
+function	script	Warp_Beginner	{
+	mes "[ ^00aaffBeginner Warp^000000 ]";
+	mes "โปรดเลือกรายการที่คุณต้องการ";
+	mes " ";
+	mes " ";
+	mes " ";
+	mes " ";
+	mes "คุณสามารถใช้บริการได้อีก "+countitem(22020)+" ครั้ง";
+	next;
+
+	switch(select("~ Magma Dungeon ^FF0000(Lv.75-99)^000000:~ Payon Dungeon ^FF0000(Lv.12-55)^000000:~ Morocc Field ^FF0000(Lv.25-60)^000000:~ Byalan Dungeon ^FF0000(Lv.30-80)^000000:~ Pyramid Dungeon ^FF0000(Lv.35-90)^000000:~ Orc Dungeon ^FF0000(Lv.50-75)^000000:~ Glast Heim ^FF0000(Lv.75-99)^000000:~ ยกเลิกการสนทนา")){
+		case 1:
+			warp "mag_dun01",126,68;
+		close;
+		
+		case 2:
+			warp "pay_arche",48,130;
+		close;
+				
+		case 3:
+			warp "moc_fild18",158,359;
+		close;
+		
+		case 4:
+			warp "izlu2dun",108,88;
+		close;
+		
+		case 5:
+			warp "moc_ruins",62,161;
+		close;
+		
+		case 6:
+			warp "gef_fild10",67,334;
+		close;
+		
+		case 7:
+			warp "glast_01",200,289;
+		close;
+		
+		case 8:
+			mes "[ ^00aaffBeginner Warp^000000 ]";
+			mes "โชคดีค่ะ แล้วพบกันใหม่..";
+		close;
+		
+	}
+}
+
+//===============================================================================================================
+//morocc,149,112,5	script	Warp Beginner	758,{
+-	script	Warp Beginner	-1,{
+
+function TimeTOStr;
+
+	mes "[ ^00aaffBeginner Warp^000000 ]";
+	mes "โปรดเลือกรายการที่คุณต้องการ";
+	mes " ";
+	mes " ";
+	mes " ";
+	
+	if(#WarpDate != gettime(8)){
+		set #WarpFree,0;
+	}
+	set #WarpDate,gettime(8);
+	
+	if(#WarpFree >= .limit) {
+		mes "คุณใช้บริการครบ "+.limit+" ครั้งแล้ว";
+		if($next_day_tick > gettimetick(2))
+			mes "รออีก "+TimeTOStr($next_day_tick);
+		close;
+		end;
+	}else{
+		mes "คุณสามารถใช้บริการได้อีก "+callfunc("F_InsertComma",(.limit-#WarpFree))+" ครั้ง";
+	}
+	next;
+	
+	switch(select("~ Niflheim ^FF0000(Lv.90-99)^000000:~ Magma Dungeon ^FF0000(Lv.75-99)^000000:~ Payon Dungeon ^FF0000(Lv.12-55)^000000:~ Morocc Field ^FF0000(Lv.25-60)^000000:~ Byalan Dungeon ^FF0000(Lv.30-80)^000000:~ Pyramid Dungeon ^FF0000(Lv.35-90)^000000:~ Orc Dungeon ^FF0000(Lv.50-75)^000000:~ Glast Heim ^FF0000(Lv.75-99)^000000:~ ยกเลิกการสนทนา")){
+		case 1:
+			set #WarpFree,#WarpFree+1;
+			warp "niflheim",21,153;
+			close;
+		break;
+		
+		case 2:
+			set #WarpFree,#WarpFree+1;
+			warp "mag_dun01",126,68;
+			close;
+		break;
+		
+		case 3:
+			set #WarpFree,#WarpFree+1; //ตั้งค่าก่อน warp เสมอ
+			warp "pay_arche",48,130;
+			close;
+			break;
+			
+		case 4:
+			set #WarpFree,#WarpFree+1;
+			warp "moc_fild18",158,359;
+			close;
+			break;
+		
+		case 5:
+			set #WarpFree,#WarpFree+1;
+			warp "izlu2dun",108,88;
+			close;
+			break;
+		
+		case 6:
+			set #WarpFree,#WarpFree+1;
+			warp "moc_ruins",62,161;
+			close;
+			break;
+		
+		case 7:
+			set #WarpFree,#WarpFree+1;
+			warp "gef_fild10",67,334;
+			close;
+			break;
+		
+		case 8:
+			set #WarpFree,#WarpFree+1;
+			warp "glast_01",200,289;
+			close;
+			break;
+		
+		case 9:
+			mes "[ ^00aaffBeginner Warp^000000 ]";
+			mes "โชคดีค่ะ แล้วพบกันใหม่..";
+			close;
+			break;
+			
+		default:
+			break;
+	}
+
+end;
+
+OnClock0000:
+	set $next_day_tick,gettimetick(2)+86400;
+end;
+
+Oninit:
+	set .limit,10;	//วาปฟรีกี่ครั้ง
+	
+	//DO NOT EDIT
+	if(!$next_day_tick)
+		set $next_day_tick,1545782400;
+	
+
+	setarray .messages$,"[~] ","บ","ริ","ก","า","ร","ว","า","ร์","ป","ฟ","รี";
+		while( 1 )
+		{
+			set .Display$,"";
+			for( set .i,0; .i < getarraysize( .messages$ ); set .i,.i + 1 )
+			{
+				set .Display$,.Display$ + .messages$[.i];
+				delwaitingroom;
+				waitingroom .Display$,0;
+				sleep 100;
+			}
+		sleep 1000;
+		}
+end;
+
+function TimeTOStr {
+	set .@Time_Left, getarg(0) - gettimetick(2);
+	
+	set .@Days, .@Time_Left / 86400;
+	set .@Time_Left, .@Time_Left - (.@Days * 86400);
+	set .@Hours, .@Time_Left / 3600;
+	set .@Time_Left, .@Time_Left - (.@Hours * 3600);
+	set .@Minutes, .@Time_Left / 60;
+	set .@Time_Left, .@Time_Left - (.@Minutes * 60);
+	
+	set .@Time$, "";
+	if( .@Days > 0 )
+		set .@Time$, .@Time$ + .@Days + " วัน ";
+
+	if( .@Hours > 0 )
+		set .@Time$, .@Time$ + .@Hours + " ชั่วโมง ";
+
+	if( .@Minutes > 0 )
+		set .@Time$, .@Time$ + .@Minutes + " นาที ";
+
+	if( .@Time_Left > 1 || .@Time_Left == 0 )
+		set .@Time$, .@Time$ + .@Time_Left + " วินาที";
+	else if( .@Time_Left == 1 )
+		set .@Time$, .@Time$ + .@Time_Left + " วินาที";
+	return .@Time$;
+}
+
+}

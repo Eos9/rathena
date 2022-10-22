@@ -1,0 +1,236 @@
+/*
+Script. Refine Challenger | Sell Equipment Event | Refine Ranking | Refine Upgrade Equipment
+Create By. Athena Studio
+Bug Report. Kittisak Sarounram [ FB ]
+Contact Us. Kittisak Sarounram [ FB ]
+TEL. 0909183008 [ DTAC ]
+*/
+//payon,42,146,4	script	Refine Challenger	813,{
+morocc,61,43,4	script	Refine Challenger	813,{
+	
+	/* ไอเท็มที่จำเป็นสำหรับการอัพเกรด */
+	set .@refine_ore,985;
+	/* จำนวนราคาที่จำเป็นสำหรับการอัพเกรด */
+	set .@refine_prize,2000;
+	/* ค่า Default ห้ามทำการแก้ใขโดยเด็ดขาด */
+	set .unbreak,0;
+	/* ไอเท็มสำหรับกันแตก */
+	set .@itemsunbreak,29102;
+	/* จำนวนที่จะต้องใช้ไอเท็มใบกันแตก */
+	set .@amountunbreak,1;
+	
+	disable_items;
+	mes "[ Refine Challenger ]";
+	mes " ";
+	mes " ";
+	mes " ";
+	mes " ";
+	mes " ";
+	mes "โปรดเลือกอุปกรณ์ที่ต้องการอัพเกรด";
+	next;
+	
+	if ( countitem(.@itemsunbreak) > 0 )
+	{
+		mes "[ Refine Challenger ]";
+		mes "คุณมีไอเท็มที่ช่วยป้องกัน";
+		mes "การสูญเสียไอเท็มเมื่ออัพเกรดล้มเหลว";
+		mes "จะต้องมีไอเท็ม ^FF0000"+getitemname(.@itemsunbreak)+"^000000 1ea";
+		mes " ";
+		mes " ";
+		mes "คุณต้องการที่จะใช้ไอเท็มหรือไม่ ?";
+		next;
+		switch(select("~ แน่นอน,ใช้งานสิ:~ ไม่ดีกว่า,ขอผ่าน"))
+		{
+			case 1: set .unbreak,1; break;
+			default: break;
+		}
+	}
+	
+	setarray .@locations[1], EQI_HEAD_TOP, EQI_ARMOR, EQI_HAND_L, EQI_HAND_R, EQI_GARMENT, EQI_SHOES, EQI_ACC_L, EQI_ACC_R, EQI_HEAD_MID, EQI_HEAD_LOW;
+	for(set .@i,1; .@i<=10; set .@i,.@i+1)
+		set .@menu$, .@menu$ + getequipname(.@locations[.@i]) +":";
+	set .@part, .@locations[ select(.@menu$) ];
+	
+	if ( !getequipisequiped(.@part) )
+	{
+		mes "[ Refine Challenger ]";
+		switch(.@part)
+		{
+			case 1: mes "ฉันคือช่างตีเหล็ก, ไม่ใช่ช่างตัดผม."; break;
+			case 2: mes "ด้วยค้อนของฉัน, ฉันจะทำให้คุณเห็นดาวบนท้องฟ้า."; break;
+			case 3:
+			case 4: mes "การทำมือเทียมไม่ได้เป็นงานพิเศษของฉัน."; break;
+			case 5: mes "นำไอเท็มของคุณออกมาเพื่อที่ฉันจะได้ปรับแต่งมัน !"; break;
+			case 6: mes "อยู่ที่ไหนกลิ่นแปลกๆนี้มาจากไหน ?"; break;
+			case 7:
+			case 8: mes "ไหนละเครื่องประดับ ?"; break;
+			case 9: mes "สิ่งใดที่คุณต้องการให้ฉันปรับแต่งอุปกรณ์ของคุณ ?"; break;
+			case 10: mes "หึ ? คุณต้องการให้ฉันทำอะไร ?"; break;
+		}
+		close;
+	}
+	
+	if (!getequipisenableref(.@part)) {
+		mes "[ Refine Challenger ]";
+		mes "พบข้อผิดพลาด...";
+		mes "ไอเท็มนี้ไม่สามารถอัพเกรดอุปกรณ์ได้";
+		close;
+	}
+	
+	set .@check_equip, getequipid(.@part);
+	
+	/* ฟังก์ชั่นส่วนการตรวจสอบเงื่อนใขว่าตรงตามไอเท็มที่กำหนดหรือไม่ */
+	if (  .@check_equip == 29101 )
+	{
+		set .@equip_lv, getequipweaponlv(.@part);
+	
+		switch(.@equip_lv)
+		{
+			default:
+			case 0:
+				set .@price,.@refine_prize;
+				set .@material,.@refine_ore;
+				set .@type$,"ชุดเกราะ";
+				break;
+			case 1:
+				set .@price,.@refine_prize;
+				set .@material,.@refine_ore;
+				set .@type$,"อาวุธ";
+				break;
+			case 2:
+				set .@price,.@refine_prize;
+				set .@material,.@refine_ore;
+				set .@type$,"อาวุธ";
+				break;
+			case 3:
+				set .@price,.@refine_prize;
+				set .@material,.@refine_ore;
+				set .@type$,"อาวุธ";
+				break;
+			case 4:
+				set .@price,.@refine_prize;
+				set .@material,.@refine_ore;
+				set .@type$,"อาวุธ";
+				break;
+		}
+		
+		mes "[ Refine Challenger ]";
+		mes "คุณต้องการที่จะอัพเกรดต่อหรือไม่ ?";
+		next;
+		if ( select("~ ใช่,จัดไป:~ ไม่ดีกว่า,เดียวแตก") == 2 )
+		{
+			mes "[ Refine Challenger ]";
+			mes "โธ่ โธ่ ๆ ๆ ๆ";
+			mes "ท่านมันไม่กล้าพอ";
+			mes "แล้วพบกันใหม่...เมื่อท่านพร้อม";
+			close;
+		}
+		
+		if ( getequippercentrefinery(.@part) < 100 )
+		{
+			mes "[ Refine Challenger ]";
+			mes ""+ .@type$ +" ได้รับการอัพเกรดมาหลายต่อหลายครั้ง หากมันล้มเหลวอุปกรณ์จะถูกทำลาย, และ ^FF0000"+ getitemname(.@material) +"^000000 ของคุณจะหายไป!";
+			next;
+			mes "[ Refine Challenger ]";
+			mes "แน่นอน, ค่าธรรมเนียมการปรับแต่งอุปกรณ์จะไม่คืนด้วยเช่นกัน ! คุณต้องการที่จะดำเนินการต่อ ?";
+			next;
+			if( select("~ ใช่,ฉันทำใจไว้แล้ว:~ เดี่ยวๆ,ขอคิดดูก่อน") == 2 )
+			{
+				mes "[ Refine Challenger ]";
+				mes "ดี ดี ๆ ๆ ๆ ๆ";
+				mes "ฉันจะเสียใจถ้าหากมันล้มเหลว.";
+				close;
+			}
+		}
+		
+		if ( countitem(.@material) == 0 || Zeny < .@price )
+		{
+			mes "[ Refine Challenger ]";
+			mes "วัสดุไม่เพียงพอ.";
+			mes "สำหรับอัพเกรด, ฉันต้องการ ^FF0000"+ getitemname(.@material) +"^000000 และ ^FF0000"+ .@price +" Zeny^000000 ค่าธรรมเนียมการปรับแต่งอุปกรณ์.";
+			close;
+		}
+		if ( .unbreak == 1 && countitem(.@itemsunbreak) < .@amountunbreak ) { mes "[ Refine Challenger ]"; mes "คุณไม่ได้มีไอเท็มที่ไว้สำหรับป้องกันการสูญเสียไอเท็ม"; close; }
+		delitem .@material,1;
+		set Zeny, Zeny-.@price;
+		if ( .unbreak == 1 ) { delitem .@itemsunbreak,.@amountunbreak; }
+		
+		mes "[ Refine Challenger ]";
+		mes "แตก ! แตก ! แตก !";
+		if ( getequippercentrefinery(.@part) > rand(100) || getequippercentrefinery(.@part) > rand(100) )
+		{
+			specialeffect2 EF_COIN;
+			successrefitem .@part;
+			if ( getequiprefinerycnt(.@part) >= 7 )
+				announce "[ Refine Challenger : ผู้เล่น "+strcharinfo(0)+" ได้ทำการอัพเกรด [ "+ getequipname(.@part) +" ] ถึงระดับ +"+ getequiprefinerycnt(.@part) +" สำเร็จ ! ]",bc_map;
+			next;
+			mes "[ Refine Challenger ]";
+			mes "โอ้ว ๆ ๆ ๆ ๆ";
+			mes "การอัพเกรดอุปกรณ์สำเร็จ";
+			mes "ครั้งหน้าคงไม่รอดแน่ ฮ่า ฮ่า";
+			close;
+		}
+		else if ( .unbreak == 1 )
+		{
+			specialeffect EF_CURSEATTACK;
+			specialeffect2 EF_SUI_EXPLOSION;
+			set .Unbreak,0;
+			next;
+			emotion ( !rand(5) )?ET_ANGER:ET_HUK;
+			mes "[ Refine Challenger ]";
+			mes "โอ้ พระ เจ้า ๆ ๆ ๆ ๆ";
+			next;
+			mes "[ Refine Challenger ]";
+			mes "อุปกรณ์ถูกทำลาย";
+			mes "แต่ดูเหมือนคุณจะต้องเสีย";
+			mes "ไอเท็ม "+ getitemname(.@material) +"";
+			next;
+			mes "[ Refine Challenger ]";
+			mes "อารมณ์ของฉันจะเลวร้ายยิ่งกว่า";
+			mes "เมื่อฉันทำมันล้มเหลว !!";
+			close;
+		}
+		failedrefitem .@part;
+		specialeffect EF_CURSEATTACK;
+		specialeffect2 EF_SUI_EXPLOSION;
+		next;
+		emotion ( !rand(5) )?ET_ANGER:ET_HUK;
+		mes "[ Refine Challenger ]";
+		mes "โอ้ พระ เจ้า !!!!";
+		next;
+		mes "[ Refine Challenger ]";
+		mes "โอ้ ! อุปกรณ์ถูกทำลาย";
+		mes "แต่ดูเหมือนคุณเสีย....";
+		mes ""+ getitemname(.@material) +" ด้วยสิน่ะ";
+		next;
+		mes "[ Refine Challenger ]";
+		mes "อารมณ์ของฉันจะเลวร้ายยิ่งกว่า";
+		mes "เมื่อฉันทำมันล้มเหลว !!";
+		close;
+	}
+	else
+	{
+		mes "[ Refine Challenger ]";
+		mes "เสียใจด้วย,อุปกรณ์ชิ้นนี้";
+		mes "- ^FF0000"+ getitemname(.@check_equip) +"^000000";
+		mes "ไม่ได้อยู่ในกิจกรรม";
+		mes "บ๊ะบาย ๆ ๆ ๆ";
+		close;
+	}
+OnInit:
+//waitingroom "~ Refine Challenger",0;
+	setarray .messages$,"[~] ","R","e","f","i","n","e"," ","C","h","a","l","l","e","n","g","e","r";
+		while( 1 )
+		{
+			set .Display$,"";
+			for( set .i,0; .i < getarraysize( .messages$ ); set .i,.i + 1 )
+			{
+				set .Display$,.Display$ + .messages$[.i];
+				delwaitingroom;
+				waitingroom .Display$,0;
+				sleep 100;
+			}
+		sleep 1000;
+		}
+end;	
+}

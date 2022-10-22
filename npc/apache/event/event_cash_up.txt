@@ -1,0 +1,251 @@
+//===== rAthena Script =======================================
+//= Event Cashup
+//===== By: ==================================================
+//= mr.TAURUS
+//===== Current Version: =====================================
+//= 1.2
+//===== Compatible With: =====================================
+//= rAthena Project
+//============================================================
+
+morocc,132,112,4	script	Event Cashup	1_M_SIGNMCNT,{
+
+//=======================
+//= Configs : ตั้งค่าต่างๆ
+//=======================
+	set .@heading$, "[^0000FFEvent Cash up^000000]";
+	set .@Lv30Reward,	40;		// เลเวลถึงได้แคชตามนี้
+	set .@Lv40Reward,	60;		// เลเวลถึงได้แคชตามนี้
+	set .@Lv50Reward,	80;		// เลเวลถึงได้แคชตามนี้
+	set .@Lv60Reward,	100;	// เลเวลถึงได้แคชตามนี้
+	set .@Lv70Reward,	120;	// เลเวลถึงได้แคชตามนี้
+	set .@Lv80Reward,	140;	// เลเวลถึงได้แคชตามนี้
+	set .@Lv90Reward,	160;	// เลเวลถึงได้แคชตามนี้
+	set .@Lv99Reward,	200;	// เลเวลถึงได้แคชตามนี้	
+//=======================
+
+	mes .@heading$;
+	mes "สวัสดี  ^FF0000"+strcharinfo(0)+"^000000";
+	mes "ข้าจะมอบรางวัลให้แก่ผู้ที่มีเลเวล";
+	mes "ตามที่กำหนดแล้ว เท่านั้น !!!";
+	mes "รวมมูลค่า ^FF0000900 Cash Points^000000";
+	next;
+	menu "^FF0000•^000000 ไม่มีอะไร",L_end,"^009933•^000000 ข้าอยากได้",L_menu;
+	
+	L_menu:
+	switch(select("^009933•^000000 รับรางวัล Lv.30 :^009933•^000000 รับรางวัล Lv.40 :^009933•^000000 รับรางวัล Lv.50:^009933•^000000 รับรางวัล Lv.60:^009933•^000000 รับรางวัล Lv.70:^009933•^000000 รับรางวัล Lv.80:^009933•^000000 รับรางวัล Lv.90:^009933•^000000 รับรางวัล Lv.99"))
+	{	
+		case 1:
+			mes .@heading$;
+			mes "ข้าขอตรวจสอบวก่อนว่าท่านผ่านเงื่อนไงหรือไม่";
+			next;
+			if (BaseLevel < 30)	{
+				mes .@heading$;
+				mes "ท่านไม่ผ่านเงื่อนไข";
+				mes "กลับมาใหม่เมื่อเลเวล 30 นะ";
+				end;	
+			}	
+			mes .@heading$;
+			if (Max_Lv30 == 1){
+				mes "อ๊ะๆ ท่านรับไปแล้วนะจ๊ะ";
+				end;
+			} else {
+			mes "ยินดีด้วยคุณถึงเลเวล 30 แล้ว!";
+			mes "รับไปเลย "+.@Lv30Reward+" Cash";
+			mes "ขอให้โชคดี.";
+			#CASHPOINTS = #CASHPOINTS + .@Lv30Reward;
+			dispbottom "คุณได้รับ CASH จำนวน "+.@Lv30Reward+" Points";
+			set Max_Lv30, 1;
+			end; 
+			}
+	
+		case 2:
+			mes .@heading$;
+			mes "ข้าขอตรวจสอบวก่อนว่าท่านผ่านเงื่อนไงหรือไม่";
+			next;
+			if (BaseLevel < 40)	{
+				mes .@heading$;
+				mes "ท่านไม่ผ่านเงื่อนไข";
+				mes "กลับมาใหม่เมื่อเลเวล 40 นะ";
+				end;	
+			}	
+			mes .@heading$;
+			if (Max_Lv40 == 1){
+				mes "อ๊ะๆ ท่านรับไปแล้วนะจ๊ะ";
+				end;
+			} else {
+			mes "ยินดีด้วยคุณถึงเลเวล 40 แล้ว!";
+			mes "รับไปเลย "+.@Lv40Reward+" Cash";
+			mes "ขอให้โชคดี.";
+			#CASHPOINTS = #CASHPOINTS + .@Lv40Reward;
+			dispbottom "คุณได้รับ CASH จำนวน "+.@Lv40Reward+" Points";
+			set Max_Lv40, 1;
+			end; 
+			}
+		
+		case 3:
+			mes .@heading$;
+			mes "ข้าขอตรวจสอบวก่อนว่าท่านผ่านเงื่อนไงหรือไม่";
+			next;
+			if (BaseLevel < 50)	{
+				mes .@heading$;
+				mes "ท่านไม่ผ่านเงื่อนไข";
+				mes "กลับมาใหม่เมื่อเลเวล 50 นะ";
+				end;	
+			}	
+			mes .@heading$;
+			if (Max_Lv50 == 1){
+				mes "อ๊ะๆ ท่านรับไปแล้วนะจ๊ะ";
+				end;
+			} else {
+			mes "ยินดีด้วยคุณถึงเลเวล 50 แล้ว!";
+			mes "รับไปเลย "+.@Lv50Reward+" Cash";
+			mes "ขอให้โชคดี.";
+			#CASHPOINTS = #CASHPOINTS + .@Lv50Reward;
+			dispbottom "คุณได้รับ CASH จำนวน "+.@Lv50Reward+" Points";
+			set Max_Lv50, 1;
+			end; 
+			}
+			
+		case 4:
+			mes .@heading$;
+			mes "ข้าขอตรวจสอบวก่อนว่าท่านผ่านเงื่อนไงหรือไม่";
+			next;
+			if (BaseLevel < 60)	{
+				mes .@heading$;
+				mes "ท่านไม่ผ่านเงื่อนไข";
+				mes "กลับมาใหม่เมื่อเลเวล 60 นะ";
+				end;	
+			}	
+			mes .@heading$;
+			if (Max_Lv60 == 1){
+				mes "อ๊ะๆ ท่านรับไปแล้วนะจ๊ะ";
+				end;
+			} else {
+			mes "ยินดีด้วยคุณถึงเลเวล 60 แล้ว!";
+			mes "รับไปเลย "+.@Lv60Reward+" Cash";
+			mes "ขอให้โชคดี.";
+			#CASHPOINTS = #CASHPOINTS + .@Lv60Reward;
+			dispbottom "คุณได้รับ CASH จำนวน "+.@Lv60Reward+" Points";
+			set Max_Lv60, 1;
+			end; 
+			}
+
+		case 5:
+			mes .@heading$;
+			mes "ข้าขอตรวจสอบวก่อนว่าท่านผ่านเงื่อนไงหรือไม่";
+			next;
+			if (BaseLevel < 70)	{
+				mes .@heading$;
+				mes "ท่านไม่ผ่านเงื่อนไข";
+				mes "กลับมาใหม่เมื่อเลเวล 70 นะ";
+				end;	
+			}	
+			mes .@heading$;
+			if (Max_Lv70 == 1){
+				mes "อ๊ะๆ ท่านรับไปแล้วนะจ๊ะ";
+				end;
+			} else {
+			mes "ยินดีด้วยคุณถึงเลเวล 70 แล้ว!";
+			mes "รับไปเลย "+.@Lv70Reward+" Cash";
+			mes "ขอให้โชคดี.";
+			#CASHPOINTS = #CASHPOINTS + .@Lv70Reward;
+			dispbottom "คุณได้รับ CASH จำนวน "+.@Lv70Reward+" Points";
+			set Max_Lv70, 1;
+			end; 
+			}
+			
+		case 6:
+			mes .@heading$;
+			mes "ข้าขอตรวจสอบวก่อนว่าท่านผ่านเงื่อนไงหรือไม่";
+			next;
+			if (BaseLevel < 80)	{
+				mes .@heading$;
+				mes "ท่านไม่ผ่านเงื่อนไข";
+				mes "กลับมาใหม่เมื่อเลเวล 80 นะ";
+				end;	
+			}	
+			mes .@heading$;
+			if (Max_Lv80 == 1){
+				mes "อ๊ะๆ ท่านรับไปแล้วนะจ๊ะ";
+				end;
+			} else {
+			mes "ยินดีด้วยคุณถึงเลเวล 80 แล้ว!";
+			mes "รับไปเลย "+.@Lv80Reward+" Cash";
+			mes "ขอให้โชคดี.";
+			#CASHPOINTS = #CASHPOINTS + .@Lv80Reward;
+			dispbottom "คุณได้รับ CASH จำนวน "+.@Lv80Reward+" Points";
+			set Max_Lv80, 1;
+			end; 
+			}
+
+		case 7:
+			mes .@heading$;
+			mes "ข้าขอตรวจสอบวก่อนว่าท่านผ่านเงื่อนไงหรือไม่";
+			next;
+			if (BaseLevel < 90)	{
+				mes .@heading$;
+				mes "ท่านไม่ผ่านเงื่อนไข";
+				mes "กลับมาใหม่เมื่อเลเวล 90 นะ";
+				end;	
+			}	
+			mes .@heading$;
+			if (Max_Lv90 == 1){
+				mes "อ๊ะๆ ท่านรับไปแล้วนะจ๊ะ";
+				end;
+			} else {
+			mes "ยินดีด้วยคุณถึงเลเวล 90 แล้ว!";
+			mes "รับไปเลย "+.@Lv90Reward+" Cash";
+			mes "ขอให้โชคดี.";
+			#CASHPOINTS = #CASHPOINTS + .@Lv90Reward;
+			dispbottom "คุณได้รับ CASH จำนวน "+.@Lv90Reward+" Points";
+			set Max_Lv90, 1;
+			end; 
+			}
+			
+		case 8:
+			mes .@heading$;
+			mes "ข้าขอตรวจสอบวก่อนว่าท่านผ่านเงื่อนไงหรือไม่";
+			next;
+			if (BaseLevel < 99)	{
+				mes .@heading$;
+				mes "ท่านไม่ผ่านเงื่อนไข";
+				mes "กลับมาใหม่เมื่อเลเวล 99 นะ";
+				end;	
+			}	
+			mes .@heading$;
+			if (Max_Lv99 == 1){
+				mes "อ๊ะๆ ท่านรับไปแล้วนะจ๊ะ";
+				end;
+			} else {
+			mes "ยินดีด้วยคุณถึงเลเวล 99 แล้ว!";
+			mes "รับไปเลย "+.@Lv99Reward+" Cash";
+			mes "ขอให้โชคดี.";
+			#CASHPOINTS = #CASHPOINTS + .@Lv99Reward;
+			dispbottom "คุณได้รับ CASH จำนวน "+.@Lv99Reward+" Points";
+			set Max_Lv99, 1;
+			end; 
+			}	
+	}
+	L_end:
+		mes .@heading$;
+		mes "เมื่อครบเงื่อนไขแล้วอย่าลืมกลับมารับรางวัลล่ะ";
+	end;
+	
+	Oninit:
+//	waitingroom "เลเวลถึงรับแคชฟรี",0;
+	setarray .messages$,"[~] ","เ","ล","เ","ว","ล","อั","พ","รั","บ"," ","c","a","s","h";
+		while( 1 )
+		{
+			set .Display$,"";
+			for( set .i,0; .i < getarraysize( .messages$ ); set .i,.i + 1 )
+			{
+				set .Display$,.Display$ + .messages$[.i];
+				delwaitingroom;
+				waitingroom .Display$,0;
+				sleep 100;
+			}
+		sleep 1000;
+		}
+end;	
+}

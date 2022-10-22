@@ -1,0 +1,36 @@
+-	script	AUTO_GETITEM	 -1,{
+
+OnTimer10000:
+	query_sql "SELECT `id`,`account_id`,`nameid`,`amount` FROM `auto_getitem` WHERE `status` = 1 LIMIT 10",.id,.account_id,.nameid,.amount;
+	sleep 500;
+	if (getarraysize(.id) > 0) {
+		for (set .i,0; .i < getarraysize(.id); set .i,.i+1) {
+			if(attachrid(.account_id[.i]) == 1)
+			{
+				dispbottom "[ Item Guildwar System ]";
+				getitem .nameid[.i],.amount[.i];
+				dispbottom "==========================";
+				query_sql "UPDATE `auto_getitem` SET `status` = 2 WHERE `id` = " + .id[.i];
+			}
+			detachrid;
+		}
+		deletearray .id[0],getarraysize(.id);
+		deletearray .account_id[0],getarraysize(.account_id);
+		deletearray .nameid[0],getarraysize(.nameid);
+		deletearray .amount[0],getarraysize(.amount);
+	}
+	detachrid;
+	initnpctimer;
+	end;
+
+OnInit:
+	query_sql "CREATE TABLE IF NOT EXISTS `auto_getitem` ( "+
+		"`id` INT( 11 ) NOT NULL auto_increment , "+
+		"`account_id` INT( 11 ) NOT NULL default '0' , "+
+		"`nameid` INT( 11 )  NOT NULL default '0', "+
+		"`amount` INT( 11 )  NOT NULL default '0', "+
+		"`status` INT( 11 )  NOT NULL default '0', "+
+		"PRIMARY KEY  (`id`)) ENGINE=MyISAM DEFAULT CHARSET=tis620";
+	initnpctimer;
+	end;
+}

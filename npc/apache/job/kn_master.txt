@@ -1,0 +1,88 @@
+/*
+=================== TERMS OF SERVICES. ===================
+1. ALL RIGHT RESERVED RE-SELLER OR SHARE SCRIPT TO PUBLISH.
+2. BUT YOU RE-SELLER OR SHARE SCRIPT WITH OUT UNAUTHORIZRD
+   I WILL ALL CANCEL MY SUPPORT FOR YOU.
+3. MAINTENANCE SCRIPTS WILL BE FREE SERVICES.
+4. I WILL NOT KEEP ANY INFORMATIONS FROMS YOU SERVER THAT
+   YOU SEND FOR ME.
+5. I HOPE YOU WILL ALL ACCEPT TERMS OF SERVICES.
+==========================================================
+Script. Job Class																					 
+Create By. [Eddga-Studio]
+Translator By. Eddga Studio
+Bug Report. Dollaporn Naraphan [ FB ]																					 
+Contact Us. Dollaporn Naraphan [ FB ]																					 																				 
+==========================================================
+*/
+prt_in,71,103,4	script	Knight Master	106,{
+	
+	mes .Name$;
+	if (Class == Job_Knight) {
+		mes "ฮืม !...";
+		mes "คุณไม่สามารถเปลี่ยนอาชีพได้อีก";
+		mes "เนื่องจาก Class คุณสูงสุดแล้ว!";
+		close;
+	}
+	if (checkfalcon() || checkcart() || checkriding() || ismounting()) {
+		mes "กรุณาถอดการติดตั้ง ^FF0000" +
+			((checkfalcon()) ? "Falcon (นก)" : "") +
+			((checkcart()) ? "Cart (รถเข็น)" : "") +
+			((checkriding()) ? "Peco (ปีโก๊ะ)" : "") +
+			((ismounting()) ? "Mount (ขี่สัตว์เลี้ยง)" : "") +
+			"^000000";
+		mes "ก่อนเปลี่ยน Class.";
+		close;
+	}
+	if (Class != Job_Swordman) {
+		mes "โอ้! พระเจ้า...";
+		mes "เฉพาะสายอาชีพ Knight";
+		mes "คุณไม่ควรมาที่นี้ มันอัตรายน่ะ!";
+		mes "โปรดกลับไปเหอะ";
+		close;
+	}
+	if (JobLevel < .JobLevel) {
+		mes "คุณไม่ควรมาที่นี้เลย";
+		mes "Job Level ไม่ถึง 50";
+		mes "บ๊ะ บาย.......";
+		close;
+	}
+	if (.SkillPointCheck && SkillPoint) {
+		mes "กรุณาใช้สกิลพ้อยที่เหลืออยู่ของคุณ";
+		mes "ก่อนที่เปลี่ยนอาชีพ...";
+		close;
+	}
+	mes "ยินดีต้อนรับ";
+	mes "สวัสดี คุณ,^FF0000"+ strcharinfo(0) +"^000000";
+	mes "มีอะไรให้ฉันช่วยเหลือไหม?";
+	next;
+	mes .Name$;
+	mes "คุณต้องการเปลี่ยนอาชีพ";
+	mes "Knight ใช่หรือไม่..";
+	next;
+	switch(select("~ ใช่,ต้องการ:~ ไม่ล่ะ,เดี๋ยวมาใหม่")) 
+	{
+		case 1:
+			mes .Name$;
+			mes "ขอแสดงความยินดีกับคุณด้วย";
+			mes "ฉันได้เปลี่ยนอาชีพให้เรียบร้อยแล้ว";
+			jobchange 7;
+			getitem .ItemJob,.CountJob;
+		end;
+		
+		case 2:
+			mes .Name$;
+			mes "ขอบคุณที่ใช้บริการ";
+			mes "หวังว่าจะเจอคุณในเร็วๆนี้..";
+		end;
+	}	
+	end;
+
+OnInit:
+	set .Name$,"[ Knight Master ]";
+	set .SkillPointCheck,1;
+	set .JobLevel,50;
+	set .ItemJob,1163;
+	set .CountJob,1;
+end;
+}

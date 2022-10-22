@@ -1,0 +1,112 @@
+-	script	CLASSIC_V1	FAKE_NPC,{
+	end;
+	
+OnInit:
+	set $@CLASSIC_V1_default_filename$,"classic_box_v1_01";
+	setarray $@CLASSIC_V1_filename$[0],
+		"classic_box_v1_01", "classic_box_v1_02", "classic_box_v1_03", "classic_box_v1_04", "classic_box_v1_05", "classic_box_v1_06", 
+		"classic_box_v1_07", "classic_box_v1_08", "classic_box_v1_09", "classic_box_v1_10", "classic_box_v1_11", "classic_box_v1_12", 
+		"classic_box_v1_13", "classic_box_v1_14", "classic_box_v1_15", "classic_box_v1_16", "classic_box_v1_17", "classic_box_v1_18",
+		"classic_box_v1_19", "classic_box_v1_20", "classic_box_v1_21", "classic_box_v1_22", "classic_box_v1_23", "classic_box_v1_24";
+		
+	setarray $@CLASSIC_V1_item[0],
+		5361, 18756, 5003, 2248, 2291, 5290,
+		20101, 5091, 5094, 2296, 5293, 5656,
+		5059, 5312, 5227, 2284, 5033, 2280,
+		5172, 5372, 5359, 5017, 19989, 5325;
+	
+	setarray $@CLASSIC_V1_item_rate[0],
+		1,1,1,1,1,1,
+		1,1,1,1,1,1,
+		1,1,1,1,1,1,
+		1,1,1,1,1,1;
+
+	// system
+	setarray $@CLASSIC_V1_size_db[0],
+		getarraysize($@CLASSIC_V1_filename$);
+	end;
+}
+function	script	CLASSIC_V1_NextSlot	{
+	set .@img,getarg(0) + 1;
+	
+	if (.@img >= $@CLASSIC_V1_size_db[0])
+		set .@img,0;
+		
+	cutin $@CLASSIC_V1_filename$[.@img], 4;
+	sleep2 getarg(1);
+	
+	return .@img;
+}
+
+-	script	CLASSIC_V1#NPC	FAKE_NPC,{
+OnPCLogoutEvent:
+	set CostumeBox_Playing,0;
+	end;
+	
+OnPlay:
+	if(CostumeBox_Playing != 0){
+		mes "^ff0000[ แจ้งเตือน ]^000000";
+		mes "......โปรดรอสักครู่.....";
+		mes "ไม่สามารถหมุนได้ ในขณะนี้";
+		mes "เอากล่องของท่านกลับคืนไปน่ะ";
+		getitem 50517,1;
+		close;
+	}
+	pcblockmove getcharid(3),1;
+	set CostumeBox_Playing,1;
+	set .@img,0;
+	set .@round,rand(1,3);
+	set .@speed,10;
+	for (set .@i,0; .@i < .@round; set .@i,.@i+1)
+	{
+		set .@mini_round,rand($@CLASSIC_V1_size_db[0]/2, $@CLASSIC_V1_size_db[0]);
+		for (set .@j,0; .@j < .@mini_round; set .@j,.@j+1)
+		set .@img,callfunc("CLASSIC_V1_NextSlot", .@img, .@speed);
+		set .@speed,.@speed+10;
+	}
+	
+	set .@round,rand($@CLASSIC_V1_size_db[0]/2, $@CLASSIC_V1_size_db[0]);
+	
+	for (set .@i,0; .@i < .@round; set .@i,.@i+1)
+	{
+		set .@img,callfunc("CLASSIC_V1_NextSlot", .@img, .@speed);
+		set .@speed,.@speed+50;
+	}
+	set .@min,($@CLASSIC_V1_size_db[0]/2)/2;
+	set .@round,rand(.@min, $@CLASSIC_V1_size_db[0]/2);
+	set .@round_per_50,.@round/2;
+	set .@round_per_25,.@round_per_50/2;
+
+	for (set .@i,0; .@i < .@round; set .@i,.@i+1)
+	{
+//		set .@img,callfunc("CLASSIC_V1_NextSlot", .@img, .@speed);
+//
+//		if (.@i < .@round_per_25)
+//			set .@speed,.@speed+25;
+//		else if (.@i < .@round_per_50)
+//			set .@speed,.@speed+100;
+//		else
+//			set .@speed,.@speed+250;
+			
+		if(.@i == .@round-1 && $@CLASSIC_V1_item_rate[.@img] < rand(100)){
+			set .@i,.@i-1;
+		}
+	}
+	
+	pcblockmove getcharid(3),0;
+	set .@prize,$@CLASSIC_V1_item[.@img];
+	set CostumeBox_Playing,0;
+	
+	mes "^ff0000[ Classic Box Vol.1 ]^000000";
+	mes "ว้าวๆๆๆๆๆๆๆๆๆ";
+	mes "คุณได้รับไอเท็มคือ :";
+	mes "^ff0000- "+getitemname(.@prize)+"^000000";
+	mes "ทำไมวันนี้คุณโชคดีเหลือเกิน ?";	
+	announce "[ Classic Vol.1 : คุณ "+strcharinfo(0)+" ได้รับไอเท็ม "+getitemname(.@prize)+" จำนวน 1 ea. ]",bc_all,0xfcff00;
+	getitem .@prize, 1;
+	close2;
+	cutin "", 255;
+	end;	
+	
+end;
+}

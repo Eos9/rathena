@@ -1,0 +1,2738 @@
+
+-	script	optoser#10	-1,{
+			OnInit:
+		set $@nameopd$,"Aragham";  //ชื่อ NPC
+		set $seftyitem,6635; //กันแตก
+		set $Elunium,7619; //อีลูเทพ
+		set $Oridecon,7620; //โอลิเทพ
+		set $Eluniumprice,10000; //ราคาตีบวกอีลูเทพ
+		set $Orideconprice,10000; //ราคาตีบวกโอลิเทพ
+	end;
+		}
+
+morocc_in,62,40,4	script	Refine Option#10	99,{
+//function	script	refinemainoption	{
+	goto NPC;
+end;
+                   
+
+NPC:
+	disable_items;
+	if (checkweight(1201,1) == 0) {
+		mes "[ ^FF0000"+$@nameopd$+"^000000 ]";
+		mes "^9400D3คุณมีไอเทมมากเกินไป เอาไปเก็บก่อน!^000000";
+		close;
+	}
+	if (MaxWeight - Weight < 10000) {
+		mes "[ ^FF0000"+$@nameopd$+"^000000 ]";
+		mes "^9400D3คุณมีน้ำหนักมากเกินไป!^000000";
+		close;
+	}
+			mes "[ ^FF0000"+$@nameopd$+"^000000 ]";
+			mes "ฉันเป็นช่างทำอาวุธ";
+			mes "ฉันสามารถปรับแต่งอาวุธชุดเกราะและอุปกรณ์ทุกชนิดได้ดังนั้นบอกให้ฉันรู้ว่าคุณต้องการให้ฉันปรับแต่งอะไร";
+		next;
+
+		setarray .@position$[1], "ส่วนหัว","ชุดเกราะ","มือขวา","มือซ้าย","ผ้าคลุม","รองเท้า";
+		setarray .@eq[1], EQI_HEAD_TOP,EQI_ARMOR,EQI_HAND_R,EQI_HAND_L,EQI_GARMENT,EQI_SHOES;
+	for(set .@i,1; .@i<getarraysize(.@eq); set .@i,.@i+1){
+		if(getequipisequiped(.@eq[.@i])){
+			set @refine_rate,getequippercentrefinery(.@eq[.@i]);
+			set .@menu$,.@menu$+.@position$[.@i]+" - [ " + getequipname(.@eq[.@i]) + " ] ";
+			set .@equipped,1;
+		} set .@menu$,.@menu$+":";
+	} set .@part,.@eq[select(.@menu$)];	
+		if(getequipweaponlv(.@part) == 1)+
+			(getequipweaponlv(.@part) == 2)+
+				(getequipweaponlv(.@part) == 3)+
+					(getequipweaponlv(.@part) == 4){
+				if	(getequiprefinerycnt(.@part) == 10 ) {
+			mes "[ ^FF0000"+$@nameopd$+"^000000 ]";
+			mes "ไอเทมของคุณอัพเกรดสูงสุดแล้ว";
+					close;
+				}else{
+			mes "[ ^FF0000"+$@nameopd$+"^000000 ]";
+			mes "ต้องการใช้ ^FF0000"+getitemname($Oridecon)+"^000000 หรือไม่?";
+	next;
+			menu 
+			"ไม่ต้องการ",NPCG," ต้องการ",Oridecon;}
+	}else{	if	(getequiprefinerycnt(.@part) == 10 ) {
+			mes "[ ^FF0000"+$@nameopd$+"^000000 ]";
+			mes "ไอเทมของคุณอัพเกรดสูงสุดแล้ว";
+					close;
+				}else{
+			mes "[ ^FF0000"+$@nameopd$+"^000000 ]";
+			mes "ต้องการใช้ ^FF0000"+getitemname($Elunium)+"^000000 หรือไม่?";
+	next;
+			menu 
+			"ไม่ต้องการ",NPCG,"ต้องการ",Elunium;}
+			}
+
+		Oridecon:
+			if(countitem($Oridecon) < 1){
+				mes "คุณไม่มี ^FF0000"+getitemname($Oridecon)+"^000000"; 
+			end;
+				}
+				set .@Enriched,1;
+			goto NPCG;
+		end;
+
+		Elunium:
+			if(countitem($Elunium) < 1){
+				mes "คุณไม่มี ^FF0000"+getitemname($Elunium)+"^000000"; 
+			end;
+				}	
+				set .@Enriched,2;
+			goto NPCG;
+		end;
+
+		NPCG:	
+	//======================================================================================//
+	set .@MAXHP, 1; 	// MaxHP
+	set .@MAXSP, 2; 	// MaxSP
+	set .@STR, 3; 		// STR
+	set .@AGI, 4; 		// AGI
+	set .@VIT, 5; 		// VIT
+	set .@INT, 6; 		// INT
+	set .@DEX, 7; 		// DEX
+	set .@LUK, 8; 		// LUK
+	set .@LUK, 8; 		// LUK
+	set .@MAXHPk, 9; 	// MaxHP%
+	set .@MAXSPk, 10; 	// MaxSP%
+	set .@HPRE, 11; 	// HP Recovery%
+	set .@SPRE, 12; 	// SP Recovery%
+	set .@ATK, 13; 		// ATK%
+	set .@MATK, 14; 	// MATK%
+	set .@ASPD, 15; 	// ASPD
+	set .@ASPDr, 16; 	// ASPD%
+	set .@ATKy, 17; 	// ATK
+	set .@HIT, 18; 		// HIT
+	set .@MATKy, 19; 	// MATK
+	set .@DEF, 20; 		// Def
+	set .@MDEF, 21; 	// Mdef
+	set .@FLEE, 22; 	// Flee
+	set .@FLEEy, 23; 	// Perfect dodge
+	set .@CRIT, 24; 	// Critical
+	
+	set .@SUBELENeutral, 25; 	// ต้านทานธาตุ Neutral
+	set .@SUBELEWater, 26; 		// ต้านทานธาตุ Water
+	set .@SUBELEEarth, 27; 		// ต้านทานธาตุ Earth
+	set .@SUBELEFire, 28; 		// ต้านทานธาตุ Fire
+	set .@SUBELEWind, 29; 		// ต้านทานธาตุ Wind
+	set .@SUBELEPoison, 30; 	// ต้านทานธาตุ Poison
+	set .@SUBELEHoly, 31; 		// ต้านทานธาตุ Holy
+	set .@SUBELEShadow, 32; 	// ต้านทานธาตุ Shadow
+	set .@SUBELEGhost, 33; 		// ต้านทานธาตุ Ghost
+	set .@SUBELEUndead, 34; 	// ต้านทานธาตุ Undead
+	
+	set .@SUBATKNeutral, 36; 	// ป้องกันกายภาพจากศัตรูธาตุ Neutral
+	set .@ATKNeutral, 37; 		// โจมตีกายภาพศัตรูธาตุ Neutral
+	set .@SUBATKWater, 38; 		// ป้องกันกายภาพจากศัตรูธาตุ Water
+	set .@ATKWater, 39; 		// โจมตีกายภาพศัตรูธาตุ Water
+	set .@SUBATKEarth, 40; 		// ป้องกันกายภาพจากศัตรูธาตุ Earth
+	set .@ATKEarth, 41; 		// โจมตีกายภาพศัตรูธาตุ Earth
+	set .@SUBATKFire, 42; 		// ป้องกันกายภาพจากศัตรูธาตุ Fire
+	set .@ATKFire, 43; 			// โจมตีกายภาพศัตรูธาตุ Fire
+	set .@SUBATKWind, 44; 		// ป้องกันกายภาพจากศัตรูธาตุ Wind
+	set .@ATKWind, 45; 			// โจมตีกายภาพศัตรูธาตุ Wind
+	set .@SUBATKPoison, 46; 	// ป้องกันกายภาพจากศัตรูธาตุ Poison
+	set .@ATKPoison, 47; 		// โจมตีกายภาพศัตรูธาตุ Poison
+	set .@SUBATKHoly, 48; 		// ป้องกันกายภาพจากศัตรูธาตุ Holy
+	set .@ATKHoly, 49; 			// โจมตีกายภาพศัตรูธาตุ Holy
+	set .@SUBATKShadow, 50; 	// ป้องกันกายภาพจากศัตรูธาตุ Shadow
+	set .@ATKShadow, 51; 		// โจมตีกายภาพศัตรูธาตุ Shadow
+	set .@SUBATKGhost, 52; 		// ป้องกันกายภาพจากศัตรูธาตุ Ghost
+	set .@ATKGhost, 53; 		// โจมตีกายภาพศัตรูธาตุ Ghost
+	set .@SUBATKUndead, 54; 	// ป้องกันกายภาพจากศัตรูธาตุ Undead
+	set .@ATKUndead, 55; 		// โจมตีกายภาพศัตรูธาตุ Undead
+	
+	set .@SUBMATKNeutral, 56; 	// ป้องกันเวทย์จากศัตรูธาตุ Neutral
+	set .@MATKNeutral, 57; 		// โจมตีเวทย์ศัตรูธาตุ Neutral
+	set .@SUBMATKWater, 58; 	// ป้องกันเวทย์จากศัตรูธาตุ Water
+	set .@MATKWater, 59; 		// โจมตีเวทย์ศัตรูธาตุ Water
+	set .@SUBMATKEarth, 60; 	// ป้องกันเวทย์จากศัตรูธาตุ Earth
+	set .@MATKEarth, 61; 		// โจมตีเวทย์ศัตรูธาตุ Earth
+	set .@SUBMATKFire, 62; 		// ป้องกันเวทย์จากศัตรูธาตุ Fire
+	set .@MATKFire, 63; 		// โจมตีเวทย์ศัตรูธาตุ Fire
+	set .@SUBMATKWind, 64; 		// ป้องกันเวทย์จากศัตรูธาตุ Wind
+	set .@MATKWind, 65; 		// โจมตีเวทย์ศัตรูธาตุ Wind
+	set .@SUBMATKPoison, 66; 	// ป้องกันเวทย์จากศัตรูธาตุ Poison
+	set .@MATKPoison, 67; 		// โจมตีเวทย์ศัตรูธาตุ Poison
+	set .@SUBMATKHoly, 68; 		// ป้องกันเวทย์จากศัตรูธาตุ Holy
+	set .@MATKHoly, 69; 		// โจมตีเวทย์ศัตรูธาตุ Holy
+	set .@SUBMATKShadow, 70; 	// ป้องกันเวทย์จากศัตรูธาตุ Shadow
+	set .@MATKShadow, 71; 		// โจมตีเวทย์ศัตรูธาตุ Shadow
+	set .@SUBMATKGhost, 72; 	// ป้องกันเวทย์จากศัตรูธาตุ Ghost
+	set .@MATKGhost, 73; 		// โจมตีเวทย์ศัตรูธาตุ Ghost
+	set .@SUBMATKUndead, 74; 	// ป้องกันเวทย์จากศัตรูธาตุ Undead
+	set .@MATKUndead, 75; 		// โจมตีเวทย์ศัตรูธาตุ Undead
+	
+	set .@BODYNeutral, 76; 		// เปลี่ยนชุดเกราะเป็นธาตุ Neutral
+	set .@BODYWater, 77; 		// เปลี่ยนชุดเกราะเป็นธาตุ Water
+	set .@BODYEarth, 78; 		// เปลี่ยนชุดเกราะเป็นธาตุ Earth
+	set .@BODYFire, 79; 		// เปลี่ยนชุดเกราะเป็นธาตุ Fire
+	set .@BODYWind, 80; 		// เปลี่ยนชุดเกราะเป็นธาตุ Wind
+	set .@BODYPoison, 81; 		// เปลี่ยนชุดเกราะเป็นธาตุ Poison
+	set .@BODYHoly, 82; 		// เปลี่ยนชุดเกราะเป็นธาตุ Holy
+	set .@BODYShadow, 83; 		// เปลี่ยนชุดเกราะเป็นธาตุ Shadow
+	set .@BODYGhost, 84; 		// เปลี่ยนชุดเกราะเป็นธาตุ Ghost
+	set .@BODYUndead, 85; 		// เปลี่ยนชุดเกราะเป็นธาตุ Undead
+	
+	set .@SUBRCFormless, 87; 	// ป้องกันการโจมตีจากศัตรูเผ่า Formless
+	set .@SUBRCUndead, 88; 		// ป้องกันการโจมตีจากศัตรูเผ่า Undead
+	set .@SUBRCBrute, 89; 		// ป้องกันการโจมตีจากศัตรูเผ่า Brute
+	set .@SUBRCPlant, 90; 		// ป้องกันการโจมตีจากศัตรูเผ่า Plant
+	set .@SUBRCInsect, 91; 		// ป้องกันการโจมตีจากศัตรูเผ่า Insect
+	set .@SUBRCFish, 92; 		// ป้องกันการโจมตีจากศัตรูเผ่า Fish
+	set .@SUBRCDemon, 93; 		// ป้องกันการโจมตีจากศัตรูเผ่า Demon
+	set .@SUBRCDemiHuman, 94; 	// ป้องกันการโจมตีจากศัตรูเผ่า Demi-Human
+	set .@SUBRCAngel, 95; 		// ป้องกันการโจมตีจากศัตรูเผ่า Angel
+	set .@SUBRCDragon, 96; 		// ป้องกันการโจมตีจากศัตรูเผ่า Dragon
+	
+	set .@ADDRCFormless, 97; 	// โจมตีกายภาพศัตรูเผ่า Formless
+	set .@ADDRCUndead, 98; 		// โจมตีกายภาพศัตรูเผ่า Undead
+	set .@ADDRCBrute, 99; 		// โจมตีกายภาพศัตรูเผ่า Brute
+	set .@ADDRCPlant, 100; 		// โจมตีกายภาพศัตรูเผ่า Plant
+	set .@ADDRCInsect, 101; 	// โจมตีกายภาพศัตรูเผ่า Insect
+	set .@ADDRCFish, 102; 		// โจมตีกายภาพศัตรูเผ่า Fish
+	set .@ADDRCDemon, 103; 		// โจมตีกายภาพศัตรูเผ่า Demon
+	set .@ADDRCDemiHuman, 104; 	// โจมตีกายภาพศัตรูเผ่า Demi-Human
+	set .@ADDRCAngel, 105; 		// โจมตีกายภาพศัตรูเผ่า Angel
+	set .@ADDRCDragon, 106; 	// โจมตีกายภาพศัตรูเผ่า Dragon
+	
+	set .@ADDMRCFormless, 107; 	// โจมตีเวทย์ศัตรูเผ่า Formless
+	set .@ADDMRCUndead, 108; 	// โจมตีเวทย์ศัตรูเผ่า Undead
+	set .@ADDMRCBrute, 109; 	// โจมตีเวทย์ศัตรูเผ่า Brute
+	set .@ADDMRCPlant, 110; 	// โจมตีเวทย์ศัตรูเผ่า Plant
+	set .@ADDMRCInsect, 111; 	// โจมตีเวทย์ศัตรูเผ่า Insect
+	set .@ADDMRCFish, 112; 		// โจมตีเวทย์ศัตรูเผ่า Fish
+	set .@ADDMRCDemon, 113; 	// โจมตีเวทย์ศัตรูเผ่า Demon
+	set .@ADDMRCDemiHuman, 114; // โจมตีเวทย์ศัตรูเผ่า Demi-Human
+	set .@ADDMRCAngel, 115; 	// โจมตีเวทย์ศัตรูเผ่า Angel
+	set .@ADDMRCDragon, 116; 	// โจมตีเวทย์ศัตรูเผ่า Dragon
+	
+	set .@CRIRCFormless, 117; 	// โจมตีคริติคอลศัตรูเผ่า Formless
+	set .@CRIRCUndead, 118; 	// โจมตีคริติคอลศัตรูเผ่า Undead
+	set .@CRIRCBrute, 119; 		// โจมตีคริติคอลศัตรูเผ่า Brute
+	set .@CRIRCPlant, 120; 		// โจมตีคริติคอลศัตรูเผ่า Plant
+	set .@CRIRCInsect, 121; 	// โจมตีคริติคอลศัตรูเผ่า Insect
+	set .@CRIRCFish, 122; 		// โจมตีคริติคอลศัตรูเผ่า Fish
+	set .@CRIRCDemon, 123; 		// โจมตีคริติคอลศัตรูเผ่า Demon
+	set .@CRIRCDemiHuman, 124; 	// โจมตีคริติคอลศัตรูเผ่า Demi-Human
+	set .@CRIRCAngel, 125; 		// โจมตีคริติคอลศัตรูเผ่า Angel
+	set .@CRIRCDragon, 126; 	// โจมตีคริติคอลศัตรูเผ่า Dragon
+	
+	set .@INCRCFormless, 127; 	// โจมตีไม่สน Def Formless
+	set .@INCRCUndead, 128; 	// โจมตีไม่สน Def Undead
+	set .@INCRCBrute, 129; 		// โจมตีไม่สน Def Brute
+	set .@INCRCPlant, 130; 		// โจมตีไม่สน Def Plant
+	set .@INCRCInsect, 131; 	// โจมตีไม่สน Def Insect
+	set .@INCRCFish, 132; 		// โจมตีไม่สน Def Fish
+	set .@INCRCDemon, 133; 		// โจมตีไม่สน Def Demon
+	set .@INCRCDemiHuman, 134; 	// โจมตีไม่สน Def Demi-Human
+	set .@INCRCAngel, 135; 		// โจมตีไม่สน Def Angel
+	set .@INCRCDragon, 136; 	// โจมตีไม่สน Def Dragon
+	
+	set .@INCMRCFormless, 137; 	// โจมตีไม่สน Mdef Formless
+	set .@INCMRCUndead, 138; 	// โจมตีไม่สน Mdef Undead
+	set .@INCMRCBrute, 139; 	// โจมตีไม่สน Mdef Brute
+	set .@INCMRCPlant, 140; 	// โจมตีไม่สน Mdef Plant
+	set .@INCMRCInsect, 141; 	// โจมตีไม่สน Mdef Insect
+	set .@INCMRCFish, 142; 		// โจมตีไม่สน Mdef Fish
+	set .@INCMRCDemon, 143; 	// โจมตีไม่สน Mdef Demon
+	set .@INCMRCDemiHuman, 144; // โจมตีไม่สน Mdef Demi-Human
+	set .@INCMRCAngel, 145; 	// โจมตีไม่สน Mdef Angel
+	set .@INCMRCDragon, 146; 	// โจมตีไม่สน Mdef Dragon
+	
+	set .@ADDMOBNORMAL, 147; 	// โจมตีกายภาพศัตรูประเภท ธรรมดา
+	set .@ADDMOBBOSS, 148; 		// โจมตีกายภาพศัตรูประเภท บอส
+	set .@SUBMOBNORMAL, 149; 	// ป้องกันการโจมตีจากศัตรูประเภท ธรรมดา
+	set .@SUBMOBBOSS, 150; 		// ป้องกันการโจมตีจากศัตรูประเภท บอส
+	set .@ADDMMOBNORMAL, 151; 	// โจมตีเวทย์ศัตรูประเภท ธรรมดา
+	set .@ADDMMOBBOSS, 152; 	// โจมตีเวทย์ศัตรูประเภท บอส
+	
+	set .@INCMOBNORMAL, 153; 	// โจมตีไม่สน Def ธรรมดา
+	set .@INCMOBBOSS, 154; 		// โจมตีไม่สน Def บอส
+	set .@INCMMOBNORMAL, 155; 	// โจมตีไม่สน Mdef ธรรมดา
+	set .@INCMMOBBOSS, 156; 	// โจมตีไม่สน Mdef บอส
+	
+	set .@ADDSIZESMALL, 157; 	// โจมตีกายภาพศัตรูขนาด เล็ก
+	set .@ADDSIZEMIDIUM, 158; 	// โจมตีกายภาพศัตรูขนาด กลาง
+	set .@ADDSIZELARGE, 159; 	// โจมตีกายภาพศัตรูขนาด ใหญ่
+	
+	set .@SUBSIZESMALL, 160; 	// ป้องกันกายภาพศัตรูขนาด เล็ก
+	set .@SUBSIZEMIDIUM, 161; 	// ป้องกันกายภาพศัตรูขนาด กลาง
+	set .@SUBSIZELARGE, 162; 	// ป้องกันกายภาพศัตรูขนาด ใหญ่
+	
+	set .@DAMAGESIZE, 163; 		// โจมตีด้วยอาวุธแบบไม่สนขนาดของศัตรู
+	
+	set .@CRITDMG, 164; 		// เพิ่มความเสียหายคริติคอล
+	set .@CRITSUB, 165; 		// ป้องกันการโจมตีแบบคริติคอล
+	
+	set .@LONGDMG, 166; 		// โจมตีกายภาพระยะไกล
+	set .@LONGSUB, 167; 		// ป้องกันกายภาพระยะไกล
+	
+	set .@HEALATK, 168; 		// ฮิลแรงขึ้น
+	set .@HEALALL, 169; 		// การฟื้นฟูที่ได้รับจากทักษะการรักษา
+	
+	set .@CASTTIME, 170; 		// ลดเวลาการร่ายสกิลลง
+	set .@DELAYTIME, 171; 		// ลดดีเลย์หลังร่ายสกิลลง
+	set .@SPreduce, 172; 		// ลดการใช้ SP ลง
+	
+	set .@WEAPONNeutral, 175; 	// เปลื่ยนอาวุธเป็นธาตุ Neutral
+	set .@WEAPONWater, 176; 	// เปลื่ยนอาวุธเป็นธาตุ Water
+	set .@WEAPONEarth, 177; 	// เปลื่ยนอาวุธเป็นธาตุ Earth
+	set .@WEAPONFire, 178; 		// เปลื่ยนอาวุธเป็นธาตุ Fire
+	set .@WEAPONWind, 179; 		// เปลื่ยนอาวุธเป็นธาตุ Wind
+	set .@WEAPONPoison, 180; 	// เปลื่ยนอาวุธเป็นธาตุ Poison
+	set .@WEAPONHoly, 181; 		// เปลื่ยนอาวุธเป็นธาตุ Holy
+	set .@WEAPONShadow, 182; 	// เปลื่ยนอาวุธเป็นธาตุ Shadow
+	set .@WEAPONGhost, 183; 	// เปลื่ยนอาวุธเป็นธาตุ Ghost
+	set .@WEAPONUndead, 184; 	// เปลื่ยนอาวุธเป็นธาตุ Undead
+	
+	set .@WEAPONSafe, 185; 		// อาวุธไม่มีวันเสียหาย
+	set .@BODYSafe, 186; 		// ชุดเกราะไม่มีวันเสียหาย
+	
+	set .@ADDMSIZESMALL, 187; 	// โจมตีเวทย์ศัตรูขนาด เล็ก
+	set .@ADDMSIZEMIDIUM, 188; 	// โจมตีเวทย์ศัตรูขนาด กลาง
+	set .@ADDMSIZELARGE, 189; 	// โจมตีเวทย์ศัตรูขนาด ใหญ่
+	
+	set .@SUBMSIZESMALL, 190; 	// ป้องกันเวทย์ศัตรูขนาด เล็ก
+	set .@SUBMSIZEMIDIUM, 191; 	// ป้องกันเวทย์ศัตรูขนาด กลาง
+	set .@SUBMSIZELARGE, 192; 	// ป้องกันเวทย์ศัตรูขนาด ใหญ่
+	
+	set .@SUBELEALL, 193; 		// ป้องกันการโจมตีจากทุกธาตุ
+	
+	set .@EXP, 204; // EXP%
+	set .@DROP, 205; // Drop%
+	set .@STUN, 206; // ป้องกันสถานะ 
+	
+	//============================== HEAD TOP ==============================================//
+		IgnoreCheck:
+			if(.@part == EQI_HEAD_TOP){
+				if(.@indx == 0){
+		
+	if(getequiprefinerycnt(.@part) == 0)//+1
+	{set .@random, rand(0,4);
+	if(.@random == 4){.@opt = .@SUBELEALL; set .@val,1;}
+	if(.@random == 3){.@opt = .@LONGSUB; set .@val,1;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,30;}
+	if(.@random == 1){.@opt = .@DROP; set .@val,1;}
+	if(.@random == 0){.@opt = .@EXP; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 1)//+2
+	{set .@random, rand(0,4);
+	if(.@random == 4){.@opt = .@SUBELEALL; set .@val,1;}
+	if(.@random == 3){.@opt = .@LONGSUB; set .@val,1;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,60;}
+	if(.@random == 1){.@opt = .@DROP; set .@val,1;}
+	if(.@random == 0){.@opt = .@EXP; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 2)//+3
+	{set .@random, rand(0,4);
+	if(.@random == 4){.@opt = .@SUBELEALL; set .@val,2;}
+	if(.@random == 3){.@opt = .@LONGSUB; set .@val,2;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,90;}
+	if(.@random == 1){.@opt = .@DROP; set .@val,2;}
+	if(.@random == 0){.@opt = .@EXP; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 3)//+4
+	{set .@random, rand(0,4);
+	if(.@random == 4){.@opt = .@SUBELEALL; set .@val,2;}
+	if(.@random == 3){.@opt = .@LONGSUB; set .@val,2;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,120;}
+	if(.@random == 1){.@opt = .@DROP; set .@val,2;}
+	if(.@random == 0){.@opt = .@EXP; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 4)//+5
+	{set .@random, rand(0,5);
+	if(.@random == 5){.@opt = .@DEF; set .@val,1;}
+	if(.@random == 4){.@opt = .@SUBELEALL; set .@val,3;}
+	if(.@random == 3){.@opt = .@LONGSUB; set .@val,3;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,150;}
+	if(.@random == 1){.@opt = .@DROP; set .@val,3;}
+	if(.@random == 0){.@opt = .@EXP; set .@val,3;}
+	}
+	if(getequiprefinerycnt(.@part) == 5)//+6
+	{set .@random, rand(0,5);
+	if(.@random == 5){.@opt = .@DEF; set .@val,1;}
+	if(.@random == 4){.@opt = .@SUBELEALL; set .@val,3;}
+	if(.@random == 3){.@opt = .@LONGSUB; set .@val,3;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,180;}
+	if(.@random == 1){.@opt = .@DROP; set .@val,3;}
+	if(.@random == 0){.@opt = .@EXP; set .@val,3;}
+	}
+	if(getequiprefinerycnt(.@part) == 6)//+7
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@ADDRCDemiHuman; set .@val,1;}
+	if(.@random == 6){.@opt = .@ADDMRCDemiHuman; set .@val,1;}
+	if(.@random == 5){.@opt = .@DEF; set .@val,2;}
+	if(.@random == 4){.@opt = .@SUBELEALL; set .@val,4;}
+	if(.@random == 3){.@opt = .@LONGSUB; set .@val,4;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,210;}
+	if(.@random == 1){.@opt = .@DROP; set .@val,4;}
+	if(.@random == 0){.@opt = .@EXP; set .@val,4;}
+	}
+	if(getequiprefinerycnt(.@part) == 7)//+8
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@ADDRCDemiHuman; set .@val,2;}
+	if(.@random == 6){.@opt = .@ADDMRCDemiHuman; set .@val,2;}
+	if(.@random == 5){.@opt = .@DEF; set .@val,2;}
+	if(.@random == 4){.@opt = .@SUBELEALL; set .@val,4;}
+	if(.@random == 3){.@opt = .@LONGSUB; set .@val,4;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,240;}
+	if(.@random == 1){.@opt = .@DROP; set .@val,4;}
+	if(.@random == 0){.@opt = .@EXP; set .@val,4;}
+	}
+	if(getequiprefinerycnt(.@part) == 8)//+9
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@ADDRCDemiHuman; set .@val,2;}
+	if(.@random == 6){.@opt = .@ADDMRCDemiHuman; set .@val,2;}
+	if(.@random == 5){.@opt = .@DEF; set .@val,3;}
+	if(.@random == 4){.@opt = .@SUBELEALL; set .@val,5;}
+	if(.@random == 3){.@opt = .@LONGSUB; set .@val,5;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,270;}
+	if(.@random == 1){.@opt = .@DROP; set .@val,5;}
+	if(.@random == 0){.@opt = .@EXP; set .@val,5;}
+	}
+	if(getequiprefinerycnt(.@part) == 9)//+10
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@ADDRCDemiHuman; set .@val,3;}
+	if(.@random == 6){.@opt = .@ADDMRCDemiHuman; set .@val,3;}
+	if(.@random == 5){.@opt = .@DEF; set .@val,3;}
+	if(.@random == 4){.@opt = .@SUBELEALL; set .@val,5;}
+	if(.@random == 3){.@opt = .@LONGSUB; set .@val,5;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,300;}
+	if(.@random == 1){.@opt = .@DROP; set .@val,5;}
+	if(.@random == 0){.@opt = .@EXP; set .@val,5;}
+	}
+	}
+}
+
+	//============================== ARMOR =================================================//
+	
+	if(.@part == EQI_ARMOR){
+	if(.@indx == 0){
+	
+	if(getequiprefinerycnt(.@part) == 0)//+1
+	{set .@random, rand(0,4);
+	if(.@random == 4){.@opt = .@MAXHPk; set .@val,1;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,1;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,30;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,1;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 1)//+2
+	{set .@random, rand(0,4);
+	if(.@random == 4){.@opt = .@MAXHPk; set .@val,1;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,1;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,60;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,1;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 2)//+3
+	{set .@random, rand(0,4);
+	if(.@random == 4){.@opt = .@MAXHPk; set .@val,2;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,2;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,90;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,2;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 3)//+4
+	{set .@random, rand(0,4);
+	if(.@random == 4){.@opt = .@MAXHPk; set .@val,2;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,2;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,120;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,2;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 4)//+5
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@MDEF; set .@val,1;}
+	if(.@random == 5){.@opt = .@CASTTIME; set .@val,1;}
+	if(.@random == 4){.@opt = .@MAXHPk; set .@val,3;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,3;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,150;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,3;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,3;}
+	}
+	if(getequiprefinerycnt(.@part) == 5)//+6
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@MDEF; set .@val,1;}
+	if(.@random == 5){.@opt = .@CASTTIME; set .@val,1;}
+	if(.@random == 4){.@opt = .@MAXHPk; set .@val,3;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,3;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,180;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,3;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,3;}
+	}
+	if(getequiprefinerycnt(.@part) == 6)//+7
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@MDEF; set .@val,2;}
+	if(.@random == 5){.@opt = .@CASTTIME; set .@val,2;}
+	if(.@random == 4){.@opt = .@MAXHPk; set .@val,4;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,4;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,210;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,4;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,4;}
+	}
+	if(getequiprefinerycnt(.@part) == 7)//+8
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@MDEF; set .@val,2;}
+	if(.@random == 5){.@opt = .@CASTTIME; set .@val,2;}
+	if(.@random == 4){.@opt = .@MAXHPk; set .@val,4;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,4;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,240;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,4;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,4;}
+	}
+	if(getequiprefinerycnt(.@part) == 8)//+9
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@MDEF; set .@val,3;}
+	if(.@random == 5){.@opt = .@CASTTIME; set .@val,3;}
+	if(.@random == 4){.@opt = .@MAXHPk; set .@val,5;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,5;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,270;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,5;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,5;}
+	}
+	if(getequiprefinerycnt(.@part) == 9)//+10
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@MDEF; set .@val,3;}
+	if(.@random == 5){.@opt = .@CASTTIME; set .@val,3;}
+	if(.@random == 4){.@opt = .@MAXHPk; set .@val,5;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,5;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,300;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,5;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,5;}
+	}
+	}
+}
+
+	//======================================================================================//
+	
+	if(.@part == EQI_HAND_R){
+		if(.@indx == 0){
+		
+			if(getequipweaponlv(.@part) == 1 ){
+	if(getequiprefinerycnt(.@part) == 0)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,1;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 1)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,1;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 2)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,2;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 3)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,2;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 4)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,3;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 5)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,4;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+
+	if(getequiprefinerycnt(.@part) == 6)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,5;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 7)
+	{set .@random, rand(0,8);
+	if(.@random == 8){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,5;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,6;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 8)
+	{set .@random, rand(0,10);
+	if(.@random == 10){.@opt = .@CASTTIME; set .@val,2;}
+	if(.@random == 9){.@opt = .@LONGDMG; set .@val,7;}
+	if(.@random == 8){.@opt = .@DEX; set .@val,2;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,7;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,2;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,7;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,2;}
+	if(.@random == 3){.@opt = .@INT; set .@val,2;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,2;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,2;}
+	if(.@random == 0){.@opt = .@STR; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 9)
+	{set .@random, rand(0,10);
+	if(.@random == 10){.@opt = .@CASTTIME; set .@val,3;}
+	if(.@random == 9){.@opt = .@LONGDMG; set .@val,8;}
+	if(.@random == 8){.@opt = .@DEX; set .@val,2;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,10;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,3;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,8;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,2;}
+	if(.@random == 3){.@opt = .@INT; set .@val,2;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,2;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,2;}
+	if(.@random == 0){.@opt = .@STR; set .@val,2;}
+	}
+}
+	//================================== Lv2 ================================================//
+	
+			if(getequipweaponlv(.@part) == 2 ){
+	if(getequiprefinerycnt(.@part) == 0)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,1;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 1)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,1;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 2)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,2;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 3)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,2;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 4)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,3;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 5)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,4;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+
+	if(getequiprefinerycnt(.@part) == 6)
+	{set .@random, rand(0,8);
+	if(.@random == 8){.@opt = .@MATK; set .@val,1;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,5;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,5;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 7)
+	{set .@random, rand(0,8);
+	if(.@random == 8){.@opt = .@DEX; set .@val,2;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,7;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,2;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,6;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,2;}
+	if(.@random == 3){.@opt = .@INT; set .@val,2;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,2;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,2;}
+	if(.@random == 0){.@opt = .@STR; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 8)
+	{set .@random, rand(0,14);
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,3;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,3;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,1;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,7;}
+	if(.@random == 10){.@opt = .@CASTTIME; set .@val,2;}
+	if(.@random == 9){.@opt = .@LONGDMG; set .@val,7;}
+	if(.@random == 8){.@opt = .@DEX; set .@val,2;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,10;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,3;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,7;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,2;}
+	if(.@random == 3){.@opt = .@INT; set .@val,2;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,2;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,2;}
+	if(.@random == 0){.@opt = .@STR; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 9)
+	{set .@random, rand(0,14);
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,4;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,4;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,1;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,8;}
+	if(.@random == 10){.@opt = .@CASTTIME; set .@val,3;}
+	if(.@random == 9){.@opt = .@LONGDMG; set .@val,8;}
+	if(.@random == 8){.@opt = .@DEX; set .@val,3;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,15;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,4;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,8;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,3;}
+	if(.@random == 3){.@opt = .@INT; set .@val,3;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,3;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,3;}
+	if(.@random == 0){.@opt = .@STR; set .@val,3;}
+	}
+}
+	//================================== Lv3 ================================================//
+			
+			if(getequipweaponlv(.@part) == 3 ){
+	if(getequiprefinerycnt(.@part) == 0)
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@HIT; set .@val,1;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,2;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 1)
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@HIT; set .@val,1;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,2;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 2)
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@HIT; set .@val,2;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,3;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 3)
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@HIT; set .@val,2;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,3;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 4)
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@HIT; set .@val,3;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,4;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 5)
+	{set .@random, rand(0,9);
+	if(.@random == 9){.@opt = .@MATK; set .@val,1;}
+	if(.@random == 8){.@opt = .@ATKy; set .@val,5;}
+	if(.@random == 7){.@opt = .@HIT; set .@val,4;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,5;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+
+	if(getequiprefinerycnt(.@part) == 6)
+	{set .@random, rand(0,15);
+	if(.@random == 15){.@opt = .@CASTTIME; set .@val,1;}
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,6;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,6;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,1;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,6;}
+	if(.@random == 10){.@opt = .@HIT; set .@val,5;}
+	if(.@random == 9){.@opt = .@MATK; set .@val,2;}
+	if(.@random == 8){.@opt = .@ATKy; set .@val,7;}
+	if(.@random == 7){.@opt = .@DEX; set .@val,2;}
+	if(.@random == 6){.@opt = .@LONGDMG; set .@val,6;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,6;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,2;}
+	if(.@random == 3){.@opt = .@INT; set .@val,2;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,2;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,2;}
+	if(.@random == 0){.@opt = .@STR; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 7)
+	{set .@random, rand(0,15);
+	if(.@random == 15){.@opt = .@CASTTIME; set .@val,2;}
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,7;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,7;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,1;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,7;}
+	if(.@random == 10){.@opt = .@HIT; set .@val,6;}
+	if(.@random == 9){.@opt = .@DEX; set .@val,2;}
+	if(.@random == 8){.@opt = .@ATKy; set .@val,10;}
+	if(.@random == 7){.@opt = .@MATK; set .@val,3;}
+	if(.@random == 6){.@opt = .@LONGDMG; set .@val,7;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,7;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,2;}
+	if(.@random == 3){.@opt = .@INT; set .@val,2;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,2;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,2;}
+	if(.@random == 0){.@opt = .@STR; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 8)
+	{set .@random, rand(0,15);
+	if(.@random == 15){.@opt = .@HIT; set .@val,7;}
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,8;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,8;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,2;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,8;}
+	if(.@random == 10){.@opt = .@CASTTIME; set .@val,3;}
+	if(.@random == 9){.@opt = .@LONGDMG; set .@val,8;}
+	if(.@random == 8){.@opt = .@DEX; set .@val,3;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,15;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,4;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,8;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,3;}
+	if(.@random == 3){.@opt = .@INT; set .@val,3;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,3;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,3;}
+	if(.@random == 0){.@opt = .@STR; set .@val,3;}
+	}
+	if(getequiprefinerycnt(.@part) == 9)
+	{set .@random, rand(0,15);
+	if(.@random == 15){.@opt = .@HIT; set .@val,8;}
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,9;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,9;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,2;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,9;}
+	if(.@random == 10){.@opt = .@CASTTIME; set .@val,4;}
+	if(.@random == 9){.@opt = .@LONGDMG; set .@val,9;}
+	if(.@random == 8){.@opt = .@DEX; set .@val,4;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,17;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,5;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,9;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,4;}
+	if(.@random == 3){.@opt = .@INT; set .@val,4;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,4;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,4;}
+	if(.@random == 0){.@opt = .@STR; set .@val,4;}
+	}
+}
+	//================================== Lv4 ================================================//
+	
+			if(getequipweaponlv(.@part) == 4 ){
+	if(getequiprefinerycnt(.@part) == 0)
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@HIT; set .@val,1;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,3;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 1)
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@HIT; set .@val,2;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,3;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 2)
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@HIT; set .@val,3;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,4;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 3)
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@HIT; set .@val,4;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,4;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 4)
+	{set .@random, rand(0,9);
+	if(.@random == 9){.@opt = .@MATK; set .@val,1;}
+	if(.@random == 8){.@opt = .@ATKy; set .@val,5;}
+	if(.@random == 7){.@opt = .@HIT; set .@val,5;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,5;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 5)
+	{set .@random, rand(0,14);
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,4;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,4;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,1;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,5;}
+	if(.@random == 10){.@opt = .@LONGDMG; set .@val,5;}
+	if(.@random == 9){.@opt = .@MATK; set .@val,2;}
+	if(.@random == 8){.@opt = .@ATKy; set .@val,7;}
+	if(.@random == 7){.@opt = .@HIT; set .@val,6;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,2;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,6;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,2;}
+	if(.@random == 3){.@opt = .@INT; set .@val,2;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,2;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,2;}
+	if(.@random == 0){.@opt = .@STR; set .@val,2;}
+	}
+
+	if(getequiprefinerycnt(.@part) == 6)
+	{set .@random, rand(0,15);
+	if(.@random == 15){.@opt = .@CASTTIME; set .@val,1;}
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,7;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,7;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,1;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,7;}
+	if(.@random == 10){.@opt = .@HIT; set .@val,7;}
+	if(.@random == 9){.@opt = .@MATK; set .@val,3;}
+	if(.@random == 8){.@opt = .@ATKy; set .@val,10;}
+	if(.@random == 7){.@opt = .@DEX; set .@val,2;}
+	if(.@random == 6){.@opt = .@LONGDMG; set .@val,7;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,7;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,2;}
+	if(.@random == 3){.@opt = .@INT; set .@val,2;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,2;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,2;}
+	if(.@random == 0){.@opt = .@STR; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 7)
+	{set .@random, rand(0,15);
+	if(.@random == 15){.@opt = .@CASTTIME; set .@val,2;}
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,8;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,8;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,2;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,8;}
+	if(.@random == 10){.@opt = .@HIT; set .@val,8;}
+	if(.@random == 9){.@opt = .@DEX; set .@val,3;}
+	if(.@random == 8){.@opt = .@ATKy; set .@val,15;}
+	if(.@random == 7){.@opt = .@MATK; set .@val,4;}
+	if(.@random == 6){.@opt = .@LONGDMG; set .@val,8;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,8;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,3;}
+	if(.@random == 3){.@opt = .@INT; set .@val,3;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,3;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,3;}
+	if(.@random == 0){.@opt = .@STR; set .@val,3;}
+	}
+	if(getequiprefinerycnt(.@part) == 8)
+	{set .@random, rand(0,15);
+	if(.@random == 15){.@opt = .@HIT; set .@val,9;}
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,9;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,9;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,2;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,9;}
+	if(.@random == 10){.@opt = .@CASTTIME; set .@val,3;}
+	if(.@random == 9){.@opt = .@LONGDMG; set .@val,9;}
+	if(.@random == 8){.@opt = .@DEX; set .@val,4;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,17;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,6;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,9;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,4;}
+	if(.@random == 3){.@opt = .@INT; set .@val,4;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,4;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,4;}
+	if(.@random == 0){.@opt = .@STR; set .@val,4;}
+	}
+	if(getequiprefinerycnt(.@part) == 9)
+	{set .@random, rand(0,15);
+	if(.@random == 15){.@opt = .@HIT; set .@val,10;}
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,10;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,10;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,3;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,10;}
+	if(.@random == 10){.@opt = .@CASTTIME; set .@val,4;}
+	if(.@random == 9){.@opt = .@LONGDMG; set .@val,10;}
+	if(.@random == 8){.@opt = .@DEX; set .@val,4;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,20;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,8;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,10;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,4;}
+	if(.@random == 3){.@opt = .@INT; set .@val,4;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,4;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,4;}
+	if(.@random == 0){.@opt = .@STR; set .@val,4;}
+	}
+
+			}
+
+	}
+}
+	//======================================================================================//
+	
+	if(.@part == EQI_HAND_L){
+		if(.@indx == 0){
+		
+	if(getequipweaponlv(.@part) == 0 )+(getequipweaponlv(.@part) == 5 ){
+	if(getequiprefinerycnt(.@part) == 0)//+1
+	{set .@random, rand(0,5);
+	if(.@random == 5){.@opt = .@SUBMOBBOSS; set .@val,1;}  
+	if(.@random == 4){.@opt = .@SUBELENeutral; set .@val,1;}  
+	if(.@random == 3){.@opt = .@ATKy; set .@val,1;} 
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,30;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,1;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,1;} 
+	}
+	if(getequiprefinerycnt(.@part) == 1)//+2
+	{set .@random, rand(0,5);
+	if(.@random == 5){.@opt = .@SUBMOBBOSS; set .@val,2;}  
+	if(.@random == 4){.@opt = .@SUBELENeutral; set .@val,1;}  
+	if(.@random == 3){.@opt = .@ATKy; set .@val,2;} 
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,60;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,1;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,1;} 
+	}
+	if(getequiprefinerycnt(.@part) == 2)//+3
+	{set .@random, rand(0,5);
+	if(.@random == 5){.@opt = .@SUBMOBBOSS; set .@val,3;}  
+	if(.@random == 4){.@opt = .@SUBELENeutral; set .@val,2;}  
+	if(.@random == 3){.@opt = .@ATKy; set .@val,3;} 
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,90;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,2;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,2;} 
+	}
+	if(getequiprefinerycnt(.@part) == 3)//+4
+	{set .@random, rand(0,5);
+	if(.@random == 5){.@opt = .@SUBMOBBOSS; set .@val,4;}  
+	if(.@random == 4){.@opt = .@SUBELENeutral; set .@val,2;}  
+	if(.@random == 3){.@opt = .@ATKy; set .@val,4;} 
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,120;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,2;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,2;} 
+	}
+	if(getequiprefinerycnt(.@part) == 4)//+5
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEF; set .@val,1;} 
+	if(.@random == 5){.@opt = .@SUBMOBBOSS; set .@val,5;}  
+	if(.@random == 4){.@opt = .@SUBELENeutral; set .@val,3;}  
+	if(.@random == 3){.@opt = .@ATKy; set .@val,5;} 
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,150;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,3;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,3;}
+	}
+	if(getequiprefinerycnt(.@part) == 5)//+6
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEF; set .@val,1;} 
+	if(.@random == 5){.@opt = .@SUBMOBBOSS; set .@val,6;}  
+	if(.@random == 4){.@opt = .@SUBELENeutral; set .@val,3;}  
+	if(.@random == 3){.@opt = .@ATKy; set .@val,6;} 
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,180;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,3;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,3;}
+	}
+	if(getequiprefinerycnt(.@part) == 6)//+7
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEF; set .@val,2;} 
+	if(.@random == 5){.@opt = .@SUBMOBBOSS; set .@val,7;}  
+	if(.@random == 4){.@opt = .@SUBELENeutral; set .@val,4;}  
+	if(.@random == 3){.@opt = .@ATKy; set .@val,7;} 
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,210;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,4;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,4;}
+	}
+	if(getequiprefinerycnt(.@part) == 7)//+8
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEF; set .@val,2;} 
+	if(.@random == 5){.@opt = .@SUBMOBBOSS; set .@val,8;}  
+	if(.@random == 4){.@opt = .@SUBELENeutral; set .@val,4;}  
+	if(.@random == 3){.@opt = .@ATKy; set .@val,8;} 
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,240;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,4;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,4;}
+	}
+	if(getequiprefinerycnt(.@part) == 8)//+9
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEF; set .@val,3;} 
+	if(.@random == 5){.@opt = .@SUBMOBBOSS; set .@val,9;}  
+	if(.@random == 4){.@opt = .@SUBELENeutral; set .@val,5;}  
+	if(.@random == 3){.@opt = .@ATKy; set .@val,9;} 
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,270;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,5;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,5;}
+	}
+	if(getequiprefinerycnt(.@part) == 9)//+10
+	{set .@random, rand(0,5);
+	if(.@random == 6){.@opt = .@DEF; set .@val,3;} 
+	if(.@random == 5){.@opt = .@SUBMOBBOSS; set .@val,10;}  
+	if(.@random == 4){.@opt = .@SUBELENeutral; set .@val,5;}  
+	if(.@random == 3){.@opt = .@ATKy; set .@val,10;} 
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,300;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,5;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,5;}
+	}
+}
+	//================================== Lv1 ================================================//
+	
+	if(getequipweaponlv(.@part) == 1 ){
+	if(getequiprefinerycnt(.@part) == 0)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,1;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 1)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,1;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 2)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,2;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 3)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,2;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 4)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,3;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 5)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,4;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+
+	if(getequiprefinerycnt(.@part) == 6)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,5;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 7)
+	{set .@random, rand(0,8);
+	if(.@random == 8){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,5;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,6;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 8)
+	{set .@random, rand(0,10);
+	if(.@random == 10){.@opt = .@CASTTIME; set .@val,2;}
+	if(.@random == 9){.@opt = .@LONGDMG; set .@val,7;}
+	if(.@random == 8){.@opt = .@DEX; set .@val,2;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,7;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,2;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,7;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,2;}
+	if(.@random == 3){.@opt = .@INT; set .@val,2;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,2;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,2;}
+	if(.@random == 0){.@opt = .@STR; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 9)
+	{set .@random, rand(0,10);
+	if(.@random == 10){.@opt = .@CASTTIME; set .@val,3;}
+	if(.@random == 9){.@opt = .@LONGDMG; set .@val,8;}
+	if(.@random == 8){.@opt = .@DEX; set .@val,2;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,10;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,3;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,8;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,2;}
+	if(.@random == 3){.@opt = .@INT; set .@val,2;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,2;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,2;}
+	if(.@random == 0){.@opt = .@STR; set .@val,2;}
+	}
+}
+	//================================== Lv2 ================================================//
+	
+			if(getequipweaponlv(.@part) == 2 ){
+	if(getequiprefinerycnt(.@part) == 0)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,1;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 1)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,1;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 2)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,2;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 3)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,2;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 4)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,3;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 5)
+	{set .@random, rand(0,6);
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,4;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+
+	if(getequiprefinerycnt(.@part) == 6)
+	{set .@random, rand(0,8);
+	if(.@random == 8){.@opt = .@MATK; set .@val,1;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,5;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,5;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 7)
+	{set .@random, rand(0,8);
+	if(.@random == 8){.@opt = .@DEX; set .@val,2;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,7;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,2;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,6;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,2;}
+	if(.@random == 3){.@opt = .@INT; set .@val,2;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,2;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,2;}
+	if(.@random == 0){.@opt = .@STR; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 8)
+	{set .@random, rand(0,14);
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,3;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,3;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,1;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,7;}
+	if(.@random == 10){.@opt = .@CASTTIME; set .@val,2;}
+	if(.@random == 9){.@opt = .@LONGDMG; set .@val,7;}
+	if(.@random == 8){.@opt = .@DEX; set .@val,2;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,10;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,3;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,7;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,2;}
+	if(.@random == 3){.@opt = .@INT; set .@val,2;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,2;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,2;}
+	if(.@random == 0){.@opt = .@STR; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 9)
+	{set .@random, rand(0,14);
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,4;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,4;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,1;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,8;}
+	if(.@random == 10){.@opt = .@CASTTIME; set .@val,3;}
+	if(.@random == 9){.@opt = .@LONGDMG; set .@val,8;}
+	if(.@random == 8){.@opt = .@DEX; set .@val,3;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,15;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,4;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,8;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,3;}
+	if(.@random == 3){.@opt = .@INT; set .@val,3;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,3;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,3;}
+	if(.@random == 0){.@opt = .@STR; set .@val,3;}
+	}
+}
+	//================================== Lv3 ================================================//
+	
+			if(getequipweaponlv(.@part) == 3 ){
+	if(getequiprefinerycnt(.@part) == 0)
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@HIT; set .@val,1;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,2;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 1)
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@HIT; set .@val,1;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,2;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 2)
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@HIT; set .@val,2;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,3;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 3)
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@HIT; set .@val,2;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,3;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 4)
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@HIT; set .@val,3;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,4;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 5)
+	{set .@random, rand(0,9);
+	if(.@random == 9){.@opt = .@MATK; set .@val,1;}
+	if(.@random == 8){.@opt = .@ATKy; set .@val,5;}
+	if(.@random == 7){.@opt = .@HIT; set .@val,4;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,5;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+
+	if(getequiprefinerycnt(.@part) == 6)
+	{set .@random, rand(0,15);
+	if(.@random == 15){.@opt = .@CASTTIME; set .@val,1;}
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,6;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,6;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,1;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,6;}
+	if(.@random == 10){.@opt = .@HIT; set .@val,5;}
+	if(.@random == 9){.@opt = .@MATK; set .@val,2;}
+	if(.@random == 8){.@opt = .@ATKy; set .@val,7;}
+	if(.@random == 7){.@opt = .@DEX; set .@val,2;}
+	if(.@random == 6){.@opt = .@LONGDMG; set .@val,6;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,6;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,2;}
+	if(.@random == 3){.@opt = .@INT; set .@val,2;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,2;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,2;}
+	if(.@random == 0){.@opt = .@STR; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 7)
+	{set .@random, rand(0,15);
+	if(.@random == 15){.@opt = .@CASTTIME; set .@val,2;}
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,7;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,7;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,1;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,7;}
+	if(.@random == 10){.@opt = .@HIT; set .@val,6;}
+	if(.@random == 9){.@opt = .@DEX; set .@val,2;}
+	if(.@random == 8){.@opt = .@ATKy; set .@val,10;}
+	if(.@random == 7){.@opt = .@MATK; set .@val,3;}
+	if(.@random == 6){.@opt = .@LONGDMG; set .@val,7;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,7;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,2;}
+	if(.@random == 3){.@opt = .@INT; set .@val,2;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,2;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,2;}
+	if(.@random == 0){.@opt = .@STR; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 8)
+	{set .@random, rand(0,15);
+	if(.@random == 15){.@opt = .@HIT; set .@val,7;}
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,8;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,8;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,2;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,8;}
+	if(.@random == 10){.@opt = .@CASTTIME; set .@val,3;}
+	if(.@random == 9){.@opt = .@LONGDMG; set .@val,8;}
+	if(.@random == 8){.@opt = .@DEX; set .@val,3;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,15;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,4;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,8;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,3;}
+	if(.@random == 3){.@opt = .@INT; set .@val,3;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,3;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,3;}
+	if(.@random == 0){.@opt = .@STR; set .@val,3;}
+	}
+	if(getequiprefinerycnt(.@part) == 9)
+	{set .@random, rand(0,15);
+	if(.@random == 15){.@opt = .@HIT; set .@val,8;}
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,9;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,9;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,2;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,9;}
+	if(.@random == 10){.@opt = .@CASTTIME; set .@val,4;}
+	if(.@random == 9){.@opt = .@LONGDMG; set .@val,9;}
+	if(.@random == 8){.@opt = .@DEX; set .@val,4;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,17;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,5;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,9;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,4;}
+	if(.@random == 3){.@opt = .@INT; set .@val,4;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,4;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,4;}
+	if(.@random == 0){.@opt = .@STR; set .@val,4;}
+	}
+}
+	//================================== Lv4 ================================================//
+	
+			if(getequipweaponlv(.@part) == 4 ){
+	if(getequiprefinerycnt(.@part) == 0)
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@HIT; set .@val,1;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,3;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 1)
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@HIT; set .@val,2;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,3;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 2)
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@HIT; set .@val,3;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,4;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 3)
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@HIT; set .@val,4;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,4;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 4)
+	{set .@random, rand(0,9);
+	if(.@random == 9){.@opt = .@MATK; set .@val,1;}
+	if(.@random == 8){.@opt = .@ATKy; set .@val,5;}
+	if(.@random == 7){.@opt = .@HIT; set .@val,5;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,5;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 5)
+	{set .@random, rand(0,14);
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,4;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,4;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,1;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,5;}
+	if(.@random == 10){.@opt = .@LONGDMG; set .@val,5;}
+	if(.@random == 9){.@opt = .@MATK; set .@val,2;}
+	if(.@random == 8){.@opt = .@ATKy; set .@val,7;}
+	if(.@random == 7){.@opt = .@HIT; set .@val,6;}
+	if(.@random == 6){.@opt = .@DEX; set .@val,1;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,6;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,1;}
+	if(.@random == 3){.@opt = .@INT; set .@val,1;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,1;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,1;}
+	if(.@random == 0){.@opt = .@STR; set .@val,1;}
+	}
+
+	if(getequiprefinerycnt(.@part) == 6)
+	{set .@random, rand(0,15);
+	if(.@random == 15){.@opt = .@CASTTIME; set .@val,1;}
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,7;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,7;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,1;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,7;}
+	if(.@random == 10){.@opt = .@HIT; set .@val,7;}
+	if(.@random == 9){.@opt = .@MATK; set .@val,3;}
+	if(.@random == 8){.@opt = .@ATKy; set .@val,10;}
+	if(.@random == 7){.@opt = .@DEX; set .@val,2;}
+	if(.@random == 6){.@opt = .@LONGDMG; set .@val,7;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,7;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,2;}
+	if(.@random == 3){.@opt = .@INT; set .@val,2;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,2;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,2;}
+	if(.@random == 0){.@opt = .@STR; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 7)
+	{set .@random, rand(0,15);
+	if(.@random == 15){.@opt = .@CASTTIME; set .@val,2;}
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,8;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,8;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,2;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,8;}
+	if(.@random == 10){.@opt = .@HIT; set .@val,8;}
+	if(.@random == 9){.@opt = .@DEX; set .@val,3;}
+	if(.@random == 8){.@opt = .@ATKy; set .@val,15;}
+	if(.@random == 7){.@opt = .@MATK; set .@val,4;}
+	if(.@random == 6){.@opt = .@LONGDMG; set .@val,8;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,8;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,3;}
+	if(.@random == 3){.@opt = .@INT; set .@val,3;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,3;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,3;}
+	if(.@random == 0){.@opt = .@STR; set .@val,3;}
+	}
+	if(getequiprefinerycnt(.@part) == 8)
+	{set .@random, rand(0,15);
+	if(.@random == 15){.@opt = .@HIT; set .@val,9;}
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,9;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,9;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,2;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,9;}
+	if(.@random == 10){.@opt = .@CASTTIME; set .@val,3;}
+	if(.@random == 9){.@opt = .@LONGDMG; set .@val,9;}
+	if(.@random == 8){.@opt = .@DEX; set .@val,4;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,17;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,6;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,9;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,4;}
+	if(.@random == 3){.@opt = .@INT; set .@val,4;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,4;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,4;}
+	if(.@random == 0){.@opt = .@STR; set .@val,4;}
+	}
+	if(getequiprefinerycnt(.@part) == 9)
+	{set .@random, rand(0,15);
+	if(.@random == 15){.@opt = .@HIT; set .@val,10;}
+	if(.@random == 14){.@opt = .@ADDMRCDemiHuman; set .@val,10;}
+	if(.@random == 13){.@opt = .@ADDRCDemiHuman; set .@val,10;}
+	if(.@random == 12){.@opt = .@ASPD; set .@val,3;}
+	if(.@random == 11){.@opt = .@CRITDMG; set .@val,10;}
+	if(.@random == 10){.@opt = .@CASTTIME; set .@val,4;}
+	if(.@random == 9){.@opt = .@LONGDMG; set .@val,10;}
+	if(.@random == 8){.@opt = .@DEX; set .@val,4;}
+	if(.@random == 7){.@opt = .@ATKy; set .@val,20;}
+	if(.@random == 6){.@opt = .@MATK; set .@val,8;}
+	if(.@random == 5){.@opt = .@ADDMOBBOSS; set .@val,10;}
+	if(.@random == 4){.@opt = .@LUK; set .@val,4;}
+	if(.@random == 3){.@opt = .@INT; set .@val,4;}
+	if(.@random == 2){.@opt = .@VIT; set .@val,4;}
+	if(.@random == 1){.@opt = .@AGI; set .@val,4;}
+	if(.@random == 0){.@opt = .@STR; set .@val,4;}
+	}
+	}
+	}
+}
+
+	//=============================== GARMENT ==============================================//
+	
+	if(.@part == EQI_GARMENT){
+		if(.@indx == 0){
+		
+	if(getequiprefinerycnt(.@part) == 0)//+1
+	{set .@random, rand(0,4);
+	if(.@random == 4){.@opt = .@MAXSPk; set .@val,1;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,1;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,30;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,1;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 1)//+2
+	{set .@random, rand(0,4);
+	if(.@random == 4){.@opt = .@MAXSPk; set .@val,1;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,1;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,60;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,1;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 2)//+3
+	{set .@random, rand(0,4);
+	if(.@random == 4){.@opt = .@MAXSPk; set .@val,2;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,2;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,90;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,2;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 3)//+4
+	{set .@random, rand(0,4);
+	if(.@random == 4){.@opt = .@MAXSPk; set .@val,2;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,2;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,120;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,2;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 4)//+5
+	{set .@random, rand(0,5);
+	if(.@random == 5){.@opt = .@MDEF; set .@val,1;}
+	if(.@random == 4){.@opt = .@MAXSPk; set .@val,3;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,3;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,150;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,3;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,3;}
+	}
+	if(getequiprefinerycnt(.@part) == 5)//+6
+	{set .@random, rand(0,5);
+	if(.@random == 5){.@opt = .@MDEF; set .@val,1;}
+	if(.@random == 4){.@opt = .@MAXSPk; set .@val,3;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,3;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,180;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,3;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,3;}
+	}
+	if(getequiprefinerycnt(.@part) == 6)//+7
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@ADDMRCDemiHuman; set .@val,1;}
+	if(.@random == 6){.@opt = .@ADDRCDemiHuman; set .@val,1;}
+	if(.@random == 5){.@opt = .@MDEF; set .@val,2;}
+	if(.@random == 4){.@opt = .@MAXSPk; set .@val,4;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,4;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,210;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,4;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,4;}
+	}
+	if(getequiprefinerycnt(.@part) == 7)//+8
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@ADDMRCDemiHuman; set .@val,2;}
+	if(.@random == 6){.@opt = .@ADDRCDemiHuman; set .@val,2;}
+	if(.@random == 5){.@opt = .@MDEF; set .@val,2;}
+	if(.@random == 4){.@opt = .@MAXSPk; set .@val,4;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,4;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,240;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,4;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,4;}
+	}
+	if(getequiprefinerycnt(.@part) == 8)//+9
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@ADDMRCDemiHuman; set .@val,2;}
+	if(.@random == 6){.@opt = .@ADDRCDemiHuman; set .@val,2;}
+	if(.@random == 5){.@opt = .@MDEF; set .@val,3;}
+	if(.@random == 4){.@opt = .@MAXSPk; set .@val,5;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,5;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,270;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,5;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,5;}
+	}
+	if(getequiprefinerycnt(.@part) == 9)//+10
+	{set .@random, rand(0,7);
+	if(.@random == 7){.@opt = .@ADDMRCDemiHuman; set .@val,3;}
+	if(.@random == 6){.@opt = .@ADDRCDemiHuman; set .@val,3;}
+	if(.@random == 5){.@opt = .@MDEF; set .@val,3;}
+	if(.@random == 4){.@opt = .@MAXSPk; set .@val,5;}
+	if(.@random == 3){.@opt = .@STUN; set .@val,5;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,300;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,5;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,5;}
+	}
+	}
+}
+	//======================================================================================//
+	
+	if(.@part == EQI_SHOES){
+		if(.@indx == 0){
+		
+	if(getequiprefinerycnt(.@part) == 0)//+1
+	{set .@random, rand(0,5);
+	if(.@random == 5){.@opt = .@MATK; set .@val,1;}
+	if(.@random == 4){.@opt = .@FLEE; set .@val,1;}
+	if(.@random == 3){.@opt = .@MAXSP; set .@val,5;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,30;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,1;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 1)//+2
+	{set .@random, rand(0,5);
+	if(.@random == 5){.@opt = .@MATK; set .@val,1;}
+	if(.@random == 4){.@opt = .@FLEE; set .@val,2;}
+	if(.@random == 3){.@opt = .@MAXSP; set .@val,10;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,60;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,1;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,1;}
+	}
+	if(getequiprefinerycnt(.@part) == 2)//+3
+	{set .@random, rand(0,5);
+	if(.@random == 5){.@opt = .@MATK; set .@val,2;}
+	if(.@random == 4){.@opt = .@FLEE; set .@val,3;}
+	if(.@random == 3){.@opt = .@MAXSP; set .@val,15;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,90;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,2;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 3)//+4
+	{set .@random, rand(0,5);
+	if(.@random == 5){.@opt = .@MATK; set .@val,2;}
+	if(.@random == 4){.@opt = .@FLEE; set .@val,4;}
+	if(.@random == 3){.@opt = .@MAXSP; set .@val,20;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,120;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,2;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,2;}
+	}
+	if(getequiprefinerycnt(.@part) == 4)//+5
+	{set .@random, rand(0,5);
+	if(.@random == 5){.@opt = .@MATK; set .@val,3;}
+	if(.@random == 4){.@opt = .@FLEE; set .@val,5;}
+	if(.@random == 3){.@opt = .@MAXSP; set .@val,25;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,150;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,3;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,3;}
+	}
+	if(getequiprefinerycnt(.@part) == 5)//+6
+	{set .@random, rand(0,5);
+	if(.@random == 5){.@opt = .@MATK; set .@val,3;}
+	if(.@random == 4){.@opt = .@FLEE; set .@val,6;}
+	if(.@random == 3){.@opt = .@MAXSP; set .@val,30;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,180;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,3;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,3;}
+	}
+	if(getequiprefinerycnt(.@part) == 6)//+7
+	{set .@random, rand(0,5);
+	if(.@random == 5){.@opt = .@MATK; set .@val,4;}
+	if(.@random == 4){.@opt = .@FLEE; set .@val,7;}
+	if(.@random == 3){.@opt = .@MAXSP; set .@val,35;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,210;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,4;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,4;}
+	}
+	if(getequiprefinerycnt(.@part) == 7)//+8
+	{set .@random, rand(0,5);
+	if(.@random == 5){.@opt = .@MATK; set .@val,4;}
+	if(.@random == 4){.@opt = .@FLEE; set .@val,8;}
+	if(.@random == 3){.@opt = .@MAXSP; set .@val,40;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,240;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,4;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,4;}
+	}
+	if(getequiprefinerycnt(.@part) == 8)//+9
+	{set .@random, rand(0,5);
+	if(.@random == 5){.@opt = .@MATK; set .@val,5;}
+	if(.@random == 4){.@opt = .@FLEE; set .@val,9;}
+	if(.@random == 3){.@opt = .@MAXSP; set .@val,45;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,270;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,5;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,5;}
+	}
+	if(getequiprefinerycnt(.@part) == 9)//+10
+	{set .@random, rand(0,5);
+	if(.@random == 5){.@opt = .@MATK; set .@val,5;}
+	if(.@random == 4){.@opt = .@FLEE; set .@val,10;}
+	if(.@random == 3){.@opt = .@MAXSP; set .@val,50;}
+	if(.@random == 2){.@opt = .@MAXHP; set .@val,300;}
+	if(.@random == 1){.@opt = .@EXP; set .@val,5;}
+	if(.@random == 0){.@opt = .@DROP; set .@val,5;}
+	}
+	}
+}
+
+	//======================================================================================//
+	
+	for(set .@f,1; .@f<getarraysize(.ignore); set .@f,.@f+1)
+		if(.@opt==.ignore[.@f])
+			goto IgnoreCheck;		
+	
+			set @refine_rate,getequippercentrefinery(.@part);
+			set .@refineitemid, getequipid(.@part); 
+			set .@refinerycnt, getequiprefinerycnt(.@part); 
+				switch(getequipweaponlv(.@part)){
+			case 0:
+				if(.@Enriched == 2){set .@price,$Eluniumprice;set .@material,$Elunium;}
+				if(.@Enriched == 0){set .@price,2000;set .@material,985;}
+		break;
+			case 1: 
+				if(.@Enriched == 1){set .@price,$Orideconprice;set .@material,$Oridecon;}
+				if(.@Enriched == 0){set .@price,50;set .@material,1010;}	
+		break;
+			case 2: 
+				if(.@Enriched == 1){set .@price,$Orideconprice;set .@material,$Oridecon;}
+				if(.@Enriched == 0){set .@price,200;set .@material,1011;}	
+		break;
+			case 3: 	
+				if(.@Enriched == 1){set .@price,$Orideconprice;set .@material,$Oridecon;}
+				if(.@Enriched == 0){set .@price,5000;set .@material,984;}
+		break;
+			case 4: 
+				if(.@Enriched == 1){set .@price,$Orideconprice;set .@material,$Oridecon;}
+				if(.@Enriched == 0){set .@price,20000;set .@material,984;}	
+		break;
+			case 5: 	
+				if(.@Enriched == 2){set .@price,$Eluniumprice;set .@material,$Elunium;}
+				if(.@Enriched == 0){set .@price,2000;set .@material,985;}
+		break;
+			}
+
+				mes "[ ^FF0000"+$@nameopd$+"^000000 ]";
+			if(.@Enriched > 0){ mes " คุณใช้ : ^FF0000"+getitemname(.@material)+"^000000";mes "โอกาสสำเร็จเพิ่มเป็น : ^0000ff" + getequippercentrefinery(.@part, true) +"^000000 %";}
+			if(.@Enriched == 0){mes "คุณใช้ : ^FF0000"+getitemname(.@material)+"^000000";mes "โอกาสสำเร็จ : ^0000ff " + @refine_rate + "^000000 %";}
+				mes "---------------------";
+				//mes "^FF0000หมายเหตุ^000000 : คุณสามารถป้องกันการเสียหายได้ด้วย ^FF0000"+getitemname($seftyitem)+"^000000";
+		next;
+				menu 
+				"เริ่ม",yes,"ยกเลิก ",no;
+
+		no:
+	end;
+		yes:
+	
+	if((countitem(.@material) < 1) || (Zeny < .@price)) {
+		next;
+			mes "[ ^FF0000"+$@nameopd$+"^000000 ]";
+			mes "ไม่สามารถดำเนินการได้";
+			mes "คุณมี Zeny ไม่พอที่จะอัพเกรด หรือ "+getitemname(.@material)+" ไม่มี...";
+			mes "แล้วค่อยกลับมาหาข้า";
+			end;
+		}
+set Zeny,Zeny-.@price;
+delitem .@material,1;
+		if(getequipisequiped(.@part) == 0) { 
+		next;
+				mes "[ ^FF0000"+$@nameopd$+"^000000 ]";
+			mes "ดูเหมือนว่าท่านจะขาดอะไรไป โปรดตรวจสอบ.";
+			close;
+		}
+		if(getequiprefinerycnt(.@part) != .@refinerycnt || getequipid(.@part) != .@refineitemid) { 
+		next;
+				mes "[ ^FF0000"+$@nameopd$+"^000000 ]";
+				mes "รอสักครู่...";
+			mes "คุณคิดว่าฉันโง่!";
+			mes "คุณจะเปลี่ยนรายการในขณะที่ฉันไม่ได้มอง! ออกจากที่นี่!";
+			close;
+		}
+			if(.@Enriched == 1)+(.@Enriched == 2){
+			set .@partseter,getequippercentrefinery(.@part);
+			if(getequippercentrefinery(.@part, true) <= rand(100)) {
+			goto OnFailure;
+			}
+	}
+			if(.@Enriched == 0){
+			if(getequippercentrefinery(.@part) <= rand(100)) {
+			goto OnFailure;
+			}
+			}
+	
+	successrefitem .@part;
+			if(getequiprefinerycnt(.@part) > 10){
+			goto plustop;
+			}else{
+			setrandomoption(.@part,.@indx,.@opt,.@val,.@indx,getcharid(0));
+			end;
+			}
+
+	plustop:
+			if(getequipweaponlv(.@part) == 1 )+
+			(getequipweaponlv(.@part) == 2 )
+	{
+			if(getequiprefinerycnt(.@part) > 8){
+			setrandomoption(.@part,.@indx,.@opt,.@val,.@indx,getcharid(0));
+			setrandomoption(.@part,1,.@opts,.@vals,1,getcharid(0));
+		end;
+	}
+			setrandomoption(.@part,1,.@opts,.@vals,1,getcharid(0));
+		end;
+	}
+			if(getequipweaponlv(.@part) == 3 )
+	{
+			if(getequiprefinerycnt(.@part) > 7){
+			setrandomoption(.@part,.@indx,.@opt,.@val,.@indx,getcharid(0));
+			setrandomoption(.@part,1,.@opts,.@vals,1,getcharid(0));
+		end;
+	}
+			setrandomoption(.@part,1,.@opts,.@vals,1,getcharid(0));
+		end;
+	}
+			if(getequipweaponlv(.@part) == 4 )
+	{
+			if(getequiprefinerycnt(.@part) > 6){
+			setrandomoption(.@part,.@indx,.@opt,.@val,.@indx,getcharid(0));
+			setrandomoption(.@part,1,.@opts,.@vals,1,getcharid(0));
+		end;
+}
+			setrandomoption(.@part,1,.@opts,.@vals,1,getcharid(0));
+		end;
+}
+		
+			setrandomoption(.@part,.@indx,.@opt,.@val,.@indx,getcharid(0));
+			setrandomoption(.@part,1,.@opts,.@vals,1,getcharid(0));
+		end;
+	
+
+	OnFailure:
+		if(countitem($seftyitem)){
+		delitem $seftyitem,1;
+		downrefitem .@part;
+	next;
+			mes "[ ^FF0000"+$@nameopd$+"^000000 ]";
+			mes "^FF0000ยกโทษให้ฉัน...^000000";
+			mes "^FF0000กระบวนการล้มเหลว...^000000 ";
+			mes "^FF0000หมายเหตุ^000000 : คุณมีกันแตก ค่าดีบวกถูกลดลง 1 ระดับ";
+}
+else{
+		failedrefitem .@part;
+	next;
+			mes "[ ^FF0000"+$@nameopd$+"^000000 ]";
+			mes "^FF0000ยกโทษให้ฉัน...^000000 ";
+			mes "^FF0000 กระบวนการล้มเหลว...^000000 ";
+			mes "^FF0000รายการของคุณถูกทำลาย.^000000";
+}
+end;
+
+}
+
+
+
+//==============================================================================//
+
+
+morocc_in,64,41,5	script	รายละเอียด#10	4_BOARD3,{
+
+		mes "[ ^FF0000รายละเอียด^000000 ]";
+	next;
+	switch(select("^cc9900Upper Head^000000","^cc9900Armor^000000","^cc9900Garment^000000","^cc9900Shield^000000","^cc9900Shoes^000000","^cc9900Weapon^000000","ยกเลิก")) {
+	
+		case 1:	
+		mes "[ ^FF0000Upper Head^000000 ]";
+		mes "= ^006699 เพิ่มค่าประสบการณ์ EXP^000000 =";
+		mes "= ^006699 เพิ่มอัตราการ Drop^000000 =";
+		mes "= ^006699 ป้องกันระยะไกล^000000 =";
+		mes "= ^006699 ป้องกันทุกธาตุ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 5^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 5^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000Upper Head^000000 ]";
+		mes "= ^006699 Max HP^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 30^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 60^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 90^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 120^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 150^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 180^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 210^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 240^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 270^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 300^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000Upper Head^000000 ]";
+		mes "= ^006699 DEF^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 3^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 3^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000Upper Head^000000 ]";
+		mes "= ^006699 โจมตีกายภาพศัตรูเผ่า Demi-Human^000000 =";
+		mes "= ^006699 โจมตีเวทย์ศัตรูเผ่า Demi-Human^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 3^000000%";
+		mes "";
+					close;
+		case 2:	
+		mes "[ ^FF0000Armor^000000 ]";
+		mes "= ^006699 เพิ่มค่าประสบการณ์ EXP^000000 =";
+		mes "= ^006699 เพิ่มอัตราการ Drop^000000 =";
+		mes "= ^006699 เพิ่ม MaxHP^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 5^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 5^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000Armor^000000 ]";
+		mes "= ^006699 ป้องกันสถานะ Stun^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 100^000000 หน่วย";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 100^000000 หน่วย";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 200^000000 หน่วย";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 200^000000 หน่วย";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 300^000000 หน่วย";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 300^000000 หน่วย";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 400^000000 หน่วย";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 400^000000 หน่วย";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 500^000000 หน่วย";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 500^000000 หน่วย";
+		mes "^ff000010000^000000 หน่วย =^0000ff100^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000Armor^000000 ]";
+		mes "= ^006699 Max HP^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 30^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 60^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 90^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 120^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 150^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 180^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 210^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 240^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 270^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 300^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000Armor^000000 ]";
+		mes "= ^006699 MDEF^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 3^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 3^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000Armor^000000 ]";
+		mes "= ^006699 ลดเวลาการร่ายสกิลลง^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 3^000000%";
+		mes "";
+					close;
+		case 3:	
+		mes "[ ^FF0000Garment^000000 ]";
+		mes "= ^006699 เพิ่มค่าประสบการณ์ EXP^000000 =";
+		mes "= ^006699 เพิ่มอัตราการ Drop^000000 =";
+		mes "= ^006699 เพิ่ม MaxSP^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 5^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 5^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000Garment^000000 ]";
+		mes "= ^006699 ป้องกันสถานะ Stun^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 100^000000 หน่วย";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 100^000000 หน่วย";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 200^000000 หน่วย";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 200^000000 หน่วย";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 300^000000 หน่วย";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 300^000000 หน่วย";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 400^000000 หน่วย";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 400^000000 หน่วย";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 500^000000 หน่วย";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 500^000000 หน่วย";
+		mes "^ff000010000^000000 หน่วย =^0000ff100^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000Garment^000000 ]";
+		mes "= ^006699 Max HP^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 30^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 60^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 90^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 120^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 150^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 180^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 210^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 240^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 270^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 300^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000Garment^000000 ]";
+		mes "= ^006699 MDEF^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 3^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 3^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000Garment^000000 ]";
+		mes "= ^006699 โจมตีกายภาพ ผู้เล่น-มนุษย์ ^000000 =";
+		mes "= ^006699 โจมตีเวทย์มนต์ ผู้เล่น-มนุษย์ ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 3^000000%";
+		mes "";
+					close;
+		case 4:	
+		mes "[ ^FF0000Shield^000000 ]";
+		mes "= ^006699 เพิ่มค่าประสบการณ์ EXP^000000 =";
+		mes "= ^006699 เพิ่มอัตราการ Drop^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 5^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 5^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000Shield^000000 ]";
+		mes "= ^006699 Max HP^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 30^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 60^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 90^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 120^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 150^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 180^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 210^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 240^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 270^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 300^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000Shield^000000 ]";
+		mes "= ^006699 DEF^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 3^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 3^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000Shield^000000 ]";
+		mes "= ^006699 ป้องกันการโจมตีจากศัตรูประเภท บอส^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 5^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 6^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 7^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 8^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 9^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 10^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000Shield^000000 ]";
+		mes "= ^006699 ATK^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 3^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 4^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 5^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 6^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 7^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 8^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 9^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 10^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000Shield^000000 ]";
+		mes "= ^006699 ป้องกันกายภาพจากศัตรูธาตุ Neutral^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 5^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 5^000000%";
+		mes "";
+					close;
+		case 5:	
+		mes "[ ^FF0000Shoes^000000 ]";
+		mes "= ^006699 เพิ่มค่าประสบการณ์ EXP^000000 =";
+		mes "= ^006699 เพิ่มอัตราการ Drop^000000 =";
+		mes "= ^006699 MATK^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 5^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 5^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000Shoes^000000 ]";
+		mes "= ^006699 Max HP^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 30^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 60^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 90^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 120^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 150^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 180^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 210^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 240^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 270^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 300^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000Shoes^000000 ]";
+		mes "= ^006699 FLEE^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 3^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 4^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 5^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 6^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 7^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 8^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 9^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 10^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000Shoes^000000 ]";
+		mes "= ^006699 Max SP ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 5^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 10^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 15^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 20^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 25^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 30^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 35^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 40^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 45^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 50^000000";
+		mes "";
+					close;
+		case 6:	
+		mes "[ ^FF0000Weapon^000000 ]";
+	next;
+	switch(select("^FF9900Lv.1^000000","^FF9900Lv.2^000000","^FF9900Lv.3^000000","^FF9900Lv.4^000000","ยกเลิก")) {
+		case 1:	
+		mes "[ ^FF0000LV.1^000000 ]";
+		mes "= ^006699 Str,Agi,Vit,Int,Dex,Luk ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 2^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.1^000000 ]";
+		mes "= ^006699 โจมตีกายภาพมอนเตอร์ บอส ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 5^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 6^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 7^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 8^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.1^000000 ]";
+		mes "= ^006699 ATK ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 5^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 7^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 10^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.1^000000 ]";
+		mes "= ^006699 MATK ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 3^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.1^000000 ]";
+		mes "= ^006699 โจมตีกายภาพระยะไกล ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 7^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 8^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.1^000000 ]";
+		mes "= ^006699 ลดเวลาการร่ายสกิลลง ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 3^000000%";
+		mes "";
+					close;
+		case 2:	
+		mes "[ ^FF0000LV.2^000000 ]";
+		mes "= ^006699 Str,Agi,Vit,Int,Dex,Luk ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 3^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.2^000000 ]";
+		mes "= ^006699 โจมตีกายภาพมอนเตอร์ บอส ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 5^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 6^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 7^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 8^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.2^000000 ]";
+		mes "= ^006699 ATK ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 5^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 7^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 10^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 15^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.2^000000 ]";
+		mes "= ^006699 MATK ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 4^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.2^000000 ]";
+		mes "= ^006699 โจมตีกายภาพระยะไกล ^000000 =";
+		mes "= ^006699 เพิ่มความเสียหายคริติคอล ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 7^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 8^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.2^000000 ]";
+		mes "= ^006699 ลดเวลาการร่ายสกิลลง ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 3^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.2^000000 ]";
+		mes "= ^006699 เพิ่ม ASPD ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 1^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.2^000000 ]";
+		mes "= ^006699 โจมตีกายภาพศัตรูเผ่า Demi-Human ^000000 =";
+		mes "= ^006699 โจมตีเวทย์ศัตรูเผ่า Demi-Human ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 4^000000%";
+		mes "";
+					close;
+		case 3:	
+		mes "[ ^FF0000LV.3^000000 ]";
+		mes "= ^006699 Str,Agi,Vit,Int,Dex,Luk ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 3^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 4^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.3^000000 ]";
+		mes "= ^006699 โจมตีกายภาพมอนเตอร์ บอส ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 5^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 6^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 7^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 8^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 9^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.3^000000 ]";
+		mes "= ^006699 เพิ่ม HIT ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 3^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 4^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 5^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 6^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 7^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 8^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.3^000000 ]";
+		mes "= ^006699 ATK ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 5^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 7^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 10^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 15^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 17^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.3^000000 ]";
+		mes "= ^006699 MATK ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 5^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.3^000000 ]";
+		mes "= ^006699 โจมตีกายภาพระยะไกล ^000000 =";
+		mes "= ^006699 เพิ่มความเสียหายคริติคอล ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 6^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 7^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 8^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 9^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.3^000000 ]";
+		mes "= ^006699 ลดเวลาการร่ายสกิลลง ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 4^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.3^000000 ]";
+		mes "= ^006699 เพิ่ม ASPD ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 2^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.3^000000 ]";
+		mes "= ^006699 โจมตีกายภาพศัตรูเผ่า Demi-Human ^000000 =";
+		mes "= ^006699 โจมตีเวทย์ศัตรูเผ่า Demi-Human ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 6^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 7^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 8^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 9^000000%";
+		mes "";
+					close;
+		case 4:	
+		mes "[ ^FF0000LV.4^000000 ]";
+		mes "= ^006699 Str,Agi,Vit,Int,Dex,Luk ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 3^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 3^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 4^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 4^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.4^000000 ]";
+		mes "= ^006699 โจมตีกายภาพมอนเตอร์ บอส ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 5^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 6^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 7^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 8^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 9^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 10^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.4^000000 ]";
+		mes "= ^006699 เพิ่ม HIT ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 1^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 2^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 3^000000 เพิ่ม^ff0066 3^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 4^000000 เพิ่ม^ff0066 4^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 5^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 6^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 7^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 8^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 9^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 10^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.4^000000 ]";
+		mes "= ^006699 ATK ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 5^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 7^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 10^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 15^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 17^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 20^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.4^000000 ]";
+		mes "= ^006699 MATK ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 5^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 6^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 8^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.4^000000 ]";
+		mes "= ^006699 โจมตีกายภาพระยะไกล ^000000 =";
+		mes "= ^006699 เพิ่มความเสียหายคริติคอล ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 5^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 7^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 8^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 9^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 10^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.4^000000 ]";
+		mes "= ^006699 ลดเวลาการร่ายสกิลลง ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 1^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 2^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 3^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 4^000000%";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.4^000000 ]";
+		mes "= ^006699 เพิ่ม ASPD ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 1^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 2^000000";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 3^000000";
+		mes "";
+			next;
+		mes "[ ^FF0000LV.4^000000 ]";
+		mes "= ^006699 โจมตีกายภาพศัตรูเผ่า Demi-Human ^000000 =";
+		mes "= ^006699 โจมตีเวทย์ศัตรูเผ่า Demi-Human ^000000 =";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 6^000000 เพิ่ม^ff0066 4^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 7^000000 เพิ่ม^ff0066 7^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 8^000000 เพิ่ม^ff0066 8^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 9^000000 เพิ่ม^ff0066 9^000000%";
+		mes "^ff0066 อัพเกรด^000000 +^ff0066 10^000000 เพิ่ม^ff0066 10^000000%";
+		mes "";
+					close;
+		case 5:	
+		mes "[ ^FF0000Close^000000 ]";
+					close;
+	
+	}
+	
+					close;
+		case 7:	
+		mes "[ ^FF0000Close^000000 ]";
+					close;
+	}
+		end;
+}

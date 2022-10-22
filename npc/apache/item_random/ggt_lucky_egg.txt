@@ -1,0 +1,76 @@
+////////////////////////////////////////////////////////////////////////////////////////
+////-- Whipsering Rain
+
+//-- วิธีใช้งาน
+/*
+
+	ให้ไอเท็ม เรียกใช้งาน callfunc "Lucky_Egg",<เลือกไข่ 1 - 1>;
+	ตัวอย่าง
+	callfunc "GGT_Lucky_Egg",1;
+
+*/
+
+function	script	GGT_Lucky_Egg	{
+
+	.@mode = getarg(0);
+	switch(.@mode){
+		case 1:
+			doevent "GGT_Egg_System::OnEgg";
+			return;
+			break;
+	}
+
+}
+
+-	script	GGT_Egg_System	-1,{
+
+OnInit:
+
+	setarray .item_id[0]        ,501,502,503,504,505,506,507,508,509,2199;
+	setarray .item_get_amt[0]   ,1,1,1,1,1,1,1,1,1,1;
+	setarray .item_total_amt[0] ,10,10,10,10,10,10,10,10,10,1;
+	setarray .get_announce[0]   ,1,1,1,1,1,1,1,1,1,2;
+
+	setarray $ggt_egg_name$[0],"GGT เค็มถึงใจ";
+	end;
+
+OnEgg:
+
+	if($ggt_lucky_t == 0 || $ggt_lucky_t == NULL){
+		for(.@i=0;.@i < getarraysize(.item_total_amt);.@i++){
+			$ggt_lucky_t = $ggt_lucky_t + .item_total_amt[.@i];
+		}
+	}
+
+	if(getarraysize(.item_total_amt) == 0 && .item_total_amt[0] >= 0){
+		setarray .item_id[0]        ,501,502,503,504,505,506,507,508,509,2199;
+		setarray .item_get_amt[0]   ,1,1,1,1,1,1,1,1,1,1;
+		setarray .item_total_amt[0] ,10,10,10,10,10,10,10,10,10,1;
+		setarray .get_announce[0]   ,1,1,1,1,1,1,1,1,1,2;
+	}
+
+	.@r_index = rand((getarraysize(.item_total_amt)-1));
+
+	if(.item_total_amt[.@r_index] == 1){
+		getitem .item_id[.@r_index],.item_get_amt[.@r_index];
+
+		deletearray .item_id[.@r_index],1;
+		deletearray .item_get_amt[.@r_index],1;
+		deletearray .item_total_amt[.@r_index],1;
+		deletearray .get_announce[.@r_index],1;
+
+		if(.get_announce[.@r_index] == 2){
+//			announce "["+strcharinfo(0)+"] สุ่มไข่ < " + $ggt_egg_name$[0] + " > ได้รับ " + getitemname(.item_id[.@r_index]) + " จำนวน x" + .item_get_amt[.@r_index],bc_all,0x43ff40;
+		}
+		end;
+	}
+
+	if(.get_announce[.@r_index] == 2){
+//		announce "["+strcharinfo(0)+"] สุ่มไข่ < " + $ggt_egg_name$[0] + " > ได้รับ " + getitemname(.item_id[.@r_index]) + " จำนวน x" + .item_get_amt[.@r_index],bc_all,0x43ff40;
+	}
+
+	getitem .item_id[.@r_index],.item_get_amt[.@r_index];
+	.item_total_amt[.@r_index]--;
+	end;
+
+}

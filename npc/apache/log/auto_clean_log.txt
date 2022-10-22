@@ -1,0 +1,37 @@
+-	script	cleanlogday	-1,{
+	end;
+
+OnClock0600:
+	set $CLEANLOGS, $CLEANLOGS + 1;
+	if ($CLEANLOGS == 2) {
+		query_logsql "web_service_ro_log `picklog`";
+		query_logsql "web_service_ro_log `zenylog`";
+		query_logsql "web_service_ro_log `branchlog`";
+		query_logsql "web_service_ro_log `mvplog`";
+		query_logsql "web_service_ro_log `npclog`";
+		query_logsql "web_service_ro_log `chatlog`";
+		query_sql "web_service_ro_log `charlog`";
+		query_sql "web_service_ro_log `interlog`";
+		query_sql "web_service_ro_log `atcommandlog`";
+		set $CLEANLOGS, 0;
+	}
+}
+
+-	script	cleanlognight	-1,{
+	end;
+
+OnClock2100:
+	set $CLEANLOGS, $CLEANLOGS + 1;
+	if ($CLEANLOGS == 2) {
+		query_logsql "web_service_ro_log `picklog`";
+		query_logsql "web_service_ro_log `zenylog`";
+		query_logsql "web_service_ro_log `branchlog`";
+		query_logsql "web_service_ro_log `mvplog`";
+		query_logsql "web_service_ro_log `npclog`";
+		query_logsql "web_service_ro_log `chatlog`";
+		query_sql "web_service_ro_log `charlog`";
+		query_sql "web_service_ro_log `interlog`";
+		query_sql "web_service_ro_log `atcommandlog`";
+		set $CLEANLOGS, 0;
+	}
+}

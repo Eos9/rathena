@@ -1,0 +1,206 @@
+//===== rAthena Script ======================================= 
+//= Treasure Box Event
+//===== By: ================================================== 
+//= mr.TAURUS
+//===== Current Version: ===================================== 
+//= 1.3
+//===== Compatible With: ===================================== 
+//= rAthena Project
+//===== Description: ========================================= 
+//= Treasure Box Event.
+//============================================================
+
+-	script	TreasureEvent_2	-1,{
+	close;
+	
+	OnEventStart:
+	.@r = rand(1,10);	// สุ่มเมืองที่จะเกิด
+		if(.@r == 1) goto Prontera;
+		if(.@r == 2) goto Geffen;
+		if(.@r == 3) goto Alberta;
+		if(.@r == 4) goto Payon;
+		if(.@r == 5) goto Morocc;
+		if(.@r == 6) goto Izlude;
+		if(.@r == 8) goto Aldebaran;
+		if(.@r == 9) goto Lutie;
+		if(.@r == 10) goto Comodo;
+	end;	
+		
+	Prontera:
+		set $@Trandom,rand(5,10);	//= จำนวนที่สุ่ม (ต่ำสุด,สูงสุด)
+		set $@FTrandom,0;
+		announce "Treasure Event : กล่องสมบัติ Treasure Box ได้ปรากฏตัว ณ เมือง Prontera จำนวน "+$@Trandom+" กล่อง มีเวลาในการล่าสมบัติ 5 นาที",0,0xFF1493;
+		monster "prontera",0,0,"Treasure Box",1332,$@Trandom,"TreasureEvent_2::OnTreasureDie";
+	end;
+	
+	Geffen:
+		set $@Trandom,rand(5,10);	//= จำนวนที่สุ่ม (ต่ำสุด,สูงสุด)
+		set $@FTrandom,0;
+		announce "Treasure Event : กล่องสมบัติ Treasure Box ได้ปรากฏตัว ณ เมือง Geffen จำนวน "+$@Trandom+" กล่อง มีเวลาในการล่าสมบัติ 5 นาที",0,0xFF1493;
+		monster "geffen",0,0,"Treasure Box",1332,$@Trandom,"TreasureEvent_2::OnTreasureDie";
+	end;
+	
+	Alberta:
+		set $@Trandom,rand(5,10);	//= จำนวนที่สุ่ม (ต่ำสุด,สูงสุด)
+		set $@FTrandom,0;
+		announce "Treasure Event : กล่องสมบัติ Treasure Box ได้ปรากฏตัว ณ เมือง Alberta จำนวน "+$@Trandom+" กล่อง มีเวลาในการล่าสมบัติ 5 นาที",0,0xFF1493;
+		monster "alberta",0,0,"Treasure Box",1332,$@Trandom,"TreasureEvent_2::OnTreasureDie";
+	end;
+	
+	Payon:
+		set $@Trandom,rand(5,10);	//= จำนวนที่สุ่ม (ต่ำสุด,สูงสุด)
+		set $@FTrandom,0;
+		announce "Treasure Event : กล่องสมบัติ Treasure Box ได้ปรากฏตัว ณ เมือง Payon จำนวน "+$@Trandom+" กล่อง มีเวลาในการล่าสมบัติ 5 นาที",0,0xFF1493;
+		monster "payon",0,0,"Treasure Box",1332,$@Trandom,"TreasureEvent_2::OnTreasureDie";
+	end;
+	
+	Morocc:
+		set $@Trandom,rand(5,10);	//= จำนวนที่สุ่ม (ต่ำสุด,สูงสุด)
+		set $@FTrandom,0;
+		announce "Treasure Event : กล่องสมบัติ Treasure Box ได้ปรากฏตัว ณ เมือง Morocc จำนวน "+$@Trandom+" กล่อง มีเวลาในการล่าสมบัติ 5 นาที",0,0xFF1493;
+		monster "morocc",0,0,"Treasure Box",1332,$@Trandom,"TreasureEvent_2::OnTreasureDie";
+	end;
+	
+	Izlude:
+		set $@Trandom,rand(5,10);	//= จำนวนที่สุ่ม (ต่ำสุด,สูงสุด)
+		set $@FTrandom,0;
+		announce "Treasure Event : กล่องสมบัติ Treasure Box ได้ปรากฏตัว ณ เมือง Izlude จำนวน "+$@Trandom+" กล่อง มีเวลาในการล่าสมบัติ 5 นาที",0,0xFF1493;
+		monster "izlude",0,0,"Treasure Box",1332,$@Trandom,"TreasureEvent_2::OnTreasureDie";
+	end;
+	
+	Aldebaran:
+		set $@Trandom,rand(5,10);	//= จำนวนที่สุ่ม (ต่ำสุด,สูงสุด)
+		set $@FTrandom,0;
+		announce "Treasure Event : กล่องสมบัติ Treasure Box ได้ปรากฏตัว ณ เมือง Aldebaran จำนวน "+$@Trandom+" กล่อง มีเวลาในการล่าสมบัติ 5 นาที",0,0xFF1493;
+		monster "aldebaran",0,0,"Treasure Box",1332,$@Trandom,"TreasureEvent_2::OnTreasureDie";
+	end;
+	
+	Lutie:
+		set $@Trandom,rand(5,10);	//= จำนวนที่สุ่ม (ต่ำสุด,สูงสุด)
+		set $@FTrandom,0;
+		announce "Treasure Event : กล่องสมบัติ Treasure Box ได้ปรากฏตัว ณ เมือง Lutie จำนวน "+$@Trandom+" กล่อง มีเวลาในการล่าสมบัติ 5 นาที",0,0xFF1493;
+		monster "xmas",0,0,"Treasure Box",1332,$@Trandom,"TreasureEvent_2::OnTreasureDie";
+	end;
+	
+	Comodo:
+		set $@Trandom,rand(5,10);	//= จำนวนที่สุ่ม (ต่ำสุด,สูงสุด)
+		set $@FTrandom,0;
+		announce "Treasure Event : กล่องสมบัติ Treasure Box ได้ปรากฏตัว ณ เมือง Comodo จำนวน "+$@Trandom+" กล่อง มีเวลาในการล่าสมบัติ 5 นาที",0,0xFF1493;
+		monster "comodo",0,0,"Treasure Box",1332,$@Trandom,"TreasureEvent_2::OnTreasureDie";
+	end;
+	
+	OnTreasureDie:
+		set $@FTrandom,$@FTrandom+1;
+		if($@FTrandom>=$@Trandom)
+		announce "ผู้เล่น " + strcharinfo(0) + " ได้ค้นพบ Treasure Box กล่องสุดท้าย",0,FF1493;
+		if($@FTrandom!=$@Trandom)
+		announce "ผู้เล่น " + strcharinfo(0) + " ได้ค้นพบ Treasure Box กล่องที่ "+$@FTrandom+"/"+$@Trandom+"",0,0xFF1493;
+		getitem 20204,2;
+	end;
+	
+	OnEventEnd:
+		if($@FTrandom!=$@Trandom)
+		announce "หมดเวลาในการล่าสมบัติ Treasure Box ทุกกล่องถูกทำลาย",0,0xFF1493;
+		killmonster "prontera","TreasureEvent_2::OnTreasureDie";
+		killmonster "alberta","TreasureEvent_2::OnTreasureDie";
+		killmonster "geffen","TreasureEvent_2::OnTreasureDie";
+		killmonster "payon","TreasureEvent_2::OnTreasureDie";
+		killmonster "morocc","TreasureEvent_2::OnTreasureDie";
+		killmonster "izlude","TreasureEvent_2::OnTreasureDie";
+		killmonster "aldebaran","TreasureEvent_2::OnTreasureDie";
+		killmonster "xmas","TreasureEvent_2::OnTreasureDie";
+		killmonster "comodo","TreasureEvent_2::OnTreasureDie";		
+	end;
+	OnTimeout:
+	end;
+	
+//= เวลาเริ่มกิจกรรม
+OnClock0105:
+OnClock0205:
+OnClock0305:
+OnClock0405:
+OnClock0505:
+OnClock0605:
+OnClock0705:
+OnClock0805:
+OnClock0905:
+OnClock205:
+OnClock1105:
+OnClock1205:
+OnClock1305:
+OnClock1405:
+OnClock1505:
+OnClock1605:
+OnClock1705:
+OnClock1805:
+OnClock1905:
+OnClock2005:
+OnClock2105:
+OnClock2205:
+OnClock2305:
+OnClock0005:
+	goto OnEventStart;
+	end;
+
+//= เวลาจบกิจกรรม	
+OnClock0110:
+OnClock0210:
+OnClock0310:
+OnClock0410:
+OnClock0510:
+OnClock0610:
+OnClock0710:
+OnClock0810:
+OnClock0910:
+OnClock1010:
+OnClock1110:
+OnClock1210:
+OnClock1310:
+OnClock1410:
+OnClock1510:
+OnClock1610:
+OnClock1710:
+OnClock1810:
+OnClock1910:
+OnClock2010:
+OnClock2110:
+OnClock2210:
+OnClock2310:
+OnClock0010:
+	goto OnEventEnd;
+	end;
+	
+	OnTreasureOn:
+		goto OnEventStart;
+	end;
+	
+	OnTreasureOff:
+		goto OnEventEnd;
+	end;
+	
+	OnInit:	//= คำสั่งสำหรับ GM
+		//= คำสั่งเปิด : @TreasureOn
+		bindatcmd "TreasureOn",strnpcinfo(3)+"::OnTreasureOn",99,99;
+		//= คำสั่งปิด : @TreasureOff
+		bindatcmd "TreasureOff",strnpcinfo(3)+"::OnTreasureOff",99,99;
+	end;
+}
+/*
+morocc,172,75,4	script	ล่ากล่องสมบัติ	1_M_02,{
+	
+	mes "[ ^FF0000TreasureBox^000000 ]";
+	mes "ในเมืองจะมีกล่องสมบัติ";
+	mes "มันจะสุ่มเกิดทั้งหมด 10 เมือง";
+	mes "^FF0000เวลาเกิดของมัน^000000";
+	mes "เกิดเวลา 5 - 10 นาทีแรกในทุกๆชั่วโมง";
+	mes "ไอเท็มที่ได้จากกล่องสมบัติก็คือ!!";
+	mes "Poring Coin 1 ea./ 1 กล่อง";
+	mes "Cash Coin 1 ea./ 1 กล่อง";
+	mes "^0000FFเจ้าคอยเฝ้าดูให้ดีก็แล้วกัน!!!^000000";
+	close;
+
+	Oninit:
+	waitingroom "ล่ากล่องสมบัติ",0;
+	end;
+}
+*/

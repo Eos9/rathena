@@ -1,0 +1,182 @@
+-	script	AccountSystem	-1,{
+
+	OnInit:
+		bindatcmd("lock",strnpcinfo(3)+ "::OnAccount");
+		end;
+
+	OnPCLoginEvent: 
+		if (#finalpassword$ != "") goto P_insert;
+		else end;
+
+	P_insert:
+		atcommand "@option 1";
+		mes "^55AA88[ Account System ]^000000";
+		mes "โปรดใส่รหัสปลดล็อคของท่าน 4 หลัก.";
+		
+		next;
+		input @insertlp$;
+		if (@insertlp$ == #finalpassword$) goto P_pass;
+		mes "^55AA88Account System^000000";
+		mes "^FF0000Password ผิดพลาด!^000000";
+			atcommand "@kick "+strcharinfo(0);
+			end;
+
+	P_pass:
+		atcommand "@option 0";
+		end;
+
+	OnAccount:
+		switch(prompt("- Lock ID:- Unlock ID:- Exit")) {
+			case 1:
+				if(vip_status(VIP_STATUS_ACTIVE)) goto N_vip;
+				if (#finalpassword$ != "") {
+					mes "^55AA88[ Account System ]^000000";
+					mes "Account ID ของคุณได้ถูกล็อคอยู่แล้ว. ";
+					close;
+				}
+				mes "^55AA88Account System^000000";
+				mes "คุณต้องการทำการ Lock Account ID?";
+				mes	"^FF0000คุณต้องตั้งรหัสผ่านทุกครั้งก่อน Lock ID^000000";
+				mes	"จะมีผลก็ต่อเมื่อคุณออกเกมส์";
+				mes	"Password จะมีผลจนกว่าคุณจะ Unlock";
+				next;
+				if(select("Yes:No") - 1) {
+					close;
+				} else {
+					atcommand "@option 1";
+					mes "^55AA88[ Account System ]^000000";
+					mes "กรุณาตั้งรหัสผ่านจำนวน 4 หลัก. ";
+					mes "^FF0000ห้ามลืมรหัสนี้เด็ดขาด^000000";
+					next;
+					input @pw$;
+					next;
+					mes "^55AA88[ Account System ]^000000";
+					mes "กรอกรหัสผ่านยืนยันอีกครั้ง ?";
+					next;
+					input @accountvpw$;
+					next;
+					if (@accountvpw$ != @pw$) {
+						mes "^55AA88[ Account System ]^000000";
+						mes "^FF0000Password ไม่ตรงกันกรุณาทำรายการใหม่^000000";
+						atcommand "@option 0";
+						close;
+					} else {
+						mes "^55AA88[ Account System ]^000000";
+						mes "Thank you. ระบบทำการ Lock ID ให้ท่านแล้ว";
+						mes	"ระบบจะถาม Password ทุกครั้งที่เข้าเกมส์";
+						set #finalpassword$,@pw$;
+						query_sql "UPDATE `login` SET `group_id` = '1' WHERE `account_id` = "+getcharid(3);
+						atcommand "@option 0";
+						close;
+					}
+				}
+				close;
+			case 2:
+				if(vip_status(VIP_STATUS_ACTIVE)) goto U_vip;
+				if (#finalpassword$ == "") {
+					mes "^55AA88[ Account System ]^000000";
+					mes "ขออภัยท่านยังไม่ได้ทำการ Lock ID";
+					close;
+				}
+				mes "^55AA88[ Account System ]^000000";
+				mes "กรุณากรอก Password ปัจจุบันของท่าน. ";
+				next;
+				input @cpassword$;
+				next;
+				if (@cpassword$ != #finalpassword$) {
+					mes "^55AA88[ Account System ]^000000";
+					mes "^FF0000Password ผิดพลาด!^000000";
+					close;
+				} else {
+					mes "^55AA88[ Account System ]^000000";
+					mes "หากต้องการปลดล็อคไอดี Unlock ID";
+					mes "ให้ท่านตอบ Yes.";
+					next;
+					if(select("Yes:No") - 1) {
+						close;
+					} else {
+						mes "^55AA88[ Account System ]^000000";
+						mes "ระบบได้ทำการปลดล็อคไอดีของท่านแล้ว!";
+						query_sql "UPDATE `login` SET `group_id` = '0' WHERE `account_id` = "+getcharid(3);
+						set #finalpassword$,"";
+						close;
+					}
+				}
+			case 3:
+				close;
+		}
+		
+N_vip:
+	if (#finalpassword$ != "") {
+		mes "^55AA88[ Account System ]^000000";
+		mes "Account ID ของคุณได้ถูกล็อคอยู่แล้ว. ";
+		close;
+	}
+	mes "^55AA88Account System^000000";
+	mes "คุณต้องการทำการ Lock Account ID?";
+	mes	"^FF0000คุณต้องตั้งรหัสผ่านทุกครั้งก่อน Lock ID^000000";
+	mes	"จะมีผลก็ต่อเมื่อคุณออกเกมส์";
+	mes	"Password จะมีผลจนกว่าคุณจะ Unlock";
+	next;
+	if(select("Yes:No") - 1) {
+		close;
+	} else {
+		atcommand "@option 1";
+		mes "^55AA88[ Account System ]^000000";
+		mes "กรุณาตั้งรหัสผ่านจำนวน 4 หลัก. ";
+		mes "^FF0000ห้ามลืมรหัสนี้เด็ดขาด^000000";
+		next;
+		input @pw$;
+		next;
+		mes "^55AA88[ Account System ]^000000";
+		mes "กรอกรหัสผ่านยืนยันอีกครั้ง ?";
+		next;
+		input @accountvpw$;
+		next;
+		if (@accountvpw$ != @pw$) {
+			mes "^55AA88[ Account System ]^000000";
+			mes "^FF0000Password ไม่ตรงกันกรุณาทำรายการใหม่^000000";
+			atcommand "@option 0";
+			close;
+		} else {
+			mes "^55AA88[ Account System ]^000000";
+			mes "Thank you. ระบบทำการ Lock ID ให้ท่านแล้ว";
+			mes	"ระบบจะถาม Password ทุกครั้งที่เข้าเกมส์";
+			set #finalpassword$,@pw$;
+			query_sql "UPDATE `login` SET `group_id` = '1' WHERE `account_id` = "+getcharid(3);
+			atcommand "@option 0";
+			close;
+		}
+	}
+	close;
+U_vip:
+	if (#finalpassword$ == "") {
+		mes "^55AA88[ Account System ]^000000";
+		mes "ขออภัยท่านยังไม่ได้ทำการ Lock ID";
+		close;
+	}
+	mes "^55AA88[ Account System ]^000000";
+	mes "กรุณากรอก Password ปัจจุบันของท่าน. ";
+	next;
+	input @cpassword$;
+	next;
+	if (@cpassword$ != #finalpassword$) {
+		mes "^55AA88[ Account System ]^000000";
+		mes "^FF0000Password ผิดพลาด!^000000";
+		close;
+	} else {
+		mes "^55AA88[ Account System ]^000000";
+		mes "หากต้องการปลดล็อคไอดี Unlock ID";
+		mes "ให้ท่านตอบ Yes.";
+		next;
+		if(select("Yes:No") - 1) {
+			close;
+		} else {
+			mes "^55AA88[ Account System ]^000000";
+			mes "ระบบได้ทำการปลดล็อคไอดีของท่านแล้ว!";
+			query_sql "UPDATE `login` SET `group_id` = '5' WHERE `account_id` = "+getcharid(3);
+			set #finalpassword$,"";
+			close;
+		}
+	}
+}

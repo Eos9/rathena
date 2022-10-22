@@ -1,0 +1,3 @@
+// EOS_STUDIO ====================
+moc_fild12	mapflag	bexp	125
+moc_fild12	mapflag	jexp	125

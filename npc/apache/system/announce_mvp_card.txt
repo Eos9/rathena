@@ -1,0 +1,25 @@
+-	script	Auto_Announce_Mvp_Card	-1,{
+	OnInit:
+		setarray( .@mvpIdList, 1002, 1038, 1039, 1046, 1059, 1086, 1087, 1096, 1112, 1115, 1120, 1147, 1150, 1159, 1190, 1251, 1272, 1312, 1388 );
+		setarray( .mvpCardIds, 4001, 4144, 4147, 4142, 4132, 4128, 4143, 4054, 4137, 4123, 4047, 4146, 4131, 4121, 4135, 4318, 4168, 4305, 4241 );
+		
+		// Rate : 1 = 0.01%  /  1000 = 10%  /  10000 = 100%
+		setarray( .mvpCardRates,  1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
+
+		for(.@i = 0; .@i < getarraysize( .@mvpIdList ); .@i++ ) {
+			.mvpIds[ .@mvpIdList[ .@i ] ] = .@i;
+			delmonsterdrop( .@mvpIdList[ .@i ],  .mvpCardIds[ .@i ] );
+		}
+	end;
+	OnNPCKillEvent:
+		.@mvpIndex = .mvpIds[ killedrid ];
+		if( .@mvpIndex == 0) end;
+
+		if( rand( 10000 ) <= .mvpCardRates[ .@mvpIndex ] ){
+			getmapxy(.@map$,.@x,.@y,BL_PC);
+			makeitem ( .mvpCardIds[ .@mvpIndex ],1,.@map$,.@x,.@y);
+
+			announce( "[ระบบ] : ยินดีด้วย คุณ [ " + strcharinfo(PC_NAME) + " ] โชคดีจริงๆ ที่สังหาร มอนเตอร์ประเภทบอส ได้รับ " + getitemname( .mvpCardIds[.@mvpIndex] ), bc_all );
+		}
+	end;
+}
