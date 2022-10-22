@@ -22316,11 +22316,395 @@ void clif_parse_refineui_refine( int fd, struct map_session_data* sd ){
 		return;
 	}
 
+	if( battle_config.Head_Gear_1 && item->refine == 0 && id->equip&EQP_HELM )
+		cost->randomopt_group = battle_config.Head_Gear_1;
+	if( battle_config.Head_Gear_2 && item->refine == 1 && id->equip&EQP_HELM )
+		cost->randomopt_group = battle_config.Head_Gear_2; 
+	if( battle_config.Head_Gear_3 && item->refine == 2 && id->equip&EQP_HELM )
+		cost->randomopt_group = battle_config.Head_Gear_3; 
+	if( battle_config.Head_Gear_4 && item->refine == 3 && id->equip&EQP_HELM )
+		cost->randomopt_group = battle_config.Head_Gear_4;
+	if( battle_config.Head_Gear_5 && item->refine == 4 && id->equip&EQP_HELM )
+		cost->randomopt_group = battle_config.Head_Gear_5; 
+	if( battle_config.Head_Gear_6 && item->refine == 5 && id->equip&EQP_HELM )
+		cost->randomopt_group = battle_config.Head_Gear_6;
+	if( battle_config.Head_Gear_7 && item->refine == 6 && id->equip&EQP_HELM )
+		cost->randomopt_group = battle_config.Head_Gear_7;
+	if( battle_config.Head_Gear_8 && item->refine == 7 && id->equip&EQP_HELM )
+		cost->randomopt_group = battle_config.Head_Gear_8;
+	if( battle_config.Head_Gear_9 && item->refine == 8 && id->equip&EQP_HELM )
+		cost->randomopt_group = battle_config.Head_Gear_9;
+	if( battle_config.Head_Gear_10 && item->refine == 9 && id->equip&EQP_HELM )
+		cost->randomopt_group = battle_config.Head_Gear_10;
+
+	if( battle_config.Armor_1 && item->refine == 0 && id->equip == EQP_ARMOR )
+		cost->randomopt_group = battle_config.Armor_1;	
+	if( battle_config.Armor_2 && item->refine == 1 && id->equip == EQP_ARMOR )
+		cost->randomopt_group = battle_config.Armor_2;
+	if( battle_config.Armor_3 && item->refine == 2 && id->equip == EQP_ARMOR )
+		cost->randomopt_group = battle_config.Armor_3;	
+	if( battle_config.Armor_4 && item->refine == 3 && id->equip == EQP_ARMOR )
+		cost->randomopt_group = battle_config.Armor_4;
+	if( battle_config.Armor_5 && item->refine == 4 && id->equip == EQP_ARMOR )
+		cost->randomopt_group = battle_config.Armor_5;	
+	if( battle_config.Armor_6 && item->refine == 5 && id->equip == EQP_ARMOR )
+		cost->randomopt_group = battle_config.Armor_6;	
+	if( battle_config.Armor_7 && item->refine == 6 && id->equip == EQP_ARMOR )
+		cost->randomopt_group = battle_config.Armor_7;
+	if( battle_config.Armor_8 && item->refine == 7 && id->equip == EQP_ARMOR )
+		cost->randomopt_group = battle_config.Armor_8;
+	if( battle_config.Armor_9 && item->refine == 8 && id->equip == EQP_ARMOR )
+		cost->randomopt_group = battle_config.Armor_9;
+	if( battle_config.Armor_10 && item->refine == 9 && id->equip == EQP_ARMOR )
+		cost->randomopt_group = battle_config.Armor_10;
+
+	if( battle_config.Shield_1 && item->refine == 0 && id->equip&EQP_SHIELD )
+		cost->randomopt_group = battle_config.Shield_1;
+	if( battle_config.Shield_2 && item->refine == 1 && id->equip&EQP_SHIELD )
+		cost->randomopt_group = battle_config.Shield_2;
+	if( battle_config.Shield_3 && item->refine == 2 && id->equip&EQP_SHIELD )
+		cost->randomopt_group = battle_config.Shield_3;	
+	if( battle_config.Shield_4 && item->refine == 3 && id->equip&EQP_SHIELD )
+		cost->randomopt_group = battle_config.Shield_4;	
+	if( battle_config.Shield_5 && item->refine == 4 && id->equip&EQP_SHIELD )
+		cost->randomopt_group = battle_config.Shield_5;
+	if( battle_config.Shield_6 && item->refine == 5 && id->equip&EQP_SHIELD )
+		cost->randomopt_group = battle_config.Shield_6;
+	if( battle_config.Shield_7 && item->refine == 6 && id->equip&EQP_SHIELD )
+		cost->randomopt_group = battle_config.Shield_7;
+	if( battle_config.Shield_8 && item->refine == 7 && id->equip&EQP_SHIELD )
+		cost->randomopt_group = battle_config.Shield_8;
+	if( battle_config.Shield_9 && item->refine == 8 && id->equip&EQP_SHIELD )
+		cost->randomopt_group = battle_config.Shield_9;
+	if( battle_config.Shield_10 && item->refine == 9 && id->equip&EQP_SHIELD )
+		cost->randomopt_group = battle_config.Shield_10;
+
+	if( battle_config.Foot_Gear_1 && item->refine == 0 && id->equip == EQP_SHOES )
+		cost->randomopt_group = battle_config.Foot_Gear_1;
+	if( battle_config.Foot_Gear_2 && item->refine == 1 && id->equip == EQP_SHOES )
+		cost->randomopt_group = battle_config.Foot_Gear_2;
+	if( battle_config.Foot_Gear_3 && item->refine == 2 && id->equip == EQP_SHOES )
+		cost->randomopt_group = battle_config.Foot_Gear_3;
+	if( battle_config.Foot_Gear_4 && item->refine == 3 && id->equip == EQP_SHOES )
+		cost->randomopt_group = battle_config.Foot_Gear_4;
+	if( battle_config.Foot_Gear_5 && item->refine == 4 && id->equip == EQP_SHOES )
+		cost->randomopt_group = battle_config.Foot_Gear_5;
+	if( battle_config.Foot_Gear_6 && item->refine == 5 && id->equip == EQP_SHOES )
+		cost->randomopt_group = battle_config.Foot_Gear_6;
+	if( battle_config.Foot_Gear_7 && item->refine == 6 && id->equip == EQP_SHOES )
+		cost->randomopt_group = battle_config.Foot_Gear_7;
+	if( battle_config.Foot_Gear_8 && item->refine == 7 && id->equip == EQP_SHOES )
+		cost->randomopt_group = battle_config.Foot_Gear_8;
+	if( battle_config.Foot_Gear_9 && item->refine == 8 && id->equip == EQP_SHOES )
+		cost->randomopt_group = battle_config.Foot_Gear_9;
+	if( battle_config.Foot_Gear_10 && item->refine == 9 && id->equip == EQP_SHOES )
+		cost->randomopt_group = battle_config.Foot_Gear_10;
+
+	if( battle_config.Garment_1 && item->refine == 0 && id->equip == EQP_GARMENT )
+		cost->randomopt_group = battle_config.Garment_1;
+	if( battle_config.Garment_2 && item->refine == 1 && id->equip == EQP_GARMENT )
+		cost->randomopt_group = battle_config.Garment_2;
+	if( battle_config.Garment_3 && item->refine == 2 && id->equip == EQP_GARMENT )
+		cost->randomopt_group = battle_config.Garment_3;
+	if( battle_config.Garment_4 && item->refine == 3 && id->equip == EQP_GARMENT )
+		cost->randomopt_group = battle_config.Garment_4;
+	if( battle_config.Garment_5 && item->refine == 4 && id->equip == EQP_GARMENT )
+		cost->randomopt_group = battle_config.Garment_5;
+	if( battle_config.Garment_6 && item->refine == 5 && id->equip == EQP_GARMENT )
+		cost->randomopt_group = battle_config.Garment_6;
+	if( battle_config.Garment_7 && item->refine == 6 && id->equip == EQP_GARMENT )
+		cost->randomopt_group = battle_config.Garment_7;
+	if( battle_config.Garment_8 && item->refine == 7 && id->equip == EQP_GARMENT )
+		cost->randomopt_group = battle_config.Garment_8;
+	if( battle_config.Garment_9 && item->refine == 8 && id->equip == EQP_GARMENT )
+		cost->randomopt_group = battle_config.Garment_9;
+	if( battle_config.Garment_10 && item->refine == 9 && id->equip == EQP_GARMENT )
+		cost->randomopt_group = battle_config.Garment_10;
+
+	if (battle_config.Dagger_rf1 && item->refine == 0 && id->weapon_level && id->subtype == W_DAGGER)
+		cost->randomopt_group = battle_config.Dagger_rf1;
+	if (battle_config.Dagger_rf2 && item->refine == 1 && id->weapon_level && id->subtype == W_DAGGER)
+		cost->randomopt_group = battle_config.Dagger_rf2;
+	if (battle_config.Dagger_rf3 && item->refine == 2 && id->weapon_level && id->subtype == W_DAGGER)
+		cost->randomopt_group = battle_config.Dagger_rf3;
+	if (battle_config.Dagger_rf4 && item->refine == 3 && id->weapon_level && id->subtype == W_DAGGER)
+		cost->randomopt_group = battle_config.Dagger_rf4;
+	if (battle_config.Dagger_rf5 && item->refine == 4 && id->weapon_level && id->subtype == W_DAGGER)
+		cost->randomopt_group = battle_config.Dagger_rf5;
+	if (battle_config.Dagger_rf6 && item->refine == 5 && id->weapon_level && id->subtype == W_DAGGER)
+		cost->randomopt_group = battle_config.Dagger_rf6;
+	if (battle_config.Dagger_rf7 && item->refine == 6 && id->weapon_level && id->subtype == W_DAGGER)
+		cost->randomopt_group = battle_config.Dagger_rf7;
+	if (battle_config.Dagger_rf8 && item->refine == 7 && id->weapon_level && id->subtype == W_DAGGER)
+		cost->randomopt_group = battle_config.Dagger_rf8;
+	if (battle_config.Dagger_rf9 && item->refine == 8 && id->weapon_level && id->subtype == W_DAGGER)
+		cost->randomopt_group = battle_config.Dagger_rf9;
+	if (battle_config.Dagger_rf10 && item->refine == 9 && id->weapon_level && id->subtype == W_DAGGER)
+		cost->randomopt_group = battle_config.Dagger_rf10;
+
+	if (battle_config.Hsword1_1 && item->refine == 0 && id->weapon_level && id->subtype == W_1HSWORD)
+		cost->randomopt_group = battle_config.Hsword1_1;
+	if (battle_config.Hsword1_2 && item->refine == 1 && id->weapon_level && id->subtype == W_1HSWORD)
+		cost->randomopt_group = battle_config.Hsword1_2;
+	if (battle_config.Hsword1_3 && item->refine == 2 && id->weapon_level && id->subtype == W_1HSWORD)
+		cost->randomopt_group = battle_config.Hsword1_3;
+	if (battle_config.Hsword1_4 && item->refine == 3 && id->weapon_level && id->subtype == W_1HSWORD)
+		cost->randomopt_group = battle_config.Hsword1_4;
+	if (battle_config.Hsword1_5 && item->refine == 4 && id->weapon_level && id->subtype == W_1HSWORD)
+		cost->randomopt_group = battle_config.Hsword1_5;
+	if (battle_config.Hsword1_6 && item->refine == 5 && id->weapon_level && id->subtype == W_1HSWORD)
+		cost->randomopt_group = battle_config.Hsword1_6;
+	if (battle_config.Hsword1_7 && item->refine == 6 && id->weapon_level && id->subtype == W_1HSWORD)
+		cost->randomopt_group = battle_config.Hsword1_7;
+	if (battle_config.Hsword1_8 && item->refine == 7 && id->weapon_level && id->subtype == W_1HSWORD)
+		cost->randomopt_group = battle_config.Hsword1_8;
+	if (battle_config.Hsword1_9 && item->refine == 8 && id->weapon_level && id->subtype == W_1HSWORD)
+		cost->randomopt_group = battle_config.Hsword1_9;
+	if (battle_config.Hsword1_10 && item->refine == 9 && id->weapon_level && id->subtype == W_1HSWORD)
+		cost->randomopt_group = battle_config.Hsword1_10;
+
+	if (battle_config.Hsword2_1 && item->refine == 0 && id->weapon_level && id->subtype == W_2HSWORD)
+		cost->randomopt_group = battle_config.Hsword2_1;
+	if (battle_config.Hsword2_2 && item->refine == 1 && id->weapon_level && id->subtype == W_2HSWORD)
+		cost->randomopt_group = battle_config.Hsword2_2;
+	if (battle_config.Hsword2_3 && item->refine == 2 && id->weapon_level && id->subtype == W_2HSWORD)
+		cost->randomopt_group = battle_config.Hsword2_3;
+	if (battle_config.Hsword2_4 && item->refine == 3 && id->weapon_level && id->subtype == W_2HSWORD)
+		cost->randomopt_group = battle_config.Hsword2_4;
+	if (battle_config.Hsword2_5 && item->refine == 4 && id->weapon_level && id->subtype == W_2HSWORD)
+		cost->randomopt_group = battle_config.Hsword2_5;
+	if (battle_config.Hsword2_6 && item->refine == 5 && id->weapon_level && id->subtype == W_2HSWORD)
+		cost->randomopt_group = battle_config.Hsword2_6;
+	if (battle_config.Hsword2_7 && item->refine == 6 && id->weapon_level && id->subtype == W_2HSWORD)
+		cost->randomopt_group = battle_config.Hsword2_7;
+	if (battle_config.Hsword2_8 && item->refine == 7 && id->weapon_level && id->subtype == W_2HSWORD)
+		cost->randomopt_group = battle_config.Hsword2_8;
+	if (battle_config.Hsword2_9 && item->refine == 8 && id->weapon_level && id->subtype == W_2HSWORD)
+		cost->randomopt_group = battle_config.Hsword2_9;
+	if (battle_config.Hsword2_10 && item->refine == 9 && id->weapon_level && id->subtype == W_2HSWORD)
+		cost->randomopt_group = battle_config.Hsword2_10;
+
+	if (battle_config.HandedSpear1_1 && item->refine == 0 && id->weapon_level && id->subtype == W_1HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear1_1;
+	if (battle_config.HandedSpear1_2 && item->refine == 1 && id->weapon_level && id->subtype == W_1HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear1_2;
+	if (battle_config.HandedSpear1_3 && item->refine == 2 && id->weapon_level && id->subtype == W_1HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear1_3;
+	if (battle_config.HandedSpear1_4 && item->refine == 3 && id->weapon_level && id->subtype == W_1HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear1_4;
+	if (battle_config.HandedSpear1_5 && item->refine == 4 && id->weapon_level && id->subtype == W_1HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear1_5;
+	if (battle_config.HandedSpear1_6 && item->refine == 5 && id->weapon_level && id->subtype == W_1HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear1_6;
+	if (battle_config.HandedSpear1_7 && item->refine == 6 && id->weapon_level && id->subtype == W_1HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear1_7;
+	if (battle_config.HandedSpear1_8 && item->refine == 7 && id->weapon_level && id->subtype == W_1HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear1_8;
+	if (battle_config.HandedSpear1_9 && item->refine == 8 && id->weapon_level && id->subtype == W_1HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear1_9;
+	if (battle_config.HandedSpear1_10 && item->refine == 9 && id->weapon_level && id->subtype == W_1HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear1_10;
+
+	if (battle_config.HandedSpear2_1 && item->refine == 0 && id->weapon_level && id->subtype == W_2HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear2_1;
+	if (battle_config.HandedSpear2_2 && item->refine == 1 && id->weapon_level && id->subtype == W_2HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear2_2;
+	if (battle_config.HandedSpear2_3 && item->refine == 2 && id->weapon_level && id->subtype == W_2HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear2_3;
+	if (battle_config.HandedSpear2_4 && item->refine == 3 && id->weapon_level && id->subtype == W_2HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear2_4;
+	if (battle_config.HandedSpear2_5 && item->refine == 4 && id->weapon_level && id->subtype == W_2HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear2_5;
+	if (battle_config.HandedSpear2_6 && item->refine == 5 && id->weapon_level && id->subtype == W_2HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear2_6;
+	if (battle_config.HandedSpear2_7 && item->refine == 6 && id->weapon_level && id->subtype == W_2HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear2_7;
+	if (battle_config.HandedSpear2_8 && item->refine == 7 && id->weapon_level && id->subtype == W_2HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear2_8;
+	if (battle_config.HandedSpear2_9 && item->refine == 8 && id->weapon_level && id->subtype == W_2HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear2_9;
+	if (battle_config.HandedSpear2_10 && item->refine == 9 && id->weapon_level && id->subtype == W_2HSPEAR)
+		cost->randomopt_group = battle_config.HandedSpear2_10;
+
+	if (battle_config.Haxe1_1 && item->refine == 0 && id->weapon_level && id->subtype == W_1HAXE)
+		cost->randomopt_group = battle_config.Haxe1_1;
+	if (battle_config.Haxe1_2 && item->refine == 1 && id->weapon_level && id->subtype == W_1HAXE)
+		cost->randomopt_group = battle_config.Haxe1_2;
+	if (battle_config.Haxe1_3 && item->refine == 2 && id->weapon_level && id->subtype == W_1HAXE)
+		cost->randomopt_group = battle_config.Haxe1_3;
+	if (battle_config.Haxe1_4 && item->refine == 3 && id->weapon_level && id->subtype == W_1HAXE)
+		cost->randomopt_group = battle_config.Haxe1_4;
+	if (battle_config.Haxe1_5 && item->refine == 4 && id->weapon_level && id->subtype == W_1HAXE)
+		cost->randomopt_group = battle_config.Haxe1_5;
+	if (battle_config.Haxe1_6 && item->refine == 5 && id->weapon_level && id->subtype == W_1HAXE)
+		cost->randomopt_group = battle_config.Haxe1_6;
+	if (battle_config.Haxe1_7 && item->refine == 6 && id->weapon_level && id->subtype == W_1HAXE)
+		cost->randomopt_group = battle_config.Haxe1_7;
+	if (battle_config.Haxe1_8 && item->refine == 7 && id->weapon_level && id->subtype == W_1HAXE)
+		cost->randomopt_group = battle_config.Haxe1_8;
+	if (battle_config.Haxe1_9 && item->refine == 8 && id->weapon_level && id->subtype == W_1HAXE)
+		cost->randomopt_group = battle_config.Haxe1_9;
+	if (battle_config.Haxe1_10 && item->refine == 9 && id->weapon_level && id->subtype == W_1HAXE)
+		cost->randomopt_group = battle_config.Haxe1_10;
+
+	if (battle_config.Haxe2_1 && item->refine == 0 && id->weapon_level && id->subtype == W_2HAXE)
+		cost->randomopt_group = battle_config.Haxe2_1;
+	if (battle_config.Haxe2_2 && item->refine == 1 && id->weapon_level && id->subtype == W_2HAXE)
+		cost->randomopt_group = battle_config.Haxe2_2;
+	if (battle_config.Haxe2_3 && item->refine == 2 && id->weapon_level && id->subtype == W_2HAXE)
+		cost->randomopt_group = battle_config.Haxe2_3;
+	if (battle_config.Haxe2_4 && item->refine == 3 && id->weapon_level && id->subtype == W_2HAXE)
+		cost->randomopt_group = battle_config.Haxe2_4;
+	if (battle_config.Haxe2_5 && item->refine == 4 && id->weapon_level && id->subtype == W_2HAXE)
+		cost->randomopt_group = battle_config.Haxe2_5;
+	if (battle_config.Haxe2_6 && item->refine == 5 && id->weapon_level && id->subtype == W_2HAXE)
+		cost->randomopt_group = battle_config.Haxe2_6;
+	if (battle_config.Haxe2_7 && item->refine == 6 && id->weapon_level && id->subtype == W_2HAXE)
+		cost->randomopt_group = battle_config.Haxe2_7;
+	if (battle_config.Haxe2_8 && item->refine == 7 && id->weapon_level && id->subtype == W_2HAXE)
+		cost->randomopt_group = battle_config.Haxe2_8;
+	if (battle_config.Haxe2_9 && item->refine == 8 && id->weapon_level && id->subtype == W_2HAXE)
+		cost->randomopt_group = battle_config.Haxe2_9;
+	if (battle_config.Haxe2_10 && item->refine == 9 && id->weapon_level && id->subtype == W_2HAXE)
+		cost->randomopt_group = battle_config.Haxe2_10;
+
+	if (battle_config.Mace_1 && item->refine == 0 && id->weapon_level && id->subtype == W_MACE)
+		cost->randomopt_group = battle_config.Mace_1;
+	if (battle_config.Mace_2 && item->refine == 1 && id->weapon_level && id->subtype == W_MACE)
+		cost->randomopt_group = battle_config.Mace_2;
+	if (battle_config.Mace_3 && item->refine == 2 && id->weapon_level && id->subtype == W_MACE)
+		cost->randomopt_group = battle_config.Mace_3;
+	if (battle_config.Mace_4 && item->refine == 3 && id->weapon_level && id->subtype == W_MACE)
+		cost->randomopt_group = battle_config.Mace_4;
+	if (battle_config.Mace_5 && item->refine == 4 && id->weapon_level && id->subtype == W_MACE)
+		cost->randomopt_group = battle_config.Mace_5;
+	if (battle_config.Mace_6 && item->refine == 5 && id->weapon_level && id->subtype == W_MACE)
+		cost->randomopt_group = battle_config.Mace_6;
+	if (battle_config.Mace_7 && item->refine == 6 && id->weapon_level && id->subtype == W_MACE)
+		cost->randomopt_group = battle_config.Mace_7;
+	if (battle_config.Mace_8 && item->refine == 7 && id->weapon_level && id->subtype == W_MACE)
+		cost->randomopt_group = battle_config.Mace_8;
+	if (battle_config.Mace_9 && item->refine == 8 && id->weapon_level && id->subtype == W_MACE)
+		cost->randomopt_group = battle_config.Mace_9;
+	if (battle_config.Mace_10 && item->refine == 9 && id->weapon_level && id->subtype == W_MACE)
+		cost->randomopt_group = battle_config.Mace_10;
+
+	if (battle_config.Staff1_1 && item->refine == 0 && id->weapon_level && id->subtype == W_STAFF)
+		cost->randomopt_group = battle_config.Staff1_1;
+	if (battle_config.Staff1_2 && item->refine == 1 && id->weapon_level && id->subtype == W_STAFF)
+		cost->randomopt_group = battle_config.Staff1_2;
+	if (battle_config.Staff1_3 && item->refine == 2 && id->weapon_level && id->subtype == W_STAFF)
+		cost->randomopt_group = battle_config.Staff1_3;
+	if (battle_config.Staff1_4 && item->refine == 3 && id->weapon_level && id->subtype == W_STAFF)
+		cost->randomopt_group = battle_config.Staff1_4;
+	if (battle_config.Staff1_5 && item->refine == 4 && id->weapon_level && id->subtype == W_STAFF)
+		cost->randomopt_group = battle_config.Staff1_5;
+	if (battle_config.Staff1_6 && item->refine == 5 && id->weapon_level && id->subtype == W_STAFF)
+		cost->randomopt_group = battle_config.Staff1_6;
+	if (battle_config.Staff1_7 && item->refine == 6 && id->weapon_level && id->subtype == W_STAFF)
+		cost->randomopt_group = battle_config.Staff1_7;
+	if (battle_config.Staff1_8 && item->refine == 7 && id->weapon_level && id->subtype == W_STAFF)
+		cost->randomopt_group = battle_config.Staff1_8;
+	if (battle_config.Staff1_9 && item->refine == 8 && id->weapon_level && id->subtype == W_STAFF)
+		cost->randomopt_group = battle_config.Staff1_9;
+	if (battle_config.Staff1_10 && item->refine == 9 && id->weapon_level && id->subtype == W_STAFF)
+		cost->randomopt_group = battle_config.Staff1_10;
+
+	if (battle_config.Staff2_1 && item->refine == 0 && id->weapon_level && id->subtype == W_2HSTAFF)
+		cost->randomopt_group = battle_config.Staff2_1;
+	if (battle_config.Staff2_2 && item->refine == 1 && id->weapon_level && id->subtype == W_2HSTAFF)
+		cost->randomopt_group = battle_config.Staff2_2;
+	if (battle_config.Staff2_3 && item->refine == 2 && id->weapon_level && id->subtype == W_2HSTAFF)
+		cost->randomopt_group = battle_config.Staff2_3;
+	if (battle_config.Staff2_4 && item->refine == 3 && id->weapon_level && id->subtype == W_2HSTAFF)
+		cost->randomopt_group = battle_config.Staff2_4;
+	if (battle_config.Staff2_5 && item->refine == 4 && id->weapon_level && id->subtype == W_2HSTAFF)
+		cost->randomopt_group = battle_config.Staff2_5;
+	if (battle_config.Staff2_6 && item->refine == 5 && id->weapon_level && id->subtype == W_2HSTAFF)
+		cost->randomopt_group = battle_config.Staff2_6;
+	if (battle_config.Staff2_7 && item->refine == 6 && id->weapon_level && id->subtype == W_2HSTAFF)
+		cost->randomopt_group = battle_config.Staff2_7;
+	if (battle_config.Staff2_8 && item->refine == 7 && id->weapon_level && id->subtype == W_2HSTAFF)
+		cost->randomopt_group = battle_config.Staff2_8;
+	if (battle_config.Staff2_9 && item->refine == 8 && id->weapon_level && id->subtype == W_2HSTAFF)
+		cost->randomopt_group = battle_config.Staff2_9;
+	if (battle_config.Staff2_10 && item->refine == 9 && id->weapon_level && id->subtype == W_2HSTAFF)
+		cost->randomopt_group = battle_config.Staff2_10;
+
+	if (battle_config.Bow_1 && item->refine == 0 && id->weapon_level && id->subtype == W_BOW)
+		cost->randomopt_group = battle_config.Bow_1;
+	if (battle_config.Bow_2 && item->refine == 1 && id->weapon_level && id->subtype == W_BOW)
+		cost->randomopt_group = battle_config.Bow_2;
+	if (battle_config.Bow_3 && item->refine == 2 && id->weapon_level && id->subtype == W_BOW)
+		cost->randomopt_group = battle_config.Bow_3;
+	if (battle_config.Bow_4 && item->refine == 3 && id->weapon_level && id->subtype == W_BOW)
+		cost->randomopt_group = battle_config.Bow_4;
+	if (battle_config.Bow_5 && item->refine == 4 && id->weapon_level && id->subtype == W_BOW)
+		cost->randomopt_group = battle_config.Bow_5;
+	if (battle_config.Bow_6 && item->refine == 5 && id->weapon_level && id->subtype == W_BOW)
+		cost->randomopt_group = battle_config.Bow_6;
+	if (battle_config.Bow_7 && item->refine == 6 && id->weapon_level && id->subtype == W_BOW)
+		cost->randomopt_group = battle_config.Bow_7;
+	if (battle_config.Bow_8 && item->refine == 7 && id->weapon_level && id->subtype == W_BOW)
+		cost->randomopt_group = battle_config.Bow_8;
+	if (battle_config.Bow_9 && item->refine == 8 && id->weapon_level && id->subtype == W_BOW)
+		cost->randomopt_group = battle_config.Bow_9;
+	if (battle_config.Bow_10 && item->refine == 9 && id->weapon_level && id->subtype == W_BOW)
+		cost->randomopt_group = battle_config.Bow_10;
+
+	if (battle_config.Book_1 && item->refine == 0 && id->weapon_level && id->subtype == W_BOOK)
+		cost->randomopt_group = battle_config.Book_1;
+	if (battle_config.Book_2 && item->refine == 1 && id->weapon_level && id->subtype == W_BOOK)
+		cost->randomopt_group = battle_config.Book_2;
+	if (battle_config.Book_3 && item->refine == 2 && id->weapon_level && id->subtype == W_BOOK)
+		cost->randomopt_group = battle_config.Book_3;
+	if (battle_config.Book_4 && item->refine == 3 && id->weapon_level && id->subtype == W_BOOK)
+		cost->randomopt_group = battle_config.Book_4;
+	if (battle_config.Book_5 && item->refine == 4 && id->weapon_level && id->subtype == W_BOOK)
+		cost->randomopt_group = battle_config.Book_5;
+	if (battle_config.Book_6 && item->refine == 5 && id->weapon_level && id->subtype == W_BOOK)
+		cost->randomopt_group = battle_config.Book_6;
+	if (battle_config.Book_7 && item->refine == 6 && id->weapon_level && id->subtype == W_BOOK)
+		cost->randomopt_group = battle_config.Book_7;
+	if (battle_config.Book_8 && item->refine == 7 && id->weapon_level && id->subtype == W_BOOK)
+		cost->randomopt_group = battle_config.Book_8;
+	if (battle_config.Book_9 && item->refine == 8 && id->weapon_level && id->subtype == W_BOOK)
+		cost->randomopt_group = battle_config.Book_9;
+	if (battle_config.Book_10 && item->refine == 9 && id->weapon_level && id->subtype == W_BOOK)
+		cost->randomopt_group = battle_config.Book_10;
+
+	if (battle_config.Katar_1 && item->refine == 0 && id->weapon_level && id->subtype == W_KATAR)
+		cost->randomopt_group = battle_config.Katar_1;
+	if (battle_config.Katar_2 && item->refine == 1 && id->weapon_level && id->subtype == W_KATAR)
+		cost->randomopt_group = battle_config.Katar_2;
+	if (battle_config.Katar_3 && item->refine == 2 && id->weapon_level && id->subtype == W_KATAR)
+		cost->randomopt_group = battle_config.Katar_3;
+	if (battle_config.Katar_4 && item->refine == 3 && id->weapon_level && id->subtype == W_KATAR)
+		cost->randomopt_group = battle_config.Katar_4;
+	if (battle_config.Katar_5 && item->refine == 4 && id->weapon_level && id->subtype == W_KATAR)
+		cost->randomopt_group = battle_config.Katar_5;
+	if (battle_config.Katar_6 && item->refine == 5 && id->weapon_level && id->subtype == W_KATAR)
+		cost->randomopt_group = battle_config.Katar_6;
+	if (battle_config.Katar_7 && item->refine == 6 && id->weapon_level && id->subtype == W_KATAR)
+		cost->randomopt_group = battle_config.Katar_7;
+	if (battle_config.Katar_8 && item->refine == 7 && id->weapon_level && id->subtype == W_KATAR)
+		cost->randomopt_group = battle_config.Katar_8;
+	if (battle_config.Katar_9 && item->refine == 8 && id->weapon_level && id->subtype == W_KATAR)
+		cost->randomopt_group = battle_config.Katar_9;
+	if (battle_config.Katar_10 && item->refine == 9 && id->weapon_level && id->subtype == W_KATAR)
+		cost->randomopt_group = battle_config.Katar_10;
+
 	// Try to refine the item
 	if( cost->chance >= ( rnd() % 10000 ) ){
 		log_pick_pc( sd, LOG_TYPE_OTHER, -1, item );
 		// Success
 		item->refine = cap_value( item->refine + 1, 0, MAX_REFINE );
+
+		if( cost->randomopt_group ){
+			refine_setdropitem_option(item, cost->randomopt_group);
+			clif_delitem(sd, index, 1, 3);
+			clif_additem(sd, index, 1, 0);
+		}
 		log_pick_pc( sd, LOG_TYPE_OTHER, 1, item );
 		clif_misceffect( &sd->bl, 3 );
 		clif_refine( fd, 0, index, item->refine );
