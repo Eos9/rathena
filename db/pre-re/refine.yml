@@ -51,7 +51,7 @@ Body:
       - Level: 1
         RefineLevels:
           - Level: 1
-            Bonus: 70
+            Bonus: 66
             Chances:
               - Type: Normal
                 Rate: 10000
@@ -62,7 +62,7 @@ Body:
                 Price: 2000
                 Material: Enriched_Elunium
           - Level: 2
-            Bonus: 140
+            Bonus: 132
             Chances:
               - Type: Normal
                 Rate: 10000
@@ -73,7 +73,7 @@ Body:
                 Price: 2000
                 Material: Enriched_Elunium
           - Level: 3
-            Bonus: 210
+            Bonus: 198
             Chances:
               - Type: Normal
                 Rate: 10000
@@ -84,7 +84,7 @@ Body:
                 Price: 2000
                 Material: Enriched_Elunium
           - Level: 4
-            Bonus: 280
+            Bonus: 264
             Chances:
               - Type: Normal
                 Rate: 10000
@@ -95,75 +95,53 @@ Body:
                 Price: 2000
                 Material: Enriched_Elunium
           - Level: 5
-            Bonus: 350
+            Bonus: 330
             Chances:
               - Type: Normal
-                Rate: 6000
+                Rate: 4000
                 Price: 2000
                 Material: Elunium
                 BreakingRate: 10000
               - Type: Enriched
-                Rate: 9000
+                Rate: 6000
                 Price: 2000
                 Material: Enriched_Elunium
                 BreakingRate: 10000
           - Level: 6
-            Bonus: 420
+            Bonus: 396
+            BroadcastSuccess: true
+            BroadcastFailure: true
             Chances:
               - Type: Normal
-                Rate: 4000
+                Rate: 3000
                 Price: 2000
                 Material: Elunium
                 BreakingRate: 10000
               - Type: Enriched
-                Rate: 7000
+                Rate: 5000
                 Price: 2000
                 Material: Enriched_Elunium
                 BreakingRate: 10000
           - Level: 7
-            Bonus: 490
+            Bonus: 462
+            BroadcastSuccess: true
+            BroadcastFailure: true
             Chances:
               - Type: Normal
-                Rate: 4000
+                Rate: 2000
                 Price: 2000
                 Material: Elunium
                 BreakingRate: 10000
               - Type: Enriched
-                Rate: 7000
+                Rate: 4000
                 Price: 2000
                 Material: Enriched_Elunium
                 BreakingRate: 10000
           - Level: 8
-            Bonus: 560
+            Bonus: 528
             BlacksmithBlessingAmount: 1
-            Chances:
-              - Type: Normal
-                Rate: 2000
-                Price: 2000
-                Material: Elunium
-                BreakingRate: 10000
-              - Type: Enriched
-                Rate: 4000
-                Price: 2000
-                Material: Enriched_Elunium
-                BreakingRate: 10000
-          - Level: 9
-            Bonus: 630
-            BlacksmithBlessingAmount: 2
-            Chances:
-              - Type: Normal
-                Rate: 2000
-                Price: 2000
-                Material: Elunium
-                BreakingRate: 10000
-              - Type: Enriched
-                Rate: 4000
-                Price: 2000
-                Material: Enriched_Elunium
-                BreakingRate: 10000
-          - Level: 10
-            Bonus: 700
-            BlacksmithBlessingAmount: 4
+            BroadcastSuccess: true
+            BroadcastFailure: true
             Chances:
               - Type: Normal
                 Rate: 1000
@@ -171,7 +149,39 @@ Body:
                 Material: Elunium
                 BreakingRate: 10000
               - Type: Enriched
+                Rate: 3000
+                Price: 2000
+                Material: Enriched_Elunium
+                BreakingRate: 10000
+          - Level: 9
+            Bonus: 594
+            BlacksmithBlessingAmount: 2
+            BroadcastSuccess: true
+            BroadcastFailure: true
+            Chances:
+              - Type: Normal
+                Rate: 700
+                Price: 2000
+                Material: Elunium
+                BreakingRate: 10000
+              - Type: Enriched
                 Rate: 2000
+                Price: 2000
+                Material: Enriched_Elunium
+                BreakingRate: 10000
+          - Level: 10
+            Bonus: 660
+            BlacksmithBlessingAmount: 4
+            BroadcastSuccess: true
+            BroadcastFailure: true
+            Chances:
+              - Type: Normal
+                Rate: 500
+                Price: 2000
+                Material: Elunium
+                BreakingRate: 10000
+              - Type: Enriched
+                Rate: 1000
                 Price: 2000
                 Material: Enriched_Elunium
                 BreakingRate: 10000
@@ -260,14 +270,16 @@ Body:
             Bonus: 1600
             RandomBonus: 300
             BlacksmithBlessingAmount: 1
+            BroadcastSuccess: true
+            BroadcastFailure: true
             Chances:
               - Type: Normal
-                Rate: 6000
+                Rate: 5000
                 Price: 50
                 Material: Phracon
                 BreakingRate: 10000
               - Type: Enriched
-                Rate: 9000
+                Rate: 6000
                 Price: 2000
                 Material: Enriched_Oridecon
                 BreakingRate: 10000
@@ -275,14 +287,16 @@ Body:
             Bonus: 1800
             RandomBonus: 600
             BlacksmithBlessingAmount: 2
+            BroadcastSuccess: true
+            BroadcastFailure: true
             Chances:
               - Type: Normal
-                Rate: 4000
+                Rate: 3000
                 Price: 50
                 Material: Phracon
                 BreakingRate: 10000
               - Type: Enriched
-                Rate: 7000
+                Rate: 4000
                 Price: 2000
                 Material: Enriched_Oridecon
                 BreakingRate: 10000
@@ -290,14 +304,16 @@ Body:
             Bonus: 2000
             RandomBonus: 900
             BlacksmithBlessingAmount: 4
+            BroadcastSuccess: true
+            BroadcastFailure: true
             Chances:
               - Type: Normal
-                Rate: 2000
+                Rate: 1500
                 Price: 50
                 Material: Phracon
                 BreakingRate: 10000
               - Type: Enriched
-                Rate: 3000
+                Rate: 2500
                 Price: 2000
                 Material: Enriched_Oridecon
                 BreakingRate: 10000
@@ -360,6 +376,8 @@ Body:
                 Material: Enriched_Oridecon
           - Level: 6
             Bonus: 1800
+            BroadcastSuccess: true
+            BroadcastFailure: true
             Chances:
               - Type: Normal
                 Rate: 10000
@@ -379,7 +397,7 @@ Body:
                 Material: Emveretarcon
                 BreakingRate: 10000
               - Type: Enriched
-                Rate: 9000
+                Rate: 7000
                 Price: 2000
                 Material: Enriched_Oridecon
                 BreakingRate: 10000
@@ -387,6 +405,8 @@ Body:
             Bonus: 2400
             RandomBonus: 1000
             BlacksmithBlessingAmount: 1
+            BroadcastSuccess: true
+            BroadcastFailure: true
             Chances:
               - Type: Normal
                 Rate: 4000
@@ -394,7 +414,7 @@ Body:
                 Material: Emveretarcon
                 BreakingRate: 10000
               - Type: Enriched
-                Rate: 7000
+                Rate: 5000
                 Price: 2000
                 Material: Enriched_Oridecon
                 BreakingRate: 10000
@@ -402,21 +422,8 @@ Body:
             Bonus: 2700
             RandomBonus: 1500
             BlacksmithBlessingAmount: 2
-            Chances:
-              - Type: Normal
-                Rate: 2000
-                Price: 200
-                Material: Emveretarcon
-                BreakingRate: 10000
-              - Type: Enriched
-                Rate: 4000
-                Price: 2000
-                Material: Enriched_Oridecon
-                BreakingRate: 10000
-          - Level: 10
-            Bonus: 3000
-            RandomBonus: 2000
-            BlacksmithBlessingAmount: 4
+            BroadcastSuccess: true
+            BroadcastFailure: true
             Chances:
               - Type: Normal
                 Rate: 2000
@@ -425,6 +432,23 @@ Body:
                 BreakingRate: 10000
               - Type: Enriched
                 Rate: 3000
+                Price: 2000
+                Material: Enriched_Oridecon
+                BreakingRate: 10000
+          - Level: 10
+            Bonus: 3000
+            RandomBonus: 2000
+            BlacksmithBlessingAmount: 4
+            BroadcastSuccess: true
+            BroadcastFailure: true
+            Chances:
+              - Type: Normal
+                Rate: 1000
+                Price: 200
+                Material: Emveretarcon
+                BreakingRate: 10000
+              - Type: Enriched
+                Rate: 2000
                 Price: 2000
                 Material: Enriched_Oridecon
                 BreakingRate: 10000
@@ -490,26 +514,28 @@ Body:
             RandomBonus: 800
             Chances:
               - Type: Normal
-                Rate: 6000
+                Rate: 5000
                 Price: 5000
                 Material: Oridecon
                 BreakingRate: 10000
               - Type: Enriched
-                Rate: 9000
+                Rate: 6000
                 Price: 2000
                 Material: Enriched_Oridecon
                 BreakingRate: 10000
           - Level: 7
             Bonus: 3500
             RandomBonus: 1600
+            BroadcastSuccess: true
+            BroadcastFailure: true
             Chances:
               - Type: Normal
-                Rate: 5000
+                Rate: 3000
                 Price: 5000
                 Material: Oridecon
                 BreakingRate: 10000
               - Type: Enriched
-                Rate: 8000
+                Rate: 4000
                 Price: 2000
                 Material: Enriched_Oridecon
                 BreakingRate: 10000
@@ -517,14 +543,16 @@ Body:
             Bonus: 4000
             RandomBonus: 2400
             BlacksmithBlessingAmount: 1
+            BroadcastSuccess: true
+            BroadcastFailure: true
             Chances:
               - Type: Normal
-                Rate: 2000
+                Rate: 1500
                 Price: 5000
                 Material: Oridecon
                 BreakingRate: 10000
               - Type: Enriched
-                Rate: 4000
+                Rate: 3000
                 Price: 2000
                 Material: Enriched_Oridecon
                 BreakingRate: 10000
@@ -532,14 +560,16 @@ Body:
             Bonus: 4500
             RandomBonus: 3200
             BlacksmithBlessingAmount: 2
+            BroadcastSuccess: true
+            BroadcastFailure: true
             Chances:
               - Type: Normal
-                Rate: 2000
+                Rate: 1000
                 Price: 5000
                 Material: Oridecon
                 BreakingRate: 10000
               - Type: Enriched
-                Rate: 4000
+                Rate: 2000
                 Price: 2000
                 Material: Enriched_Oridecon
                 BreakingRate: 10000
@@ -547,14 +577,16 @@ Body:
             Bonus: 5000
             RandomBonus: 4000
             BlacksmithBlessingAmount: 4
+            BroadcastSuccess: true
+            BroadcastFailure: true
             Chances:
               - Type: Normal
-                Rate: 2000
+                Rate: 700
                 Price: 5000
                 Material: Oridecon
                 BreakingRate: 10000
               - Type: Enriched
-                Rate: 3000
+                Rate: 1500
                 Price: 2000
                 Material: Enriched_Oridecon
                 BreakingRate: 10000
@@ -610,40 +642,44 @@ Body:
             RandomBonus: 1300
             Chances:
               - Type: Normal
-                Rate: 6000
+                Rate: 4000
                 Price: 20000
                 Material: Oridecon
                 BreakingRate: 10000
               - Type: Enriched
-                Rate: 9000
+                Rate: 5000
                 Price: 2000
                 Material: Enriched_Oridecon
                 BreakingRate: 10000
           - Level: 6
             Bonus: 4200
             RandomBonus: 2600
+            BroadcastSuccess: true
+            BroadcastFailure: true
             Chances:
               - Type: Normal
-                Rate: 4000
+                Rate: 3000
                 Price: 20000
                 Material: Oridecon
                 BreakingRate: 10000
               - Type: Enriched
-                Rate: 7000
+                Rate: 4000
                 Price: 2000
                 Material: Enriched_Oridecon
                 BreakingRate: 10000
           - Level: 7
             Bonus: 4900
             RandomBonus: 3900
+            BroadcastSuccess: true
+            BroadcastFailure: true
             Chances:
               - Type: Normal
-                Rate: 4000
+                Rate: 2000
                 Price: 20000
                 Material: Oridecon
                 BreakingRate: 10000
               - Type: Enriched
-                Rate: 7000
+                Rate: 3000
                 Price: 2000
                 Material: Enriched_Oridecon
                 BreakingRate: 10000
@@ -651,36 +687,8 @@ Body:
             Bonus: 5600
             RandomBonus: 5200
             BlacksmithBlessingAmount: 1
-            Chances:
-              - Type: Normal
-                Rate: 2000
-                Price: 20000
-                Material: Oridecon
-                BreakingRate: 10000
-              - Type: Enriched
-                Rate: 4000
-                Price: 2000
-                Material: Enriched_Oridecon
-                BreakingRate: 10000
-          - Level: 9
-            Bonus: 6300
-            RandomBonus: 6500
-            BlacksmithBlessingAmount: 2
-            Chances:
-              - Type: Normal
-                Rate: 2000
-                Price: 20000
-                Material: Oridecon
-                BreakingRate: 10000
-              - Type: Enriched
-                Rate: 4000
-                Price: 2000
-                Material: Enriched_Oridecon
-                BreakingRate: 10000
-          - Level: 10
-            Bonus: 7000
-            RandomBonus: 7800
-            BlacksmithBlessingAmount: 4
+            BroadcastSuccess: true
+            BroadcastFailure: true
             Chances:
               - Type: Normal
                 Rate: 1000
@@ -689,6 +697,40 @@ Body:
                 BreakingRate: 10000
               - Type: Enriched
                 Rate: 2000
+                Price: 2000
+                Material: Enriched_Oridecon
+                BreakingRate: 10000
+          - Level: 9
+            Bonus: 6300
+            RandomBonus: 6500
+            BlacksmithBlessingAmount: 2
+            BroadcastSuccess: true
+            BroadcastFailure: true
+            Chances:
+              - Type: Normal
+                Rate: 700
+                Price: 20000
+                Material: Oridecon
+                BreakingRate: 10000
+              - Type: Enriched
+                Rate: 1500
+                Price: 2000
+                Material: Enriched_Oridecon
+                BreakingRate: 10000
+          - Level: 10
+            Bonus: 7000
+            RandomBonus: 7800
+            BlacksmithBlessingAmount: 4
+            BroadcastSuccess: true
+            BroadcastFailure: true
+            Chances:
+              - Type: Normal
+                Rate: 500
+                Price: 20000
+                Material: Oridecon
+                BreakingRate: 10000
+              - Type: Enriched
+                Rate: 1000
                 Price: 2000
                 Material: Enriched_Oridecon
                 BreakingRate: 10000
