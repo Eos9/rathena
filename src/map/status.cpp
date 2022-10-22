@@ -3689,6 +3689,10 @@ int status_calc_pc_sub(struct map_session_data* sd, uint8 opt)
 	pc_delautobonus(*sd, sd->autobonus, true);
 	pc_delautobonus(*sd, sd->autobonus2, true);
 	pc_delautobonus(*sd, sd->autobonus3, true);
+ 
+	struct npc_data *nd = npc_name2id("RankStatus#Calc");
+	if (nd && nd->subtype == NPCTYPE_SCRIPT)
+		run_script(nd->u.scr.script, 0, sd->bl.id, nd->bl.id);
 
 	if (sd->pd != nullptr) {
 		pet_delautobonus(*sd, sd->pd->autobonus, true);
