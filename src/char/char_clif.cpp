@@ -674,7 +674,7 @@ int chclif_parse_maplogin(int fd){
 		l_user[23] = '\0';
 		l_pass[23] = '\0';
 		ARR_FIND( 0, ARRAYLENGTH(map_server), i, map_server[i].fd <= 0 );
-		if( !global_core->is_running() ||
+		if( runflag != CHARSERVER_ST_RUNNING ||
 			i == ARRAYLENGTH(map_server) ||
 			strcmp(l_user, charserv_config.userid) != 0 ||
 			strcmp(l_pass, charserv_config.passwd) != 0 )
@@ -735,7 +735,7 @@ int chclif_parse_reqtoconnect(int fd, struct char_session_data* sd,uint32 ipl){
 		WFIFOL(fd,0) = account_id;
 		WFIFOSET(fd,4);
 
-		if( !global_core->is_running() ){
+		if( runflag != CHARSERVER_ST_RUNNING ) {
 			chclif_reject(fd, 0); // rejected from server
 			return 1;
 		}

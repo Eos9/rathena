@@ -7597,7 +7597,17 @@ Body:
       TargetTrap: true
     Range: 9
     Hit: Multi_Hit
-    HitCount: 5
+    HitCount:
+      - Level: 1
+        Count: 1
+      - Level: 2
+        Count: 2
+      - Level: 3
+        Count: 3
+      - Level: 4
+        Count: 4
+      - Level: 5
+        Count: 5
     Element: Weapon
     CopyFlags:
       Skill:
@@ -8661,7 +8671,7 @@ Body:
     SplashArea: 4
     CastTime: 1000
     Duration1: 60000
-    Duration2: 18000
+    Duration2: 15000
     Cooldown: 20000
     Requires:
       SpCost: 40
@@ -9635,13 +9645,15 @@ Body:
     Name: NPC_WEAPONBRAKER
     Description: Break weapon
     MaxLevel: 10
-    TargetType: Self
+    Type: Weapon
+    TargetType: Attack
     Flags:
       IsNpc: true
+    Range: 9
     Hit: Single
     HitCount: 1
-    Duration: 30000
-    Status: WeaponBreaker
+    Element: Weapon
+    Status: BrokenWeapon
   - Id: 344
     Name: NPC_ARMORBRAKE
     Description: Break armor
@@ -10516,6 +10528,9 @@ Body:
           Amount: 90
         - Level: 5
           Amount: 100
+      ItemCost:
+        - Item: Poison_Bottle
+          Amount: 1
     Status: Edp
   - Id: 379
     Name: ASC_BREAKER
@@ -17019,7 +17034,7 @@ Body:
     Range: 11
     Hit: Multi_Hit
     HitCount: -20
-    Duration2: 18000
+    Duration1: 18000
     SplashArea: 9
     Knockback: 2
     CastCancel: true
@@ -17161,12 +17176,11 @@ Body:
     Name: NPC_MAXPAIN_ATK
     Description: Max Pain Attack
     MaxLevel: 10
-    Type: Weapon
+    Type: Misc
     TargetType: Attack
     DamageFlags:
       Splash: true
       IgnoreElement: true
-      IgnoreDefense: true
       IgnoreFlee: true
       IgnoreDefCard: true
     Flags:
@@ -20159,11 +20173,7 @@ Body:
         Time: 240000
       - Level: 5
         Time: 300000
-    Duration2:
-      - Level: 1
-        Time: 15000
-      - Level: 2
-        Time: 300000
+    Duration2: 300000
     Requires:
       SpCost:
         - Level: 1
@@ -20342,7 +20352,7 @@ Body:
     Unit:
       Id: Poisonsmoke
       Layout: 2
-      Interval: 2000
+      Interval: 1000
       Target: Enemy
       Flag:
         NoOverlap: true
@@ -25630,15 +25640,15 @@ Body:
     Requires:
       SpCost:
         - Level: 1
-          Amount: 25
-        - Level: 2
-          Amount: 30
-        - Level: 3
-          Amount: 35
-        - Level: 4
           Amount: 40
+        - Level: 2
+          Amount: 50
+        - Level: 3
+          Amount: 60
+        - Level: 4
+          Amount: 70
         - Level: 5
-          Amount: 45
+          Amount: 80
       SpiritSphereCost: 2
   - Id: 2350
     Name: WA_SWING_DANCE
@@ -27605,8 +27615,8 @@ Body:
     DamageFlags:
       Splash: true
     Range: 9
-    Hit: Multi_Hit
-    HitCount: 3
+    Hit: Single
+    HitCount: -3
     Element: Wind
     SplashArea:
       - Level: 1
@@ -37447,7 +37457,7 @@ Body:
     CastCancel: true
     AfterCastActDelay: 500
     Duration1: 180000
-    Duration2: 15000
+    Duration2: 30000
     Cooldown: 150000
     FixedCastTime: 2000
     Requires:
@@ -42464,7 +42474,7 @@ Body:
         - Level: 10
           Amount: 16
       SpCost: 30
-    Status: Sub_Weaponproperty
+    Status: Watk_Element
   - Id: 8203
     Name: MS_BOWLINGBASH
     Description: Bowling_Bash
@@ -44817,7 +44827,7 @@ Body:
       IsGuild: true
     CastCancel: true
     Duration1: 300000
-    Cooldown: 900000
+    Cooldown: 60000
     FixedCastTime: 1000
   - Id: 10018
     Name: GD_CHARGESHOUT_BEATING
@@ -44829,7 +44839,7 @@ Body:
     Flags:
       IsGuild: true
     CastCancel: true
-    Cooldown: 900000
+    Cooldown: 60000
     FixedCastTime: 1000
   - Id: 10019
     Name: GD_EMERGENCY_MOVE
@@ -44843,5 +44853,5 @@ Body:
       IsGuild: true
     SplashArea: 15
     Duration1: 10000
-    Cooldown: 60000
+    Cooldown: 600000
     Status: Emergency_Move

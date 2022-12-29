@@ -11,7 +11,6 @@
 enum locktype {
 	LOGIN_SQL_LOCK,
 	CHAR_SQL_LOCK,
-	MAP_SQL_LOCK,
 	WEB_SQL_LOCK
 };
 

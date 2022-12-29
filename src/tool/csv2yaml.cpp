@@ -5,8 +5,6 @@
 
 #include <math.h>
 
-using namespace rathena::tool_csv2yaml;
-
 // Skill database data to memory
 static void skill_txt_data(const std::string& modePath, const std::string& fixedPath) {
 	skill_require.clear();
@@ -204,7 +202,7 @@ bool process( const std::string& type, uint32 version, const std::vector<std::st
 	return true;
 }
 
-bool Csv2YamlTool::initialize( int argc, char* argv[] ){
+int do_init( int argc, char** argv ){
 	const std::string path_db = std::string( db_path );
 	const std::string path_db_mode = path_db + "/" + DBPATH;
 	const std::string path_db_import = path_db + "/" + DBIMPORT + "/";
@@ -243,91 +241,91 @@ bool Csv2YamlTool::initialize( int argc, char* argv[] ){
 	if( !process( "GUILD_SKILL_TREE_DB", 1, root_paths, "guild_skill_tree", []( const std::string& path, const std::string& name_ext ) -> bool {
 		return sv_readdb( path.c_str(), name_ext.c_str(), ',', 2 + MAX_GUILD_SKILL_REQUIRE * 2, 2 + MAX_GUILD_SKILL_REQUIRE * 2, -1, &guild_read_guildskill_tree_db, false );
 	} ) ){
-		return false;
+		return 0;
 	}
 
 	if( !process( "PET_DB", 1, root_paths, "pet_db", []( const std::string& path, const std::string& name_ext ) -> bool {
 		return pet_read_db( ( path + name_ext ).c_str() );
 	} ) ){
-		return false;
+		return 0;
 	}
 
 	if (!process("MAGIC_MUSHROOM_DB", 1, root_paths, "magicmushroom_db", [](const std::string &path, const std::string &name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 1, 1, -1, &skill_parse_row_magicmushroomdb, false);
 	})) {
-		return false;
+		return 0;
 	}
 
 	if (!process("ABRA_DB", 1, root_paths, "abra_db", [](const std::string& path, const std::string& name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 3, 3, -1, &skill_parse_row_abradb, false);
 	})) {
-		return false;
+		return 0;
 	}
 
 	if (!process("READING_SPELLBOOK_DB", 1, root_paths, "spellbook_db", [](const std::string& path, const std::string& name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 3, 3, -1, &skill_parse_row_spellbookdb, false);
 	})) {
-		return false;
+		return 0;
 	}
 
 	if (!process("MOB_AVAIL_DB", 1, root_paths, "mob_avail", [](const std::string& path, const std::string& name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 2, 12, -1, &mob_readdb_mobavail, false);
 	})) {
-		return false;
+		return 0;
 	}
 
 	skill_txt_data( path_db_mode, path_db );
 	if (!process("SKILL_DB", 3, { path_db_mode }, "skill_db", [](const std::string& path, const std::string& name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 18, 18, -1, &skill_parse_row_skilldb, false);
 	})){
-		return false;
+		return 0;
 	}
 
 	skill_txt_data( path_db_import, path_db_import );
 	if (!process("SKILL_DB", 3, { path_db_import }, "skill_db", [](const std::string& path, const std::string& name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 18, 18, -1, &skill_parse_row_skilldb, false);
 	})){
-		return false;
+		return 0;
 	}
 
-	if (!process("QUEST_DB", 3, root_paths, "quest_db", [](const std::string &path, const std::string &name_ext) -> bool {
+	if (!process("QUEST_DB", 2, root_paths, "quest_db", [](const std::string &path, const std::string &name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 3 + MAX_QUEST_OBJECTIVES * 2 + MAX_QUEST_DROPS * 3, 100, -1, &quest_read_db, false);
 	})) {
-		return false;
+		return 0;
 	}
 
 	if (!process("INSTANCE_DB", 1, root_paths, "instance_db", [](const std::string& path, const std::string& name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 7, 7 + MAX_MAP_PER_INSTANCE, -1, &instance_readdb_sub, false);
 	})) {
-		return false;
+		return 0;
 	}
 
 	item_txt_data(path_db_mode, path_db);
-	if (!process("ITEM_DB", 3, { path_db_mode }, "item_db", [](const std::string& path, const std::string& name_ext) -> bool {
+	if (!process("ITEM_DB", 2, { path_db_mode }, "item_db", [](const std::string& path, const std::string& name_ext) -> bool {
 		return itemdb_read_db((path + name_ext).c_str());
 	})) {
-		return false;
+		return 0;
 	}
 
 	item_txt_data(path_db_import, path_db_import);
-	if (!process("ITEM_DB", 3, { path_db_import }, "item_db", [](const std::string& path, const std::string& name_ext) -> bool {
+	if (!process("ITEM_DB", 2, { path_db_import }, "item_db", [](const std::string& path, const std::string& name_ext) -> bool {
 		return itemdb_read_db((path + name_ext).c_str());
 	})) {
-		return false;
+		return 0;
 	}
 
 	rand_opt_db.clear();
 	if (!process("RANDOM_OPTION_DB", 1, root_paths, "item_randomopt_db", [](const std::string& path, const std::string& name_ext) -> bool {
 		return itemdb_read_randomopt((path + name_ext).c_str());
 	})) {
-		return false;
+		return 0;
 	}
 
 	rand_opt_group.clear();
 	if (!process("RANDOM_OPTION_GROUP", 1, root_paths, "item_randomopt_group", [](const std::string& path, const std::string& name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 5, 2 + 5 * MAX_ITEM_RDM_OPT, -1, &itemdb_read_randomopt_group, false) && itemdb_randomopt_group_yaml();
 	})) {
-		return false;
+		return 0;
 	}
 
 #ifdef RENEWAL
@@ -335,14 +333,14 @@ bool Csv2YamlTool::initialize( int argc, char* argv[] ){
 	if (!process("PENALTY_DB", 1, { path_db_mode }, "level_penalty", [](const std::string& path, const std::string& name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 4, 4, -1, &pc_readdb_levelpenalty, false) && pc_levelpenalty_yaml();
 	})) {
-		return false;
+		return 0;
 	}
 
 	memset( level_penalty, 0, sizeof( level_penalty ) );
 	if (!process("PENALTY_DB", 1, { path_db_import }, "level_penalty", [](const std::string& path, const std::string& name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 4, 4, -1, &pc_readdb_levelpenalty, false) && pc_levelpenalty_yaml();
 	})) {
-		return false;
+		return 0;
 	}
 #endif
 
@@ -350,132 +348,132 @@ bool Csv2YamlTool::initialize( int argc, char* argv[] ){
 	if (!process("MOB_DB", 3, { path_db_mode }, "mob_db", [](const std::string &path, const std::string &name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 31 + 2 * MAX_MVP_DROP + 2 * MAX_MOB_DROP, 31 + 2 * MAX_MVP_DROP + 2 * MAX_MOB_DROP, -1, &mob_readdb_sub, false);
 	})) {
-		return false;
+		return 0;
 	}
 
 	mob_txt_data(path_db_import, path_db_import);
 	if (!process("MOB_DB", 3, { path_db_import }, "mob_db", [](const std::string &path, const std::string &name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 31 + 2 * MAX_MVP_DROP + 2 * MAX_MOB_DROP, 31 + 2 * MAX_MVP_DROP + 2 * MAX_MOB_DROP, -1, &mob_readdb_sub, false);
 	})) {
-		return false;
+		return 0;
 	}
 
 	if (!process("MOB_CHAT_DB", 1, root_paths, "mob_chat_db", [](const std::string& path, const std::string& name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), '#', 3, 3, -1, &mob_parse_row_chatdb, false);
 	})) {
-		return false;
+		return 0;
 	}
 
 	if (!process("HOMUN_EXP_DB", 1, { path_db_mode }, "exp_homun", [](const std::string &path, const std::string &name_ext) -> bool {
 		return read_homunculus_expdb((path + name_ext).c_str());
 	})) {
-		return false;
+		return 0;
 	}
 
 	if (!process("HOMUN_EXP_DB", 1, { path_db_import }, "exp_homun", [](const std::string &path, const std::string &name_ext) -> bool {
 		return read_homunculus_expdb((path + name_ext).c_str());
 	})) {
-		return false;
+		return 0;
 	}
 
 	branch_txt_data(path_db_mode, path_db);
 	if (!process("MOB_SUMMONABLE_DB", 1, { path_db_mode }, "mob_branch", [](const std::string &path, const std::string &name_ext) -> bool {
 		return mob_readdb_group_yaml();
 	}, "mob_summon")) {
-		return false;
+		return 0;
 	}
 
 	branch_txt_data(path_db_import, path_db_import);
 	if (!process("MOB_SUMMONABLE_DB", 1, { path_db_import }, "mob_branch", [](const std::string &path, const std::string &name_ext) -> bool {
 		return mob_readdb_group_yaml();
 	}, "mob_summon")) {
-		return false;
+		return 0;
 	}
 
 	if (!process("CREATE_ARROW_DB", 1, root_paths, "create_arrow_db", [](const std::string& path, const std::string& name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 1+2, 1+2*MAX_ARROW_RESULT, MAX_SKILL_ARROW_DB, &skill_parse_row_createarrowdb, false);
 	})) {
-		return false;
+		return 0;
 	}
 
 	if (!process("STATPOINT_DB", 1, { path_db_mode }, "statpoint", [](const std::string &path, const std::string &name_ext) -> bool {
 		return pc_read_statsdb((path + name_ext).c_str());
 	})) {
-		return false;
+		return 0;
 	}
 
 	if (!process("STATPOINT_DB", 1, { path_db_import }, "statpoint", [](const std::string &path, const std::string &name_ext) -> bool {
 		return pc_read_statsdb((path + name_ext).c_str());
 	})) {
-		return false;
+		return 0;
 	}
 
 	if (!process("CASTLE_DB", 1, root_paths, "castle_db", [](const std::string &path, const std::string &name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 4, 4, -1, &guild_read_castledb, false);
 	})) {
-		return false;
+		return 0;
 	}
 
 	if (!process("GUILD_EXP_DB", 1, { path_db_mode }, "exp_guild", [](const std::string &path, const std::string &name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 1, 1, MAX_GUILDLEVEL, &exp_guild_parse_row, false);
 	})) {
-		return false;
+		return 0;
 	}
 
 	if (!process("GUILD_EXP_DB", 1, { path_db_import }, "exp_guild", [](const std::string &path, const std::string &name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 1, 1, MAX_GUILDLEVEL, &exp_guild_parse_row, false);
 	})) {
-		return false;
+		return 0;
 	}
 
 	item_group_txt_data(path_db_mode, path_db);
 	if (!process("ITEM_GROUP_DB", 2, { path_db_mode }, "item_group_db", [](const std::string &path, const std::string &name_ext) -> bool {
 		return itemdb_read_group_yaml();
 	})) {
-		return false;
+		return 0;
 	}
 
 	item_group_txt_data(path_db_import, path_db_import);
 	if (!process("ITEM_GROUP_DB", 2, { path_db_import }, "item_group_db", [](const std::string &path, const std::string &name_ext) -> bool {
 		return itemdb_read_group_yaml();
 	})) {
-		return false;
+		return 0;
 	}
 
 	if (!process("MOB_ITEM_RATIO_DB", 1, root_paths, "mob_item_ratio", [](const std::string& path, const std::string& name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 2, 2+MAX_ITEMRATIO_MOBS, -1, &mob_readdb_itemratio, false);
 	})) {
-		return false;
+		return 0;
 	}
 
 	if (!process("ATTRIBUTE_DB", 1, { path_db_mode }, "attr_fix", [](const std::string &path, const std::string &name_ext) -> bool {
 		return status_readdb_attrfix((path + name_ext).c_str());
 	})) {
-		return false;
+		return 0;
 	}
 
 	if (!process("ATTRIBUTE_DB", 1, { path_db_import }, "attr_fix", [](const std::string &path, const std::string &name_ext) -> bool {
 		return status_readdb_attrfix((path + name_ext).c_str());
 	})) {
-		return false;
+		return 0;
 	}
 
 	if (!process("CONSTANT_DB", 1, root_paths, "const", [](const std::string& path, const std::string& name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 1, 3, -1, &read_constdb, false);
 	})) {
-		return false;
+		return 0;
 	}
 
 	if (!process("JOB_STATS", 2, root_paths, "job_exp", [](const std::string& path, const std::string& name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 4, 1000 + 3, CLASS_COUNT * 2, &pc_readdb_job_exp, false);
 	}, "job_exp")) {
-		return false;
+		return 0;
 	}
 
 	if (!process("JOB_STATS", 2, root_paths, "job_basehpsp_db", [](const std::string& path, const std::string& name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 4, 4 + 500, CLASS_COUNT * 2, &pc_readdb_job_basehpsp, false);
 	}, "job_basepoints")) {
-		return false;
+		return 0;
 	}
 
 	job_txt_data(path_db_mode, path_db);
@@ -486,7 +484,7 @@ bool Csv2YamlTool::initialize( int argc, char* argv[] ){
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 5 + MAX_WEAPON_TYPE, 5 + MAX_WEAPON_TYPE, CLASS_COUNT, &pc_readdb_job1, false);
 #endif
 	}, "job_stats")) {
-		return false;
+		return 0;
 	}
 
 	job_txt_data(path_db_import, path_db_import);
@@ -497,52 +495,55 @@ bool Csv2YamlTool::initialize( int argc, char* argv[] ){
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 5 + MAX_WEAPON_TYPE, 5 + MAX_WEAPON_TYPE, CLASS_COUNT, &pc_readdb_job1, false);
 #endif
 	}, "job_stats")) {
-		return false;
+		return 0;
 	}
 
 	elemental_skill_txt_data(path_db_mode, path_db);
 	if (!process("ELEMENTAL_DB", 1, root_paths, "elemental_db", [](const std::string &path, const std::string &name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 26, 26, -1, &read_elementaldb, false);
 	})) {
-		return false;
+		return 0;
 	}
 
 	mercenary_skill_txt_data(path_db_mode, path_db);
 	if (!process("MERCENARY_DB", 1, root_paths, "mercenary_db", [](const std::string &path, const std::string &name_ext) -> bool {
 		return sv_readdb(path.c_str(), name_ext.c_str(), ',', 26, 26, -1, &mercenary_readdb, false);
 	})) {
-		return false;
+		return 0;
 	}
 
 	skilltree_txt_data(path_db_mode, path_db);
 	if (!process("SKILL_TREE_DB", 1, { path_db_mode }, "skill_tree", [](const std::string &path, const std::string &name_ext) -> bool {
 		return pc_readdb_skilltree_yaml();
 	})) {
-		return false;
+		return 0;
 	}
 
 	skilltree_txt_data(path_db_import, path_db_import);
 	if (!process("SKILL_TREE_DB", 1, { path_db_import }, "skill_tree", [](const std::string &path, const std::string &name_ext) -> bool {
 		return pc_readdb_skilltree_yaml();
 	})) {
-		return false;
+		return 0;
 	}
 
 	if (!process("COMBO_DB", 1, { path_db_mode }, "item_combo_db", [](const std::string& path, const std::string& name_ext) -> bool {
 		return itemdb_read_combos((path + name_ext).c_str());
 	}, "item_combos")) {
-		return false;
+		return 0;
 	}
 
 	if (!process("COMBO_DB", 1, { path_db_import }, "item_combo_db", [](const std::string& path, const std::string& name_ext) -> bool {
 		return itemdb_read_combos((path + name_ext).c_str());
 	}, "item_combos")) {
-		return false;
+		return 0;
 	}
 
 	// TODO: add implementations ;-)
 
-	return true;
+	return 0;
+}
+
+void do_final(void){
 }
 
 // Implementation of the conversion functions
@@ -4916,8 +4917,4 @@ static bool itemdb_read_combos(const char* file) {
 	ShowStatus("Done reading '" CL_WHITE "%d" CL_RESET "' entries in '" CL_WHITE "%s" CL_RESET "'.\n", count, file);
 
 	return true;
-}
-
-int main( int argc, char *argv[] ){
-	return main_core<Csv2YamlTool>( argc, argv );
 }

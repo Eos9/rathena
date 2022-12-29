@@ -111,22 +111,12 @@ typedef uint32 t_itemid;
 	#define MAX_BARTER_REQUIREMENTS 5
 #endif
 
-enum e_enchantgrade : uint16{
-	ENCHANTGRADE_NONE = 0,
-	ENCHANTGRADE_D,
-	ENCHANTGRADE_C,
-	ENCHANTGRADE_B,
-	ENCHANTGRADE_A
-};
-
 #ifdef RENEWAL
 	#define MAX_WEAPON_LEVEL 5
 	#define MAX_ARMOR_LEVEL 2
-	#define MAX_ENCHANTGRADE ENCHANTGRADE_A
 #else
 	#define MAX_WEAPON_LEVEL 4
 	#define MAX_ARMOR_LEVEL 1
-	#define MAX_ENCHANTGRADE ENCHANTGRADE_NONE
 #endif
 
 // for produce
@@ -363,9 +353,8 @@ struct startitem {
 	uint32 pos;
 };
 
-enum e_skill_flag : int8
+enum e_skill_flag
 {
-	SKILL_FLAG_NONE = -1,
 	SKILL_FLAG_PERMANENT,
 	SKILL_FLAG_TEMPORARY,
 	SKILL_FLAG_PLAGIARIZED,
@@ -572,7 +561,6 @@ struct mmo_charstatus {
 	short shield; // view-id
 	short head_top,head_mid,head_bottom;
 	short robe;
-	uint8 body_direction;
 
 	char name[NAME_LENGTH];
 	unsigned int base_level,job_level;
@@ -590,7 +578,7 @@ struct mmo_charstatus {
 #ifdef HOTKEY_SAVING
 	struct hotkey hotkeys[MAX_HOTKEYS_DB];
 #endif
-	bool show_equip,allow_party, disable_call;
+	bool show_equip,allow_party;
 	short rename;
 
 	time_t delete_date;
@@ -693,14 +681,14 @@ struct party {
 	struct party_member member[MAX_PARTY];
 };
 
-class map_session_data;
+struct map_session_data;
 struct guild_member {
 	uint32 account_id, char_id;
 	short hair,hair_color,gender,class_,lv;
 	t_exp exp;
 	short online,position;
 	char name[NAME_LENGTH];
-	map_session_data *sd;
+	struct map_session_data *sd;
 	unsigned char modified;
 	uint32 last_login;
 };
@@ -1121,7 +1109,7 @@ struct clan{
 	char master[NAME_LENGTH];
 	char map[MAP_NAME_LENGTH_EXT];
 	short max_member, connect_member;
-	map_session_data *members[MAX_CLAN];
+	struct map_session_data *members[MAX_CLAN];
 	struct clan_alliance alliance[MAX_CLANALLIANCE];
 	unsigned short instance_id;
 };
@@ -1136,8 +1124,11 @@ struct clan{
 #error MAX_PARTY is too small, you need at least 2 players for a party
 #endif
 
-#ifndef MIN_CHARS
-	#define MIN_CHARS ( MAX_CHARS - MAX_CHAR_VIP - MAX_CHAR_BILLING ) // Default number of characters per account.
+#ifndef VIP_ENABLE
+	#define MIN_STORAGE MAX_STORAGE // If the VIP system is disabled the min = max.
+	#define MIN_CHARS MAX_CHARS // Default number of characters per account.
+	#define MAX_CHAR_BILLING 0
+	#define MAX_CHAR_VIP 0
 #endif
 
 #if (MIN_CHARS + MAX_CHAR_VIP + MAX_CHAR_BILLING) > MAX_CHARS

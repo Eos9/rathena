@@ -107,8 +107,3 @@ lasa_in01	mapflag	nopenalty
 conch_in	mapflag	nopenalty
 
 wolfvill	mapflag	nopenalty
-
-//============================================================
-// Cash Mall
-//============================================================
-itemmall	mapflag	nopenalty
