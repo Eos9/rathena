@@ -18424,7 +18424,7 @@ struct s_skill_condition skill_get_requirement(map_session_data* sd, uint16 skil
 #ifdef RENEWAL
 				req.zeny -= req.zeny*20/100;
 #else
-				req.zeny -= req.zeny*10/100;
+				req.zeny -= req.zeny*30/100;
 #endif
 			break;
 		case AL_HOLYLIGHT:
