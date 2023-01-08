@@ -14525,7 +14525,7 @@ std::shared_ptr<s_skill_unit_group> skill_unitsetting(struct block_list *src, ui
 			limit=1000;
 		val1=skill_lv+2;
 		break;
-	case WZ_QUAGMIRE:	//The target changes to "all" if used in a gvg map. [Skotlex]
+//	case WZ_QUAGMIRE:	//The target changes to "all" if used in a gvg map. [Skotlex]
 	case AM_DEMONSTRATION:
 		if (battle_config.vs_traps_bctall && (src->type&battle_config.vs_traps_bctall) && map_flag_vs(src->m))
 			target = BCT_ALL;
