@@ -2151,7 +2151,7 @@ int64 battle_addmastery(map_session_data *sd,struct block_list *target,int64 dmg
 		case W_MACE:
 		case W_2HMACE:
 			if((skill = pc_checkskill(sd,PR_MACEMASTERY)) > 0)
-				damage += (skill * 3);
+				damage += (skill * 10);
 			if((skill = pc_checkskill(sd,NC_TRAININGAXE)) > 0)
 				damage += (skill * 4);
 			break;
