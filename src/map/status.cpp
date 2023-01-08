@@ -10675,7 +10675,7 @@ int status_change_start(struct block_list* src, struct block_list* bl,enum sc_ty
 			break;
 		case SC_ONEHAND:
 		case SC_TWOHANDQUICKEN:
-			val2 = 300;
+			val2 = 500;
 			if (val1 > 10) // For boss casted skills [Skotlex]
 				val2 += 20*(val1-10);
 			break;
