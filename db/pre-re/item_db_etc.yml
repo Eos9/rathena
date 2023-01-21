@@ -21160,3 +21160,31 @@ Body:
     Locations:
       Ammo: true
     EquipLevelMin: 99
+
+#APACHE PREMIUM SERVICE
+  - Id: 6417
+    AegisName: Silvervine
+    Name: Silvervine Fruit
+    Type: Etc
+    Buy: 20
+    Trade:
+      Override: 100
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+
+#Item Vending
+  - Id: 30000
+    AegisName: Zeny
+    Name: Zeny
+    Type: Etc
+    Weight: 1
+  - Id: 30001
+    AegisName: Cash
+    Name: Cash
+    Type: Etc
+    Weight: 1
