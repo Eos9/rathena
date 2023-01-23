@@ -22101,6 +22101,9 @@ Body:
       Third_Upper: true
       Third_Baby: true
     EquipLevelMin: 1
+
+# custom item athena
+ 
   - Id: 23165
     AegisName: Premium_Service_Staff
     Name: Premium Service Staff
@@ -22213,3 +22216,100 @@ Body:
       NoAuction: true
     Script: |
       rentitem 23648,2592000;
+ 
+  - Id: 20501
+    AegisName: VIP_Ticket_1_Day
+    Name: VIP Ticket 1 Day
+    Type: DelayConsume
+    Buy: 20
+    Weight: 10
+    Flags:
+      DropEffect: YELLOW_PILLAR
+    Delay:
+      Duration: 60000
+    Script: |
+      callfunc "1d_vip_ticket";
+  - Id: 20502
+    AegisName: VIP_Ticket_7_Day
+    Name: VIP Ticket 7 Day
+    Type: DelayConsume
+    Buy: 20
+    Weight: 10
+    Flags:
+      DropEffect: YELLOW_PILLAR
+    Delay:
+      Duration: 60000
+    Script: |
+      callfunc "7d_vip_ticket";
+  - Id: 20503
+    AegisName: VIP_Ticket_15_Day
+    Name: VIP Ticket 15 Day
+    Type: DelayConsume
+    Buy: 20
+    Weight: 10
+    Flags:
+      DropEffect: YELLOW_PILLAR
+    Delay:
+      Duration: 60000
+    Script: |
+      callfunc "15d_vip_ticket";
+  - Id: 20504
+    AegisName: VIP_Ticket_30_Day
+    Name: VIP Ticket 30 Day
+    Type: DelayConsume
+    Buy: 20
+    Weight: 10
+    Flags:
+      DropEffect: YELLOW_PILLAR
+    Delay:
+      Duration: 60000
+    Script: |
+      callfunc "30d_vip_ticket";
+  - Id: 20511
+    AegisName: VIP_Ticket_2_HR
+    Name: VIP Ticket 2 HR
+    Type: DelayConsume
+    Buy: 20
+    Weight: 10
+    Flags:
+      DropEffect: YELLOW_PILLAR
+    Delay:
+      Duration: 60000
+    Script: |
+      callfunc "2HR_vip_ticket";
+  - Id: 20512
+    AegisName: VIP_Ticket_4_HR
+    Name: VIP Ticket 4 HR
+    Type: DelayConsume
+    Buy: 20
+    Weight: 10
+    Flags:
+      DropEffect: YELLOW_PILLAR
+    Delay:
+      Duration: 60000
+    Script: |
+      callfunc "4HR_vip_ticket";
+  - Id: 20513
+    AegisName: VIP_Ticket_8_HR
+    Name: VIP Ticket 8 HR
+    Type: DelayConsume
+    Buy: 20
+    Weight: 10
+    Flags:
+      DropEffect: YELLOW_PILLAR
+    Delay:
+      Duration: 60000
+    Script: |
+      callfunc "8HR_vip_ticket";
+  - Id: 20514
+    AegisName: VIP_Ticket_12_HR
+    Name: VIP Ticket 12 HR
+    Type: DelayConsume
+    Buy: 20
+    Weight: 10
+    Flags:
+      DropEffect: YELLOW_PILLAR
+    Delay:
+      Duration: 60000
+    Script: |
+      callfunc "12HR_vip_ticket";
