@@ -21188,3 +21188,55 @@ Body:
     Name: Cash
     Type: Etc
     Weight: 1
+
+#Item Charm
+  - Id: 23081
+    AegisName: Charm_01
+    Name: Charm
+    Type: Charm
+    Buy: 6
+    EquipLevelMin: 1
+    Trade:
+      Override: 100
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bAllStats,100;
+  - Id: 23082
+    AegisName: Charm_02
+    Name: Charm Of Happiness
+    Type: Charm
+    Buy: 6
+    EquipLevelMin: 1
+    Trade:
+      Override: 100
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      bonus bAllStats,100;
+  - Id: 23083
+    AegisName: Charm_01_Box
+    Name: Lucky Box
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Script: |
+      rentitem 23081,604800;
+  - Id: 23084
+    AegisName: Charm_02_Box
+    Name: Lucky Happiness Box
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Script: |
+      rentitem 23082,604800;
