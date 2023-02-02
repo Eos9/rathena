@@ -41084,3 +41084,25 @@ Body:
     ArmorLevel: 1
     EquipLevelMin: 1
     View: 654
+
+  - Id: 29404
+    AegisName: Gear0013
+    Name: Cos Master Dice
+    Type: Armor
+    View: 4004
+    Weight: 50
+    Classes:
+      Normal: true
+    Locations:
+      Costume_Head_Low: true
+    ArmorLevel: 1
+    EquipLevelMin: 41
+    Trade:
+      Override: 100
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true

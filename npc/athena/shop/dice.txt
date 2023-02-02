@@ -1,0 +1,143 @@
+/*
+Script. Shuffle Rolling Script
+Create By. Athena Studio
+Bug Report. Kittisak Sarounram [ FB ]
+Contact Us. Kittisak Sarounram [ FB ]
+TEL. 0909183008 [ TRUE ]
+
+*** PLEASE DO NOT SHARE SCRIPTS ***
+*/
+
+///EQI_COMPOUND_ON (-1)      - Item slot that calls this script (In context of item script)
+///EQI_ACC_L (0)             - Accessory 1
+///EQI_ACC_R (1)             - Accessory 2
+///EQI_SHOES (2)             - Footgear (shoes, boots)
+///EQI_GARMENT (3)           - Garment (mufflers, hoods, manteaux)
+///EQI_HEAD_LOW (4)          - Lower Headgear (beards, some masks)
+///EQI_HEAD_MID (5)          - Middle Headgear (masks, glasses)
+///EQI_HEAD_TOP (6)          - Upper Headgear
+///EQI_ARMOR (7)             - Armor (jackets, robes)
+///EQI_HAND_L (8)            - Left hand (weapons, shields)
+///EQI_HAND_R (9)            - Right hand (weapons)
+///EQI_COSTUME_HEAD_TOP (10) - Upper Costume Headgear
+///EQI_COSTUME_HEAD_MID (11) - Middle Costume Headgear
+///EQI_COSTUME_HEAD_LOW (12) - Lower Costume Headgear
+///EQI_COSTUME_GARMENT (13)  - Costume Garment
+///EQI_AMMO (14)    		  - Arrow/Ammunition
+///EQI_SHADOW_ARMOR (15)     - Shadow Armor
+///EQI_SHADOW_WEAPON (16)    - Shadow Weapon
+///EQI_SHADOW_SHIELD (17)    - Shadow Shield
+///EQI_SHADOW_SHOES (18)     - Shadow Shoes
+///EQI_SHADOW_ACC_R (19)     - Shadow Accessory 2
+///EQI_SHADOW_ACC_L (20)     - Shadow Accessory 1
+
+morocc,134,79,4	script	Master Dice	4_F_KAFRA3,{
+	mes "^FF0000[ Master Dice ]^000000";
+	mes "ยินดีต้อนรับ Master Dice";
+	mes "คุณต้องการที่จะเช่าไอเท็ม";
+	mes "สำหรับการเล่นพนันอย่างนั้นหรือ ?";
+	mes " ";
+	mes "^0000FFค่าบริการสำหรับเช่าไอเท็ม^000000";
+	mes "3 วัน = 300 Cash Point";
+	next;
+	switch(select("~ ใช่ ! ฉันต้องการเช่าไอเท็ม:~ รายละเอียดการเช่าไอเท็ม:~ ไม่แน่ใจ"))
+	{
+		case 1:
+			if ( #CASHPOINTS < .Cash )
+			{
+				mes "^FF0000[ Master Dice ]^000000";
+				mes "คุณมี Cash Point ไม่เพียงพอ";
+				mes "แล้วพบกันใหม่น่ะ !";
+				end;
+			}
+			set #CASHPOINTS, #CASHPOINTS - .Cash;
+			rentitem .itemid,.time;
+			announce "Master Dice : คุณ "+strcharinfo(0)+" ได้เช่าไอเท็มสำหรับทอยลูกเต๋า ระยะเวลา 3 วัน",bc_all,0xFFFFFF;
+			end;
+		case 2:
+			mes "^FF0000[ เงื่อนไขเช่าไอเท็ม ]^000000";
+			mes "สำหรับเจ้ามือรับแท่งทอยเต๋า";
+			mes "เช่าไอเท็มทอยเต๋า โดยผู้เล่นใช้คำสั่ง @dice";
+			mes "เพื่อหมุนลูกเต๋า จะมี ^FF0000ค่าธรรมเนียม 7k / ครั้ง เฉพาะเจ้ามือ^000000";
+		end;
+			
+		case 3: 
+		end;
+	}
+	end;
+	
+OnInit:
+	//waitingroom "~ เช่าไอเท็มทอยเต๋า", 0;
+	.itemid = 29404;		// รหัสไอเท็มสำหรับไอเท็มเช่า
+	.Cash = 300;		// จำนวนแคชพอยท์
+	.time = 86400*3;		// 86400 = 1 วัน [ 2 วัน = *2, 3 วัน = *3 ] ตัวอย่าง 86400*3 = 3 วัน
+	
+	setarray .messages$,"[~] ","ไ","อ","เ","ท็","ม","ท","อ","ย","เ","ต๋","า";
+		while( 1 )
+		{
+			set .Display$,"";
+			for( set .i,0; .i < getarraysize( .messages$ ); set .i,.i + 1 )
+			{
+				set .Display$,.Display$ + .messages$[.i];
+				delwaitingroom;
+				waitingroom .Display$,0;
+				sleep 200;
+			}
+		sleep 1000;
+		}
+	end;
+}
+
+-	script	F_Dice	-1,{
+	
+OnDice:
+	/// CAN YOU SEE NAME FUNCTION HEAD SCRIPTS
+	if ( getequipid(EQI_COSTUME_HEAD_LOW) == .checkitemid )
+	{
+		if ( .time > gettimetick(2) )
+		{
+			.@minutes = ( .time - gettimetick(2) ) / 60;
+			.@seconds = ( .time - gettimetick(2) ) % 60;
+			
+			if ( .@minutes < 1 )
+			{
+				message strcharinfo(0), "[ แจ้งเตือน : กรุณารอดีเรย์การหมุนลูกเต๋ารอบถัดไป ใน "+ .@seconds +" วินาที. ]";
+			}
+			else
+			{
+				message strcharinfo(0), "[ แจ้งเตือน : กรุณารอดีเรย์การหมุนลูกเต๋ารอบถัดไป ใน "+ .@minutes +" นาที"+ (.@minutes > 1 ? "" : "") +" : "+ .@seconds +" วินาที. ]";
+			}
+			end;
+		}
+		
+		if ( Zeny < .fee)
+		{
+			mes "^FF0000[ Master Dice ]^000000";
+			mes "ฉันต้องการเงินค่าธรรมเนียม";
+			mes "สำหรับการทอยลูกเต๋า 7,000z";
+			close;
+		}
+		set Zeny, Zeny - .fee;
+		.@Randoms = rand(getarraysize(.Number));
+		atcommand "@dice "+ .Number[.@Randoms];
+		sleep2 1500;
+		unittalk getcharid(3),"[ "+ strcharinfo(0) +" ] ได้ทอยลูกเต๋า หมายเลขที่ออกคือ No. ["+ .Number[.@Randoms] +"]",bc_area;
+		.time = gettimetick(2) + .delay;
+		end;
+
+	}
+	mes "^FF0000[ Master Dice ]^000000";
+	mes "เฉพาะเจ้ามือ เท่านั้น !";
+	mes "คุณไม่สามารถใช้คำสั่งนี้ได้";
+	mes "กรุณาสวมใส่ไอเท็มเช่าด้วยค่ะ";
+	close;
+	
+OnInit:
+	
+	bindatcmd "dice", strnpcinfo(3) +"::OnDice",0,40;
+	setarray .Number[0],1,2,3,4,5,6;
+	.fee = 7000;		// ค่าธรรมเนียม
+	.delay = 5;			// ดีเลย์การใช้คำสั่ง [ วินาที ]
+	.checkitemid = 29404;		// รหัสไอเท็มสำหรับไอเท็มเช่า
+	end;	
+}

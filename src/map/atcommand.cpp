@@ -1340,6 +1340,34 @@ ACMD_FUNC(heal)
 	clif_displaymessage(fd, msg_txt(sd,156)); // HP or/and SP modified.
 	return 0;
 }
+/*
+* Eddga-studio
+*/
+ACMD_FUNC(dice)
+	{
+		int num = 0;
+		nullpo_retr(-1, sd);
+	
+		if (!message || !*message || sscanf(message, "%d", &num) < 1)
+		{
+			clif_displaymessage(fd, msg_txt(sd,1539));
+			return -1;
+		}
+		
+		if (num < 1 || num > 6)
+		{
+			clif_displaymessage(fd, msg_txt(sd,1540));
+			return -1;
+		}
+	
+		num += ET_DICE1 - 1;
+		clif_emotion(&sd->bl, num);
+	
+		return 0;
+	}
+/*
+* Eddga-studio
+*/
 
 /*==========================================
 * Recover's AP and allows exact adjustments. [Rytech]
@@ -11162,6 +11190,7 @@ void atcommand_basecommands(void) {
 		ACMD_DEF(fontcolor),
 		ACMD_DEF(langtype),
 		ACMD_DEF(afk),
+		ACMD_DEF(dice),
 #ifdef VIP_ENABLE
 		ACMD_DEF(vip),
 		ACMD_DEF(showrate),
