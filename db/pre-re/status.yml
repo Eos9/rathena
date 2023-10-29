@@ -7049,6 +7049,17 @@ Body:
   - Status: WeaponBreaker
     DurationLookup: NPC_WEAPONBRAKER
 
+#VIP ICON
+  - Status: CASH_VIP
+    Icon: EFST_CASH_VIP
+    Flags:
+      NoRemoveOnDead: true
+      NoClearbuff: true
+      NoDispell: true
+      NoBanishingBuster: true
+      NoClearance: true
+      SendVal1: true
+      
 #Apache Premium Service
   - Status: APACHE
     Icon: EFST_APACHE
