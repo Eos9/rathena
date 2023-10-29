@@ -1,0 +1,22 @@
+morocc,187,59,4	script	Premium Storage	4_F_KAFRA5,{
+	mes "เปิดคลังเก็บของให้กับ";
+	mes "Premium Service เท่านั้น !!";
+	if(#APACHE_PREMIUM_TIME){
+		if(#APACHE_PREMIUM_TIME <= gettimetick(2)){
+			mes "^CC0000ขณะนี้บริการ Sremium Service หมดแล้ว";
+			mes "^CC0000สามารถเปิดคลังเพื่อหยิบออกเท่านั้น !!^000000";
+		}
+		mes "คุณ "+strcharinfo(0)+" ต้องการเปิดคลังไหม ?";
+		
+		if(select("เปิดคลังเก็บของ:ยกเลิก") == 1) {
+			if(#APACHE_PREMIUM_TIME <= gettimetick(2)){
+				openstorage2 1,STOR_MODE_GET;
+			}
+			if(#APACHE_PREMIUM_TIME > gettimetick(2)){
+				openstorage2 1,STOR_MODE_GET|STOR_MODE_PUT;
+			}
+		}
+		mes "ขอบคุณที่ใช้บริการ";
+	}
+	close;
+}

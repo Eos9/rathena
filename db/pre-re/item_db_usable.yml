@@ -22101,3 +22101,120 @@ Body:
       Third_Upper: true
       Third_Baby: true
     EquipLevelMin: 1
+
+#Apache Premium Service
+  - Id: 23165
+    AegisName: Service30_AID_Buff
+    Name: Premium Service Staff
+    Type: Delayconsume
+    Delay:
+      Duration: 30000
+    Trade:
+      Override: 100
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoStorage: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      callfunc "ps_item";
+  - Id: 23207
+    AegisName: Premium_Box
+    Name: Premium Service Box
+    Type: Cash
+    Buy: 20
+    Weight: 10
+    Flags:
+      UniqueId: true
+    Trade:
+      Override: 100
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      rentitem 23165,2592000;
+      #APACHE_PREMIUM_TIME = gettimetick(2)+2592000;
+      sc_start SC_APACHE,2592000000,30;
+      sc_start SC_APACHE_STORAGE,2592000000,300;
+      sc_start SC_APACHE_EXPBOOST_A,2592000000,20;
+      sc_start SC_APACHE_JEXPBOOST_A,2592000000,20;
+      sc_start SC_APACHE_ITEMBOOST_A,2592000000,30;
+  - Id: 23647
+    AegisName: Merchant_Bell
+    Name: Merchant Bell
+    Type: Usable
+    Buy: 10
+    Weight: 0
+    Delay:
+      Duration: 50000
+    Trade:
+      Override: 100
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      callfunc "mb_item";  
+  - Id: 23648
+    AegisName: Kafra_Bell
+    Name: Kafra Bell
+    Type: Usable
+    Buy: 10
+    Weight: 0
+    Trade:
+      Override: 100
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      callfunc "F_CashStore";
+  - Id: 17920
+    AegisName: Merchant_Bell_Box
+    Name: Merchant Bell Box
+    Type: Usable
+    Buy: 2
+    Weight: 10
+    Delay:
+      Duration: 180000
+    Trade:
+      Override: 100
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      rentitem 23647,2592000;
+  - Id: 17921
+    AegisName: Kafra_Bell_Box
+    Name: Kafra Bell Box
+    Type: Usable
+    Buy: 2
+    Weight: 10
+    Trade:
+      Override: 100
+      NoDrop: true
+      NoTrade: true
+      NoSell: true
+      NoCart: true
+      NoGuildStorage: true
+      NoMail: true
+      NoAuction: true
+    Script: |
+      rentitem 23648,2592000;
