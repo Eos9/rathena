@@ -733,6 +733,11 @@ struct Battle_Config
 	int feature_banking_state_enforce;
 	int instance_allow_reconnect;
 
+	// ATHENA
+	int max_sale_weapon;
+	int max_sale_armor;
+	int max_sale_etc;
+
 #include <custom/battle_config_struct.inc>
 };
 

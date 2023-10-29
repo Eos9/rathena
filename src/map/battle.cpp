@@ -10631,6 +10631,10 @@ static const struct _battle_data {
 #else
 	{ "feature.instance_allow_reconnect",   &battle_config.instance_allow_reconnect,        0,      0,      1,              },
 #endif
+	// ATHENA
+	{ "max_sale_weapon",					&battle_config.max_sale_weapon,                	1000,   0,   	INT_MAX,        },
+	{ "max_sale_armor",						&battle_config.max_sale_armor,                	1000,   0,   	INT_MAX,        },
+	{ "max_sale_etc",						&battle_config.max_sale_etc,                	1000,   0,   	INT_MAX,        },
 
 #include <custom/battle_config_init.inc>
 };

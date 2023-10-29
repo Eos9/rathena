@@ -1171,6 +1171,14 @@ void ItemDatabase::loadingFinished(){
 			item->value_sell = 1;
 		}
 
+		// ATHENA
+		if (item->type == IT_WEAPON && battle_config.max_sale_weapon && item->value_sell > battle_config.max_sale_weapon)
+			item->value_sell = battle_config.max_sale_weapon;
+		else if (item->type == IT_ARMOR && battle_config.max_sale_armor && item->value_sell > battle_config.max_sale_armor)
+			item->value_sell = battle_config.max_sale_armor;
+		else if (battle_config.max_sale_etc && item->value_sell > battle_config.max_sale_etc)
+			item->value_sell = battle_config.max_sale_etc;
+
 		// Shields need to have a view ID to be able to be recognized by ST_SHIELD check in skill.cpp
 		if( item->type == IT_ARMOR && ( item->equip & EQP_SHIELD ) != 0 && item->look == 0 ){
 			ShowWarning( "Item %s (%u) is a shield and should have a view id. Defaulting to Guard...\n", item->name.c_str(), item->nameid );
