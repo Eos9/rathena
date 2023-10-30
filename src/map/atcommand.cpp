@@ -1374,7 +1374,7 @@ ACMD_FUNC(healap)
 
 /*
 * ATHENA
- * ‡∏ü‡∏±‡∏á‡∏ä‡∏±‡πà‡∏ô‡∏Å‡∏¥‡∏à‡∏Å‡∏£‡∏£‡∏°‡∏ó‡∏≠‡∏¢‡πÄ‡∏ï‡πã‡∏≤
+ * ø—ß™—Ëπ°‘®°√√¡∑Õ¬‡µÎ“
 */
 ACMD_FUNC(dice)
 	{
@@ -10829,12 +10829,12 @@ ACMD_FUNC(afk) {
         nullpo_retr(-1, sd);
 				
 				if( map_getcell(sd->bl.m,sd->bl.x,sd->bl.y,CELL_CHKNOVENDING) ) {
-					clif_displaymessage(fd, "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡πÉ‡∏ä‡πâ ‡∏Ñ‡∏≥‡∏™‡∏±‡πà‡∏á @afk ‡πÉ‡∏Å‡∏•‡πâ NPC ‡πÑ‡∏î‡πâ");
+					clif_displaymessage(fd, "‰¡Ë “¡“√∂„™È §” —Ëß @afk „°≈È NPC ‰¥È");
 				return true;
 				}
 				
 				if( pc_isdead(sd) ) {
-					clif_displaymessage(fd, "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡πÉ‡∏ä‡πâ‡∏Ñ‡∏≥‡∏™‡∏±‡πà‡∏á @afk ‡∏ñ‡πâ‡∏≤‡∏Ñ‡∏∏‡∏ì‡∏ï‡∏≤‡∏¢.");
+					clif_displaymessage(fd, "‰¡Ë “¡“√∂„™È§” —Ëß @afk ∂È“§ÿ≥µ“¬.");
 				return -1;
 				}
 				
@@ -10842,7 +10842,7 @@ ACMD_FUNC(afk) {
                 {
 
                 if(map_getmapflag(sd->bl.m, MF_PVP)  || map_getmapflag(sd->bl.m, MF_GVG)){
-					clif_displaymessage(fd, "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡πÉ‡∏ä‡πâ‡∏Ñ‡∏≥‡∏™‡∏±‡πà‡∏á@afk ‡πÉ‡∏ô‡πÅ‡∏°‡∏û PVP ‡∏´‡∏£‡∏∑‡∏≠ GVG.");
+					clif_displaymessage(fd, "‰¡Ë “¡“√∂„™È§” —Ëß@afk „π·¡æ PVP À√◊Õ GVG.");
                 return -1;}
 
                         sd->state.autotrade = 1;
@@ -10856,7 +10856,7 @@ ACMD_FUNC(afk) {
                         }
                         clif_authfail_fd(fd, 15);
                 } else
-					clif_displaymessage(fd, "‡πÑ‡∏°‡πà‡∏™‡∏≤‡∏°‡∏≤‡∏£‡∏ñ‡πÉ‡∏ä‡πâ ‡∏Ñ‡∏≥‡∏™‡∏±‡πà‡∏á @afk ‡πÉ‡∏ô‡πÅ‡∏°‡∏û‡∏ô‡∏µ‡πâ‡πÑ‡∏î‡πâ.");
+					clif_displaymessage(fd, "‰¡Ë “¡“√∂„™È §” —Ëß @afk „π·¡æπ’È‰¥È.");
         return 0;
 }
 
