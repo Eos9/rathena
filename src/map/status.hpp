@@ -66,6 +66,7 @@ struct s_refine_cost{
 	uint32 zeny;
 	uint16 breaking_rate;
 	uint16 downgrade_amount;
+	uint32 randomopt_group;		// ATHENA
 };
 
 struct s_refine_level_info{
@@ -3506,6 +3507,8 @@ uint16 status_efst_get_bl_type(enum efst_type efst);
 void status_readdb( bool reload = false );
 void do_init_status(void);
 void do_final_status(void);
+// ATHENA
+void refine_setdropitem_option(struct item *itm, int rndopt);
 #endif /* ONLY_CONSTANTS */
 
 #endif /* STATUS_HPP */
