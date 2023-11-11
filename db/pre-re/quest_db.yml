@@ -1,5 +1,5 @@
 # This file is a part of rAthena.
-#   Copyright(C) 2021 rAthena Development Team
+#   Copyright(C) 2023 rAthena Development Team
 #   https://rathena.org - https://github.com/rathena
 #
 # This program is free software: you can redistribute it and/or modify
@@ -105,12 +105,12 @@ Body:
       - Mob: HIGH_ORC
         Count: 30
   - Id: 1104
-    Title: Solo at Luoyang!
+    Title: Solo at Louyang!
     Targets:
       - Mob: CHUNG_E
         Count: 20
   - Id: 1105
-    Title: Solo at Luoyang!
+    Title: Solo at Louyang!
     Targets:
       - Mob: CIVIL_SERVANT
         Count: 50
@@ -125,28 +125,28 @@ Body:
       - Mob: ANTIQUE_FIRELOCK
         Count: 40
   - Id: 1108
-    Title: Solo at Luoyang!
+    Title: Solo at Louyang!
     Targets:
       - Mob: CHUNG_E_
         Count: 20
   - Id: 1109
-    Title: Ropewa & Yuridi - Survivors of the Labyrinth
+    Title: "Ropewa & Yuridi - Survivors of the Labyrinth"
   - Id: 1110
-    Title: Ropewa & Yuridi - Victims of the Labyrinth
+    Title: "Ropewa & Yuridi - Victims of the Labyrinth"
   - Id: 1111
-    Title: Ropewa & Yuridi - Maze in the Labyrinth
+    Title: "Ropewa & Yuridi - Maze in the Labyrinth"
   - Id: 1112
-    Title: Ropewa & Yuridi - Lost in the Labyrinth
+    Title: "Ropewa & Yuridi - Lost in the Labyrinth"
   - Id: 1113
-    Title: Ropewa & Yuridi - Torn Apart
+    Title: "Ropewa & Yuridi - Torn Apart"
   - Id: 1114
-    Title: Ropewa & Yuridi - The Cost of Restoration
+    Title: "Ropewa & Yuridi - The Cost of Restoration"
   - Id: 1115
-    Title: Ropewa & Yuridi - Song of the Abyss
+    Title: "Ropewa & Yuridi - Song of the Abyss"
   - Id: 1116
-    Title: Ropewa & Yuridi - Dead Man's Song
+    Title: "Ropewa & Yuridi - Dead Man's Song"
   - Id: 1117
-    Title: Ropewa & Yuridi - Eternal Promise, Broken Ring
+    Title: "Ropewa & Yuridi - Eternal Promise, Broken Ring"
   - Id: 1118
     Title: Neighborhood Knight - I Need Clues
   - Id: 1119
@@ -558,16 +558,6 @@ Body:
     Title: Attitude to the New
   - Id: 2149
     Title: Attitude to the New
-  - Id: 2150
-    Title: Attitude to the New
-    Targets:
-      - Mob: PINGUICULA
-        Count: 30
-  - Id: 2151
-    Title: Attitude to the New
-    Targets:
-      - Mob: CORNUS
-        Count: 10
   - Id: 2152
     Title: Attitude to the New
   - Id: 2153
@@ -578,11 +568,6 @@ Body:
     Title: Attitude to the New
   - Id: 2156
     Title: Attitude to the New
-  - Id: 2157
-    Title: Attitude to the New
-    Targets:
-      - Mob: TATACHO
-        Count: 10
   - Id: 2158
     Title: Finding a Fairy
   - Id: 2159
@@ -673,19 +658,8 @@ Body:
     Title: Wanderer Job Change Quest
   - Id: 2220
     Title: Wanderer Job Change Quest
-  - Id: 2221
-    Title: Wanderer Job Change Quest
-    TimeLimit: +10mn
-    Targets:
-      - Mob: NOVUS_
-        Count: 50
   - Id: 2222
     Title: Wanderer Job Change Quest
-  - Id: 2223
-    Title: Generic Job Change Quest
-    Targets:
-      - Mob: G_POISON_SPORE
-        Count: 100
   - Id: 2271
     Title: Secret in the Woods
   - Id: 2272
@@ -1159,11 +1133,6 @@ Body:
     Targets:
       - Mob: ALARM
         Count: 30
-  - Id: 4172
-    Title: "Paradise: Babayaga Handling"
-    Targets:
-      - Mob: VAVAYAGA
-        Count: 30
   - Id: 4173
     Title: "Paradise: Hyegun Handling"
     Targets:
@@ -1199,11 +1168,6 @@ Body:
     Targets:
       - Mob: PITMAN
         Count: 30
-  - Id: 4180
-    Title: "Paradise: Yellow Novus Handling"
-    Targets:
-      - Mob: NOVUS_
-        Count: 30
   - Id: 4181
     Title: "Paradise: Solider Handling"
     Targets:
@@ -1233,21 +1197,6 @@ Body:
     Title: "Paradise: Dark Priest Handling"
     Targets:
       - Mob: DARK_PRIEST
-        Count: 30
-  - Id: 4187
-    Title: "Paradise: Stapo Handling"
-    Targets:
-      - Mob: STAPO
-        Count: 30
-  - Id: 4188
-    Title: "Paradise: Roween Handling"
-    Targets:
-      - Mob: ROWEEN
-        Count: 30
-  - Id: 4189
-    Title: "Paradise: Siroma Handling"
-    Targets:
-      - Mob: SIROMA
         Count: 30
   - Id: 4190
     Title: "Paradise: Shinobi Handling"
@@ -1510,11 +1459,6 @@ Body:
     Title: Traditional Weapon
   - Id: 5054
     Title: Traditional Weapon
-  - Id: 5055
-    Title: Local Rising - Headless Horse
-    Targets:
-      - Mob: HEADLESS_MULE
-        Count: 15
   - Id: 5056
     Title: Local Rising - Tamruan
     Targets:
@@ -1751,20 +1695,10 @@ Body:
   - Id: 5169
     Title: Mid-Level collection request[Stand by]
     TimeLimit: +1d
-  - Id: 5170
-    Title: Mid-Level collection request
-    Targets:
-      - Mob: SIROMA
-        Count: 100
   - Id: 5171
     Title: Mid-Level collection request
     Targets:
       - Mob: DARK_PRIEST
-        Count: 100
-  - Id: 5172
-    Title: Mid-Level collection request
-    Targets:
-      - Mob: STAPO
         Count: 100
   - Id: 5173
     Title: Mid-Level collection request
@@ -1784,11 +1718,6 @@ Body:
     Targets:
       - Mob: MEDUSA
         Count: 100
-  - Id: 5177
-    Title: High level collection request
-    Targets:
-      - Mob: PINGUICULA
-        Count: 100
   - Id: 5178
     Title: High level collection request
     Targets:
@@ -1799,20 +1728,10 @@ Body:
     Targets:
       - Mob: RAYDRIC
         Count: 100
-  - Id: 5180
-    Title: Highest level collection request
-    Targets:
-      - Mob: NAGA
-        Count: 100
   - Id: 5181
     Title: Highest level collection request
     Targets:
       - Mob: ANCIENT_MUMMY
-        Count: 100
-  - Id: 5182
-    Title: Highest level collection request
-    Targets:
-      - Mob: ANCIENT_MIMIC
         Count: 100
   - Id: 5222
     Title: Saving the energy crystals
@@ -1960,8 +1879,6 @@ Body:
     Title: Part-time Job - Tatacho's feed
   - Id: 7043
     Title: Part-time Job - Cornus's feed
-  - Id: 7044
-    Title: Part-time Job - Hillthrion's feed1
   - Id: 7045
     Title: Part-time Job - Hillthrion's feed2
   - Id: 7046
@@ -2023,21 +1940,6 @@ Body:
     Title: Messenger - Terra's Return
   - Id: 7071
     Title: Messenger - Invitation
-  - Id: 7074
-    Title: Rata Hunt
-    Targets:
-      - Mob: RATA
-        Count: 1
-  - Id: 7075
-    Title: Duneyrr Hunt
-    Targets:
-      - Mob: DUNEYRR
-        Count: 1
-  - Id: 7076
-    Title: "Wanted: Dandelion"
-    Targets:
-      - Mob: DANDELION_
-        Count: 1
   - Id: 7077
     Title: Collecting Dragon Eggs
   - Id: 7078
@@ -2210,11 +2112,6 @@ Body:
     Title: The training course 'conquer ant hell!' - Complete a quest
   - Id: 7147
     Title: The training course 'conquer the orc village!' - start
-  - Id: 7148
-    Title: The training course 'conquer the orc village!' - A real battle 1
-    Targets:
-      - Mob: ORC_BABY
-        Count: 10
   - Id: 7149
     Title: The training course 'conquer the orc village!' - A real battle 2
     Targets:
@@ -2263,11 +2160,6 @@ Body:
     Title: Mysterious Cryptogram - 2nd
   - Id: 7163
     Title: Mysterious Cryptogram - 2nd
-  - Id: 7164
-    Title: Hunt for shadow of deception
-    Targets:
-      - Mob: S_WIND_GHOST
-        Count: 1
   - Id: 7165
     Title: Key of deception
   - Id: 7166
@@ -2280,22 +2172,12 @@ Body:
     Title: Mysterious Cryptogram - 3rd
   - Id: 7170
     Title: Mysterious Cryptogram - 3rd
-  - Id: 7171
-    Title: Hunt for shadow of delusion
-    Targets:
-      - Mob: S_SKOGUL
-        Count: 1
   - Id: 7172
     Title: Key of delusion
   - Id: 7173
     Title: Message to Halled from Paul
   - Id: 7174
     Title: Mysterious Cryptogram - 4th
-  - Id: 7175
-    Title: Hunft for shadow of gaiety
-    Targets:
-      - Mob: S_SUCCUBUS
-        Count: 1
   - Id: 7176
     Title: Key of Gaiety
   - Id: 7177
@@ -2427,32 +2309,12 @@ Body:
     Title: "Paradise Advanced: Kiren Complete"
   - Id: 7229
     Title: "Paradise Advanced: Naomi Training"
-  - Id: 7230
-    Title: "Paradise Advanced: Naomi Hunt 1"
-    Targets:
-      - Mob: SIROMA
-        Count: 30
-  - Id: 7231
-    Title: "Paradise Advanced: Naomi Hunt 2"
-    Targets:
-      - Mob: SIROMA
-        Count: 30
   - Id: 7232
     Title: "Paradise Advanced: Naomi Complete"
   - Id: 7233
     Title: "Paradise Advanced: Margaret Training"
   - Id: 7234
     Title: "Paradise Advanced: Margaret's Favor"
-  - Id: 7235
-    Title: "Paradise Advanced: Margaret Hunt 1"
-    Targets:
-      - Mob: NEPENTHES
-        Count: 1
-  - Id: 7236
-    Title: "Paradise Advanced: Margaret Hunt 2"
-    Targets:
-      - Mob: PINGUICULA
-        Count: 5
   - Id: 7237
     Title: "Paradise Advanced: Margaret Complete"
   - Id: 7238
@@ -3144,13 +3006,13 @@ Body:
   - Id: 8122
     Title: Bruspetti's resting place
   - Id: 8123
-    Title: Ayothaya's world famous dish, Tom Yum Goong
+    Title: Ayotaya's world famous dish, Tom Yum Goong
   - Id: 8124
-    Title: Ayothaya's world famous dish, Tom Yum Goong
+    Title: Ayotaya's world famous dish, Tom Yum Goong
   - Id: 8125
-    Title: Ayothaya's world famous dish, Tom Yum Goong
+    Title: Ayotaya's world famous dish, Tom Yum Goong
   - Id: 8126
-    Title: Ayothaya's world famous dish, Tom Yum Goong
+    Title: Ayotaya's world famous dish, Tom Yum Goong
   - Id: 8127
     Title: Momotaro Field Trip
   - Id: 8128
@@ -3863,7 +3725,7 @@ Body:
   - Id: 10103
     Title: To client - the chapter of Glast heim
   - Id: 10104
-    Title: To client - the chapter of Juno
+    Title: To client - the chapter of Yuno
   - Id: 10105
     Title: To client - the chapter of a clock tower
   - Id: 10106
@@ -3937,11 +3799,6 @@ Body:
     Title: clock tower - Rideword
     Targets:
       - Mob: RIDEWORD
-        Count: 15
-  - Id: 10121
-    Title: Localizing - Uzhas
-    Targets:
-      - Mob: UZHAS
         Count: 15
   - Id: 10122
     Title: Localizing - Miyabi Doll
@@ -4240,7 +4097,7 @@ Body:
   - Id: 11140
     Title: The sky, plane and travel sickness.
   - Id: 11141
-    Title: Human & gossip is towarding to the bar
+    Title: "Human & gossip is towarding to the bar"
   - Id: 11142
     Title: Fearful metalic sound
   - Id: 11143
@@ -4709,11 +4566,6 @@ Body:
     Targets:
       - Mob: KUKRE
         Count: 30
-  - Id: 12075
-    Title: Remove orcbaby
-    Targets:
-      - Mob: ORC_BABY
-        Count: 15
   - Id: 12076
     Title: Remove orcwarroir
     Targets:
@@ -4792,71 +4644,6 @@ Body:
     Title: Basic preparation
   - Id: 12098
     Title: Tour of dungeon
-  - Id: 12099
-    Title: Remove Root Cause
-    Targets:
-      - Mob: DRACO_EGG
-        Count: 10
-  - Id: 12100
-    Title: Violent Winged Insect
-    Targets:
-      - Mob: LUCIOLA_VESPA
-        Count: 12
-  - Id: 12101
-    Title: Work Interference
-    Targets:
-      - Mob: DRACO
-        Count: 5
-  - Id: 12102
-    Title: Intelligent Snakes
-    Targets:
-      - Mob: NAGA
-        Count: 10
-  - Id: 12103
-    Title: Legendary Creature
-    Targets:
-      - Mob: CORNUS
-        Count: 1
-  - Id: 12104
-    Title: Insects with an Appetite
-    Targets:
-      - Mob: CENTIPEDE
-        Count: 15
-  - Id: 12105
-    Title: Moving Rocks
-    Targets:
-      - Mob: BRADIUM_GOLEM
-        Count: 10
-  - Id: 12106
-    Title: A child on a flower
-    Targets:
-      - Mob: PINGUICULA
-        Count: 15
-  - Id: 12107
-    Title: Twisted Love
-    Targets:
-      - Mob: PINGUICULA_D
-        Count: 10
-  - Id: 12108
-    Title: Dangerous Plant Removal
-    Targets:
-      - Mob: NEPENTHES
-        Count: 12
-  - Id: 12109
-    Title: Larva Extermination
-    Targets:
-      - Mob: CENTIPEDE_LARVA
-        Count: 14
-  - Id: 12110
-    Title: Demon of Water
-    Targets:
-      - Mob: AQUA_ELEMENTAL
-        Count: 7
-  - Id: 12111
-    Title: Bird with ugly face
-    Targets:
-      - Mob: TATACHO
-        Count: 10
   - Id: 12117
     Title: Withered Flower
   - Id: 12118
@@ -5291,19 +5078,9 @@ Body:
   - Id: 13012
     Title: Majoruros Request timer
     TimeLimit: +1h
-  - Id: 13013
-    Title: Pinguicula Request
-    Targets:
-      - Mob: PINGUICULA
-        Count: 30
   - Id: 13014
     Title: Pinguicula Request timer
     TimeLimit: +1h
-  - Id: 13015
-    Title: Luciola Vespa Request
-    Targets:
-      - Mob: LUCIOLA_VESPA
-        Count: 30
   - Id: 13016
     Title: Luciola Vespa Request timer
     TimeLimit: +1h
@@ -5315,19 +5092,9 @@ Body:
   - Id: 13018
     Title: Desert Wolf Request timer
     TimeLimit: +1h
-  - Id: 13019
-    Title: Snowier Request
-    Targets:
-      - Mob: SNOWIER
-        Count: 30
   - Id: 13020
     Title: Snowier Request timer
     TimeLimit: +1h
-  - Id: 13021
-    Title: Ice Titan Request
-    Targets:
-      - Mob: ICE_TITAN
-        Count: 30
   - Id: 13022
     Title: Ice Titan Request Timer
     TimeLimit: +1h
@@ -5371,19 +5138,9 @@ Body:
   - Id: 13045
     Title: Anubis Request Timer
     TimeLimit: +1h
-  - Id: 13046
-    Title: Tendrilion Request
-    Targets:
-      - Mob: TENDRILRION
-        Count: 1
   - Id: 13047
     Title: Tendrilion Request Timer
     TimeLimit: +1h
-  - Id: 13048
-    Title: Tendrilion Request
-    Targets:
-      - Mob: TENDRILRION
-        Count: 1
   - Id: 13049
     Title: Tendrilion Request Timer
     TimeLimit: +1h
@@ -5450,19 +5207,9 @@ Body:
   - Id: 13072
     Title: Wander Man research - timer
     TimeLimit: +1h
-  - Id: 13073
-    Title: Ancient Mimic research
-    Targets:
-      - Mob: ANCIENT_MIMIC
-        Count: 30
   - Id: 13074
     Title: Ancient Mimic research - timer
     TimeLimit: +1h
-  - Id: 13075
-    Title: Death Word research
-    Targets:
-      - Mob: DEATHWORD
-        Count: 30
   - Id: 13076
     Title: Death Word research - timer
     TimeLimit: +1h
@@ -5479,43 +5226,18 @@ Body:
   - Id: 13080
     Title: Bloody Page Research - Wait
     TimeLimit: +1h
-  - Id: 13081
-    Title: Dark Pinguicula research
-    Targets:
-      - Mob: PINGUICULA_D
-        Count: 30
   - Id: 13082
     Title: Dark Pinguicula research - timer
     TimeLimit: +1h
-  - Id: 13083
-    Title: Nepenthes research
-    Targets:
-      - Mob: NEPENTHES
-        Count: 30
   - Id: 13084
     Title: Nepenthes research - timer
     TimeLimit: +1h
-  - Id: 13085
-    Title: Naga research
-    Targets:
-      - Mob: NAGA
-        Count: 30
   - Id: 13086
     Title: Naga research - timer
     TimeLimit: +1h
-  - Id: 13087
-    Title: Centipede Larva research
-    Targets:
-      - Mob: CENTIPEDE_LARVA
-        Count: 20
   - Id: 13088
     Title: Centipede Larva research - timer
     TimeLimit: +1h
-  - Id: 13089
-    Title: Cornus research
-    Targets:
-      - Mob: CORNUS
-        Count: 30
   - Id: 13090
     Title: Cornus research - timer
     TimeLimit: +1h
@@ -5544,15 +5266,6 @@ Body:
   - Id: 13096
     Title: Geffenia expedition - Wait
     TimeLimit: +1h
-  - Id: 13097
-    Title: Juperos expedition
-    Targets:
-      - Mob: VENATU_2
-        Count: 30
-      - Mob: VENATU_3
-        Count: 30
-      - Mob: VENATU_4
-        Count: 30
   - Id: 13098
     Title: Juperos expedition - Wait
     TimeLimit: +1h
@@ -5589,179 +5302,66 @@ Body:
   - Id: 13118
     Title: Abyss Lake Search - Wait
     TimeLimit: +1h
-  - Id: 13119
-    Title: Combat Baroness of Retribution
-    Targets:
-      - Mob: RETRIBUTION
-        Count: 30
   - Id: 13120
     Title: Combat Baroness of Retribution - Wait
     TimeLimit: +1h
-  - Id: 13121
-    Title: Combat Lady Solace
-    Targets:
-      - Mob: SOLACE
-        Count: 30
   - Id: 13122
     Title: Combat Lady Solace - Wait
     TimeLimit: +1h
-  - Id: 13123
-    Title: Combat Mistress of Shelter
-    Targets:
-      - Mob: SHELTER
-        Count: 30
   - Id: 13124
     Title: Combat Mistress of Shelter - Wait
     TimeLimit: +1h
-  - Id: 13125
-    Title: Combat Dame of Sentinel
-    Targets:
-      - Mob: OBSERVATION
-        Count: 30
   - Id: 13126
     Title: Combat Dame of Sentinel - Wait
     TimeLimit: +1h
-  - Id: 13127
-    Title: Combat Vanberk and Isilla
-    Targets:
-      - Mob: VANBERK
-        Count: 20
-      - Mob: ISILLA
-        Count: 20
   - Id: 13128
     Title: Combat Vanberk and Isilla - Wait
     TimeLimit: +1h
-  - Id: 13129
-    Title: Combat Hodremlin
-    Targets:
-      - Mob: HODREMLIN
-        Count: 30
   - Id: 13130
     Title: Combat Hodremlin - Wait
     TimeLimit: +1h
-  - Id: 13131
-    Title: Combat Agav and Echio
-    Targets:
-      - Mob: AGAV
-        Count: 20
-      - Mob: ECHIO
-        Count: 20
   - Id: 13132
     Title: Combat Agav and Echio - Wait
     TimeLimit: +1h
-  - Id: 13133
-    Title: Combat Ragged Zombie
-    Targets:
-      - Mob: RAGGED_ZOMBIE
-        Count: 30
   - Id: 13134
     Title: Combat Ragged Zombie - Wait
     TimeLimit: +1h
-  - Id: 13135
-    Title: Combat Zombie Slaughter
-    Targets:
-      - Mob: ZOMBIE_SLAUGHTER
-        Count: 30
   - Id: 13136
     Title: Combat Zombie Slaughter - Wait
     TimeLimit: +1h
-  - Id: 13137
-    Title: Combat Banshee
-    Targets:
-      - Mob: BANSHEE
-        Count: 30
   - Id: 13138
     Title: Combat Banshee - Wait
     TimeLimit: +1h
-  - Id: 13139
-    Title: Combat Ferus and Bewler
-    Targets:
-      - Mob: FERUS
-        Count: 30
-      - Mob: FERUS_
-        Count: 30
   - Id: 13140
     Title: Combat Ferus and Bewler - Wait
     TimeLimit: +1h
-  - Id: 13141
-    Title: Combat Acidus
-    Targets:
-      - Mob: ACIDUS
-        Count: 30
-      - Mob: ACIDUS_
-        Count: 30
   - Id: 13142
     Title: Combat Acidus - Wait
     TimeLimit: +1h
-  - Id: 13143
-    Title: Egnigem Story
-    Targets:
-      - Mob: YGNIZEM
-        Count: 30
   - Id: 13144
     Title: Egnigem Story - Wait
     TimeLimit: +1h
-  - Id: 13145
-    Title: Armeyer Story
-    Targets:
-      - Mob: ARMAIA
-        Count: 30
   - Id: 13146
     Title: Armeyer Story - Wait
     TimeLimit: +1h
-  - Id: 13147
-    Title: Whikebain Story
-    Targets:
-      - Mob: WHIKEBAIN
-        Count: 30
   - Id: 13148
     Title: Whikebain Story - Wait
     TimeLimit: +1h
-  - Id: 13149
-    Title: Kavach Story
-    Targets:
-      - Mob: KAVAC
-        Count: 30
   - Id: 13150
     Title: Kavach Story - Wait
     TimeLimit: +1h
-  - Id: 13151
-    Title: Errende Story
-    Targets:
-      - Mob: EREND
-        Count: 30
   - Id: 13152
     Title: Errende Story - Wait
     TimeLimit: +1h
-  - Id: 13153
-    Title: Laurell Story
-    Targets:
-      - Mob: RAWREL
-        Count: 30
   - Id: 13154
     Title: Laurell Story - Wait
     TimeLimit: +1h
-  - Id: 13155
-    Title: Morocc Story1
-    Targets:
-      - Mob: MOROCC_1
-        Count: 30
   - Id: 13156
     Title: Morocc Story1 - Wait
     TimeLimit: +1h
-  - Id: 13157
-    Title: Morocc Story2
-    Targets:
-      - Mob: MOROCC_2
-        Count: 30
   - Id: 13158
     Title: Morocc Story2 - Wait
     TimeLimit: +1h
-  - Id: 13159
-    Title: Morocc Story3
-    Targets:
-      - Mob: MOROCC_4
-        Count: 30
   - Id: 13160
     Title: Morocc Story3 - Wait
     TimeLimit: +1h
@@ -6877,66 +6477,6 @@ Body:
     Targets:
       - Mob: TENGU
         Count: 150
-  - Id: 60161
-    Title: Hunting Venatu
-    Targets:
-      - Mob: VENATU
-        Count: 25
-  - Id: 60162
-    Title: Hunting Venatu
-    Targets:
-      - Mob: VENATU
-        Count: 50
-  - Id: 60163
-    Title: Hunting Venatu
-    Targets:
-      - Mob: VENATU
-        Count: 75
-  - Id: 60164
-    Title: Hunting Archdam
-    Targets:
-      - Mob: ARCHDAM
-        Count: 50
-  - Id: 60165
-    Title: Hunting Archdam
-    Targets:
-      - Mob: ARCHDAM
-        Count: 100
-  - Id: 60166
-    Title: Hunting Archdam
-    Targets:
-      - Mob: ARCHDAM
-        Count: 150
-  - Id: 60167
-    Title: Hunting Siromas
-    Targets:
-      - Mob: SIROMA
-        Count: 50
-  - Id: 60168
-    Title: Hunting Siromas
-    Targets:
-      - Mob: SIROMA
-        Count: 100
-  - Id: 60169
-    Title: Hunting Siroma
-    Targets:
-      - Mob: SIROMA
-        Count: 150
-  - Id: 60170
-    Title: Hunting Ice Titans
-    Targets:
-      - Mob: ICE_TITAN
-        Count: 50
-  - Id: 60171
-    Title: Hunting Ice Titans
-    Targets:
-      - Mob: ICE_TITAN
-        Count: 100
-  - Id: 60172
-    Title: Hunting Ice Titans
-    Targets:
-      - Mob: ICE_TITAN
-        Count: 150
   - Id: 60173
     Title: Hunting Disguises
     Targets:
@@ -6997,21 +6537,6 @@ Body:
     Targets:
       - Mob: DANCING_DRAGON
         Count: 150
-  - Id: 60185
-    Title: Hunting Necromancers
-    Targets:
-      - Mob: NECROMANCER
-        Count: 20
-  - Id: 60186
-    Title: Hunting Necromancers
-    Targets:
-      - Mob: NECROMANCER
-        Count: 40
-  - Id: 60187
-    Title: Hunting Necromancers
-    Targets:
-      - Mob: NECROMANCER
-        Count: 60
   - Id: 60188
     Title: Hunting Apocalypse
     Targets:
@@ -7048,46 +6573,6 @@ Body:
     Title: Dragon Hunting
     Targets:
       - Mob: PETIT
-        Count: 200
-  - Id: 60303
-    Title: Dragon Hunting
-    Targets:
-      - Mob: FERUS
-        Count: 100
-  - Id: 60304
-    Title: Dragon Hunting
-    Targets:
-      - Mob: FERUS
-        Count: 200
-  - Id: 60305
-    Title: Dragon Hunting
-    Targets:
-      - Mob: FERUS_
-        Count: 100
-  - Id: 60306
-    Title: Dragon Hunting
-    Targets:
-      - Mob: FERUS_
-        Count: 200
-  - Id: 60307
-    Title: Dragon Hunting
-    Targets:
-      - Mob: ACIDUS
-        Count: 100
-  - Id: 60308
-    Title: Dragon Hunting
-    Targets:
-      - Mob: ACIDUS
-        Count: 200
-  - Id: 60309
-    Title: Dragon Hunting
-    Targets:
-      - Mob: ACIDUS_
-        Count: 100
-  - Id: 60310
-    Title: Dragon Hunting
-    Targets:
-      - Mob: ACIDUS_
         Count: 200
   - Id: 60351
     Title: Bathroom Ghost
