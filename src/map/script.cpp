@@ -26938,6 +26938,28 @@ BUILDIN_FUNC(macro_detector) {
 
 	return SCRIPT_CMD_SUCCESS;
 }
+ 
+/*	ATHENA
+	magnus_all(0/1);
+	1 = magnus all race
+	0 = default behavior
+*/
+BUILDIN_FUNC(magnus_all)
+{
+	map_session_data *sd;
+
+	if (!script_rid2sd(sd)) {
+		script_pushint(st,0);
+		return SCRIPT_CMD_SUCCESS;
+	}
+
+	if(script_getnum(st,2) == 1)
+		sd->state.magnus_all_race = true;
+	else
+		sd->state.magnus_all_race = false;
+
+	return SCRIPT_CMD_SUCCESS;
+}
 
 #include <custom/script.inc>
 
@@ -27694,6 +27716,9 @@ struct script_function buildin_func[] = {
 	BUILDIN_DEF(getfamerank, "?"),
 	BUILDIN_DEF(isdead, "?"),
 	BUILDIN_DEF(macro_detector, "?"),
+
+	// ATHENA
+	BUILDIN_DEF(magnus_all, "i"),
 
 #include <custom/script_def.inc>
 
