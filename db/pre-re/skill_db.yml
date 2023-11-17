@@ -2958,20 +2958,7 @@ Body:
       SpCost: 75
       ItemCost:
         - Item: Blue_Gemstone
-          Amount: 1
-          Level: 6
-        - Item: Blue_Gemstone
-          Amount: 1
-          Level: 7
-        - Item: Blue_Gemstone
-          Amount: 1
-          Level: 8
-        - Item: Blue_Gemstone
-          Amount: 1
-          Level: 9
-        - Item: Blue_Gemstone
-          Amount: 1
-          Level: 10
+          Amount: 1  
     Unit:
       Id: Firepillar_Waiting
       AlternateId: Firepillar_Active
@@ -2979,8 +2966,8 @@ Body:
       Interval: 2000
       Target: Enemy
       Flag:
-        NoReiteration: true
-        NoFootSet: true
+        NoReiteration: false
+        NoFootSet: false
   - Id: 81
     Name: WZ_SIGHTRASHER
     Description: Sightrasher
