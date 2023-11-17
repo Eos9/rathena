@@ -1944,7 +1944,7 @@ Body:
     Hit: Single
     HitCount: 1
     Requires:
-      SpCost: 10
+      SpCost: 30
   - Id: 51
     Name: TF_HIDING
     Description: Hiding
