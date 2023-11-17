@@ -1798,7 +1798,7 @@ Body:
         Plagiarism: true
         Reproduce: true
     Requires:
-      SpCost: 5
+      SpCost: 15
       ZenyCost: 100
   - Id: 43
     Name: AC_OWL
