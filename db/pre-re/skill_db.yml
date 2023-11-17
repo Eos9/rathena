@@ -4097,6 +4097,7 @@ Body:
     Range: 3
     Hit: Single
     HitCount: 1
+    ActiveInstance: 15
     Knockback:
       - Level: 1
         Amount: 6
@@ -4151,6 +4152,7 @@ Body:
     Range: 3
     Hit: Single
     HitCount: 1
+    ActiveInstance: 15
     Element: Earth
     CopyFlags:
       Skill:
@@ -4198,6 +4200,7 @@ Body:
     Range: 3
     Hit: Single
     HitCount: 1
+    ActiveInstance: 15
     Duration1:
       - Level: 1
         Time: 250000
@@ -4252,6 +4255,7 @@ Body:
     Range: 3
     Hit: Single
     HitCount: 1
+    ActiveInstance: 15
     SplashArea: 1
     Duration1:
       - Level: 1
@@ -4294,6 +4298,7 @@ Body:
     Range: 3
     Hit: Single
     HitCount: 1
+    ActiveInstance: 15
     SplashArea: 2
     Duration1:
       - Level: 1
@@ -4338,6 +4343,7 @@ Body:
     Range: 3
     Hit: Single
     HitCount: 1
+    ActiveInstance: 15
     SplashArea: 1
     Duration1:
       - Level: 1
@@ -4383,6 +4389,7 @@ Body:
     Range: 3
     Hit: Single
     HitCount: 1
+    ActiveInstance: 15
     Element: Water
     SplashArea: 1
     CopyFlags:
@@ -4494,6 +4501,7 @@ Body:
     Range: 3
     Hit: Single
     HitCount: 1
+    ActiveInstance: 15
     Element: Fire
     SplashArea: 2
     CopyFlags:
@@ -4554,6 +4562,7 @@ Body:
     Range: 3
     Hit: Single
     HitCount: 1
+    ActiveInstance: 15
     Duration1: 600000
     Requires:
       SpCost: 1
