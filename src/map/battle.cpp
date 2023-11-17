@@ -6168,7 +6168,7 @@ static void battle_calc_attack_post_defense(struct Damage* wd, struct block_list
 #ifdef RENEWAL
 				ATK_ADDRATE(wd->damage, wd->damage2, 90);
 #else
-				ATK_ADDRATE(wd->damage, wd->damage2, 10);
+				ATK_ADDRATE(wd->damage, wd->damage2, 100);
 #endif
 			break;
 	}
