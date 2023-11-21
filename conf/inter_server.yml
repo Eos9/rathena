@@ -40,6 +40,10 @@ Body:
   - ID: 0
     Name: "Storage"
     Table: storage
+  - ID: 1
+    Name: "Premium"
+    Table: "storage_1"
+    Max: 300
 
 Footer:
   Imports:
